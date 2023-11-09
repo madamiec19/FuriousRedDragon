@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'pages/register_page.dart';
 
 import 'pages/home_page.dart';
 import 'pages/splash_page.dart';
@@ -25,10 +27,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Furious Red Dragon',
-      initialRoute: '/',
-      routes: <String, WidgetBuilder>{
-        '/': (_) => const SplashPage(),
-        '/home': (_) => const HomePage()
+      home: const SplashPage(),
+      routes: {
+        RegisterPage.routeName: (context) => const RegisterPage(),
+        LoginPage.routeName: (context) => const LoginPage(),
+        HomePage.routeName: (context) => const HomePage(),
       },
     );
   }

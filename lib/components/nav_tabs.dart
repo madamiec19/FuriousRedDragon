@@ -8,7 +8,7 @@ class NavTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: furiousRedColor,
+      color: kFuriousRedColor,
       child: TabBar(
         indicator: BoxDecoration(
             border: Border.all(color: Colors.white),

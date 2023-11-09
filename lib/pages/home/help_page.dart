@@ -8,7 +8,7 @@ class HelpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: pageBackgroundColor,
+        color: kPageBackgroundColor,
         child: ListView(
           children: const [Text('Pomoc')],
         ));
