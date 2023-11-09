@@ -23,20 +23,16 @@ class SplashPage extends StatelessWidget {
             ),
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 60.0),
+              margin: kSplashInputMargin,
               child: BigRedButton(
-                  onTap: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LoginPage()),
-                        )
-                      },
+                  onTap: () {
+                    Navigator.pushNamed(context, LoginPage.routeName);
+                  },
                   buttonTitle: "Zaloguj się"),
             ),
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 60.0),
+              margin: kSplashInputMargin,
               child: BigWhiteButton(
                   borderColor: kFuriousRedColor,
                   onTap: () {
@@ -61,7 +57,12 @@ class SplashPage extends StatelessWidget {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
-                buttonTitle: "SmallButton")
+                buttonTitle: "SmallButton"),
+            SmallButton(
+              onTap: () {},
+              buttonTitle: "RedSmallButton",
+              backgroundColor: kFuriousRedColor,
+            )
           ],
         ),
       ),

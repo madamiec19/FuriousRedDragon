@@ -20,7 +20,7 @@ class BigRedButton extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
         shadowColor: Colors.black,
-        elevation: 4.0,
+        elevation: kButtonElevation,
       ),
       onPressed: () => onTap(),
       child: Padding(
@@ -55,7 +55,7 @@ class BigWhiteButton extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             side: BorderSide(color: borderColor)),
         shadowColor: Colors.black,
-        elevation: 4.0,
+        elevation: kButtonElevation,
       ),
       onPressed: () => onTap(),
       child: Padding(
@@ -89,6 +89,7 @@ class SmallButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4.0),
           minimumSize: const Size(50.0, 0),
           backgroundColor: backgroundColor,
+          elevation: 0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(5.0)),
           )),
