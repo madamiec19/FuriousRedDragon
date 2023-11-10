@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -14,11 +15,11 @@ class RegisterPage extends StatelessWidget {
               BackButton(),
             ],
           ),
-          const SizedBox(height: 18),
+          const Gap(18),
           TextFormField(
             decoration: const InputDecoration(labelText: 'Email'),
           ),
-          const SizedBox(height: 18),
+          const Gap(18),
           ElevatedButton(
             onPressed: () => {},
             child: const Text("Zarejestruj się"),

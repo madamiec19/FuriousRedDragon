@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import 'home_page.dart';
 import 'login_page.dart';
@@ -23,7 +24,7 @@ class SplashPage extends StatelessWidget {
                       )
                     },
                 child: const Text("Zaloguj się")),
-            const SizedBox(height: 15),
+            const Gap(15),
             ElevatedButton(
                 onPressed: () => {
                       Navigator.push(
@@ -33,7 +34,7 @@ class SplashPage extends StatelessWidget {
                       )
                     },
                 child: const Text("Zarejestruj się")),
-            const SizedBox(height: 15),
+            const Gap(15),
             // przycisk poniżej do usunięcia na produkcji, użytkownik nie może wejść do aplikacji bez zalogowania się
             ElevatedButton(
                 onPressed: () => {
