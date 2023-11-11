@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../styles.dart';
+import '../../constants.dart';
 
 class ScannerPage extends StatelessWidget {
   const ScannerPage({super.key});

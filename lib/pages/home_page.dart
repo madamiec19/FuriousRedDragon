@@ -5,7 +5,7 @@ import 'package:furious_red_dragon/pages/home/history_page.dart';
 import 'package:furious_red_dragon/pages/home/scanner_page.dart';
 
 import '../components/nav_tabs.dart';
-import '../styles.dart';
+import '../constants.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

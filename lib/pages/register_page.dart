@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
-import 'package:furious_red_dragon/styles.dart';
+import 'package:furious_red_dragon/constants.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -14,18 +14,37 @@ class RegisterPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: kFuriousRedColor),
+        iconTheme: const IconThemeData(color: kFuriousRedColor),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            color: Colors.white,
+            margin: kSplashInputMargin,
+            //
+            child: Hero(
+              tag: 'logo',
+              child: Image.asset(
+                'images/dragon.png',
+                height: 100,
+                width: 100,
+              ),
+              // SvgPicture.asset(
+              //   'images/sample.svg',
+              //   semanticsLabel: 'My SVG Image',
+              //   height: 100.0,
+              //   width: 100.0,
+              // ),
+            ),
+          ),
           Container(
             margin: kSplashInputMargin,
             child: TextFormField(
               decoration: const InputDecoration(labelText: 'Email'),
             ),
           ),
-          const SizedBox(height: 18),
+          kBigGap,
           BigRedButton(onTap: () {}, buttonTitle: "Zarejestruj się"),
         ],
       ),

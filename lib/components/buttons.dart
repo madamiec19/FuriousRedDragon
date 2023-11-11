@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:furious_red_dragon/styles.dart';
+import 'package:furious_red_dragon/constants.dart';
 
 class BigRedButton extends StatelessWidget {
   const BigRedButton({
@@ -16,6 +16,8 @@ class BigRedButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: kFuriousRedColor,
+        maximumSize: const Size(300, 100),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(8.0)),
         ),
@@ -51,6 +53,8 @@ class BigWhiteButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white,
+        maximumSize: const Size(300, 100),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         shape: RoundedRectangleBorder(
             borderRadius: const BorderRadius.all(Radius.circular(8.0)),
             side: BorderSide(color: borderColor)),
@@ -87,7 +91,8 @@ class SmallButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4.0),
-          minimumSize: const Size(50.0, 0),
+          minimumSize: const Size(0, 0),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor: backgroundColor,
           elevation: 0,
           shape: const RoundedRectangleBorder(

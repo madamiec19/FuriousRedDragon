@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
-import 'package:furious_red_dragon/styles.dart';
+import 'package:furious_red_dragon/components/inputs.dart';
+import 'package:furious_red_dragon/constants.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -20,14 +21,33 @@ class LoginPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
+            color: Colors.white,
             margin: kSplashInputMargin,
-            child: TextFormField(
-              decoration: const InputDecoration(labelText: 'Email'),
+            //
+            child: Hero(
+              tag: 'logo',
+              child: Image.asset(
+                'images/dragon.png',
+                height: 100,
+                width: 100,
+              ),
+              // SvgPicture.asset(
+              //   'images/sample.svg',
+              //   semanticsLabel: 'My SVG Image',
+              //   height: 100.0,
+              //   width: 100.0,
+              // ),
             ),
           ),
-          const SizedBox(
-            height: 18.0,
+          Container(
+            margin: kSplashInputMargin,
+            child: CredentialsInput(),
           ),
+          Container(
+            margin: kSplashInputMargin,
+            child: CredentialsInput(),
+          ),
+          kBigGap,
           BigRedButton(
             onTap: () {},
             buttonTitle: "Zaloguj się",
