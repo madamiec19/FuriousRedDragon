@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
-import 'package:furious_red_dragon/components/inputs.dart';
 import 'package:furious_red_dragon/constants.dart';
 
 class LoginPage extends StatelessWidget {
@@ -41,11 +40,11 @@ class LoginPage extends StatelessWidget {
           ),
           Container(
             margin: kSplashInputMargin,
-            child: CredentialsInput(),
+            child: TextFormField(),
           ),
           Container(
             margin: kSplashInputMargin,
-            child: CredentialsInput(),
+            child: TextFormField(),
           ),
           kBigGap,
           BigRedButton(
