@@ -18,9 +18,6 @@ class HomePage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          leading: const BackButton(
-            color: Colors.white,
-          ),
           toolbarHeight: 80,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
