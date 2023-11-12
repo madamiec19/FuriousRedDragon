@@ -21,28 +21,28 @@ class NavTabs extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Konto",
+              text: 'Konto',
               icon: Icon(Icons.account_circle_outlined),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Historia",
+              text: 'Historia',
               icon: Icon(Icons.menu_book_outlined),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Skanuj",
+              text: 'Skanuj',
               icon: Icon(Icons.camera_alt_outlined),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Pomoc",
+              text: 'Pomoc',
               icon: Icon(Icons.help_outline_outlined),
             ),
           ),

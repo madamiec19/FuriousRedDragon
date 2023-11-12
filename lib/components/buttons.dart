@@ -13,25 +13,35 @@ class BigRedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: kFuriousRedColor,
-        maximumSize: const Size(300, 100),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+    return Container(
+      decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          shadows: const [
+            BoxShadow(
+              color: Color(0x3F000000),
+              blurRadius: 4,
+              offset: Offset(0, 4),
+              spreadRadius: 0,
+            )
+          ]),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: kFuriousRedColor,
+          maximumSize: const Size(300, 100),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
         ),
-        shadowColor: Colors.black,
-        elevation: kButtonElevation,
-      ),
-      onPressed: () => onTap(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-        ),
-        child: Text(
-          buttonTitle,
-          style: const TextStyle(color: Colors.white, fontSize: 18.0),
+        onPressed: () => onTap(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            buttonTitle,
+            style: kGlobalTextStyle.copyWith(color: Colors.white, fontSize: 18),
+          ),
         ),
       ),
     );
@@ -50,35 +60,46 @@ class BigWhiteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white,
-        maximumSize: const Size(300, 100),
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-            side: BorderSide(color: borderColor)),
-        shadowColor: Colors.black,
-        elevation: kButtonElevation,
-      ),
-      onPressed: () => onTap(),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20.0,
-        ),
-        child: Text(
-          buttonTitle,
-          style: const TextStyle(color: Colors.black, fontSize: 18.0),
-        ),
-      ),
-    );
+    return Container(
+        decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            shadows: const [
+              BoxShadow(
+                color: Color(0x3F000000),
+                blurRadius: 4,
+                offset: Offset(0, 4),
+                spreadRadius: 0,
+              )
+            ]),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            maximumSize: const Size(300, 100),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                side: BorderSide(color: borderColor)),
+          ),
+          onPressed: () => onTap(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Text(buttonTitle,
+                style: kGlobalTextStyle.copyWith(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                )),
+          ),
+        ));
   }
 }
 
 class SmallButton extends StatelessWidget {
   const SmallButton(
       {super.key,
-      this.backgroundColor = kLightGrey,
+      this.backgroundColor = kDarkerGrey,
       required this.onTap,
       required this.buttonTitle});
 
@@ -90,22 +111,21 @@ class SmallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4.0),
-          minimumSize: const Size(0, 0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           backgroundColor: backgroundColor,
           elevation: 0,
           shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           )),
       onPressed: () => onTap(),
-      child: Text(
-        buttonTitle,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.black,
-        ),
-      ),
+      child: Text(buttonTitle,
+          textAlign: TextAlign.center,
+          style: kGlobalTextStyle.copyWith(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Lato')),
     );
   }
 }

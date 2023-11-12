@@ -22,20 +22,9 @@ class RegisterPage extends StatelessWidget {
           Container(
             color: Colors.white,
             margin: kSplashInputMargin,
-            //
             child: Hero(
               tag: 'logo',
-              child: Image.asset(
-                'images/dragon.png',
-                height: 100,
-                width: 100,
-              ),
-              // SvgPicture.asset(
-              //   'images/sample.svg',
-              //   semanticsLabel: 'My SVG Image',
-              //   height: 100.0,
-              //   width: 100.0,
-              // ),
+              child: Image.asset(kDragonLogoPath, width: kScreenWidth * 0.35),
             ),
           ),
           Container(
@@ -45,7 +34,7 @@ class RegisterPage extends StatelessWidget {
             ),
           ),
           kBigGap,
-          BigRedButton(onTap: () {}, buttonTitle: "Zarejestruj się"),
+          BigRedButton(onTap: () {}, buttonTitle: 'Zarejestruj się'),
         ],
       ),
     );

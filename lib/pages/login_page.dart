@@ -11,31 +11,19 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: kFuriousRedColor),
-      ),
+      appBar: AppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             color: Colors.white,
             margin: kSplashInputMargin,
-            //
             child: Hero(
               tag: 'logo',
               child: Image.asset(
-                'images/dragon.png',
-                height: 100,
-                width: 100,
+                kDragonLogoPath,
+                width: kScreenWidth * 0.35,
               ),
-              // SvgPicture.asset(
-              //   'images/sample.svg',
-              //   semanticsLabel: 'My SVG Image',
-              //   height: 100.0,
-              //   width: 100.0,
-              // ),
             ),
           ),
           Container(
@@ -49,7 +37,7 @@ class LoginPage extends StatelessWidget {
           kBigGap,
           BigRedButton(
             onTap: () {},
-            buttonTitle: "Zaloguj się",
+            buttonTitle: 'Zaloguj się',
           ),
         ],
       ),

@@ -18,13 +18,16 @@ class HomePage extends StatelessWidget {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
+          leading: const BackButton(
+            color: Colors.white,
+          ),
           toolbarHeight: 80,
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(10),
           )),
           backgroundColor: kFuriousRedColor,
-          title: const Text("Witaj, imię"),
+          title: const Text('Witaj, imię'),
           actions: const <Widget>[
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),

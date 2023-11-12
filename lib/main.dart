@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/constants.dart';
 import 'package:furious_red_dragon/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'pages/register_page.dart';
@@ -21,18 +22,24 @@ final supabase = Supabase.instance.client;
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Furious Red Dragon',
-      home: const SplashPage(),
-      routes: {
-        RegisterPage.routeName: (context) => const RegisterPage(),
-        LoginPage.routeName: (context) => const LoginPage(),
-        HomePage.routeName: (context) => const HomePage(),
-      },
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Furious Red Dragon',
+        home: const SplashPage(),
+        routes: {
+          RegisterPage.routeName: (context) => const RegisterPage(),
+          LoginPage.routeName: (context) => const LoginPage(),
+          HomePage.routeName: (context) => const HomePage(),
+        },
+        navigatorKey: MyApp.navigatorKey,
+        theme: ThemeData(
+            appBarTheme: const AppBarTheme(
+                elevation: 0,
+                backgroundColor: Colors.white,
+                iconTheme: IconThemeData(color: kFuriousRedColor))));
   }
 }

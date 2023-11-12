@@ -20,32 +20,28 @@ class SplashPage extends StatelessWidget {
         children: [
           Container(
             margin: kSplashInputMargin,
-            //
             child: Hero(
               tag: 'logo',
-              child: Image.asset(
-                'images/dragon.png',
-                height: 200,
-                width: 200,
-              ),
-              // SvgPicture.asset(
-              //   'images/sample.svg',
-              //   semanticsLabel: 'My SVG Image',
-              //   height: 200.0,
-              //   width: 200.0,
-              // ),
+              child: Image.asset(kDragonLogoPath, width: kScreenWidth * 0.5),
             ),
           ),
           Container(
             color: Colors.white,
-            margin: kSplashInputMargin.copyWith(bottom: 10.0),
+            margin: kSplashInputMargin.copyWith(bottom: 10),
             child: const Text(
               'WŚCIEKŁY CZERWONY SMOK',
-              style: kTitleTextStyle,
               textAlign: TextAlign.center,
+              style: TextStyle(
+                color: kFuriousRedColor,
+                fontSize: 20,
+                fontFamily: 'Ruslan Display',
+                fontWeight: FontWeight.w400,
+                height: 1.75,
+                letterSpacing: 0.41,
+              ),
             ),
           ),
-          kSmallGap,
+          kBigGap,
           Container(
             width: double.infinity,
             margin: kSplashInputMargin,
@@ -53,9 +49,9 @@ class SplashPage extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, LoginPage.routeName);
                 },
-                buttonTitle: "Zaloguj się"),
+                buttonTitle: 'Zaloguj się'),
           ),
-          kSmallGap,
+          kBigGap,
           Container(
             width: double.infinity,
             margin: kSplashInputMargin,
@@ -64,32 +60,15 @@ class SplashPage extends StatelessWidget {
                 onTap: () {
                   Navigator.pushNamed(context, RegisterPage.routeName);
                 },
-                buttonTitle: "Zarejestruj się"),
+                buttonTitle: 'Zarejestruj się'),
           ),
-          kSmallGap,
-          BigWhiteButton(
-              onTap: () {
-                Navigator.pushNamed(context, HomePage.routeName);
-              },
-              buttonTitle: "Home"),
-          kSmallGap,
+          kMediumGap,
           // przycisk poniżej do usunięcia na produkcji, użytkownik nie może wejść do aplikacji bez zalogowania się
           SmallButton(
               onTap: () {
-                const snackBar = SnackBar(
-                  content: Text("klik!"),
-                  duration: Duration(milliseconds: 500),
-                  backgroundColor: kFuriousRedColor,
-                );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Navigator.pushNamed(context, HomePage.routeName);
               },
-              buttonTitle: "SmallButton"),
-          kSmallGap,
-          SmallButton(
-            onTap: () {},
-            buttonTitle: "RedSmallButton",
-            backgroundColor: kFuriousRedColor,
-          )
+              buttonTitle: 'Home'),
         ],
       ),
     );
