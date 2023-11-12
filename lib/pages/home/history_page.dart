@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../styles.dart';
+import '../../constants.dart';
 
 class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
@@ -8,7 +8,7 @@ class HistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: pageBackgroundColor,
+        color: kPageBackgroundColor,
         child: ListView(
           children: const [Text('Historia')],
         ));

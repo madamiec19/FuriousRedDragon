@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../styles.dart';
+import '../constants.dart';
 
 class NavTabs extends StatelessWidget {
   const NavTabs({super.key});
@@ -8,7 +8,7 @@ class NavTabs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: furiousRedColor,
+      color: kFuriousRedColor,
       child: TabBar(
         indicator: BoxDecoration(
             border: Border.all(color: Colors.white),
@@ -21,28 +21,28 @@ class NavTabs extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Konto",
+              text: 'Konto',
               icon: Icon(Icons.account_circle_outlined),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Historia",
+              text: 'Historia',
               icon: Icon(Icons.menu_book_outlined),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Skanuj",
+              text: 'Skanuj',
               icon: Icon(Icons.camera_alt_outlined),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Tab(
-              text: "Pomoc",
+              text: 'Pomoc',
               icon: Icon(Icons.help_outline_outlined),
             ),
           ),

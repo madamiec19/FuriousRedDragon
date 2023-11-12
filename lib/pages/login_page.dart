@@ -1,28 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:furious_red_dragon/components/buttons.dart';
+import 'package:furious_red_dragon/constants.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
+  static const routeName = '/loginPage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+      backgroundColor: Colors.white,
+      appBar: AppBar(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Row(
-            children: [
-              BackButton(),
-            ],
+          Container(
+            color: Colors.white,
+            margin: kSplashInputMargin,
+            child: Hero(
+              tag: 'logo',
+              child: Image.asset(
+                kDragonLogoPath,
+                width: kScreenWidth * 0.35,
+              ),
+            ),
           ),
-          const Gap(18),
-          TextFormField(
-            decoration: const InputDecoration(labelText: 'Email'),
+          Container(
+            margin: kSplashInputMargin,
+            child: TextFormField(),
           ),
-          const Gap(18),
-          ElevatedButton(
-            onPressed: () => {},
-            child: const Text("Zaloguj się"),
+          Container(
+            margin: kSplashInputMargin,
+            child: TextFormField(),
+          ),
+          kBigGap,
+          BigRedButton(
+            onTap: () {},
+            buttonTitle: 'Zaloguj się',
           ),
         ],
       ),

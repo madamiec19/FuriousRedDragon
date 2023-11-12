@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../styles.dart';
+import '../../constants.dart';
 
 class AccountPage extends StatelessWidget {
   const AccountPage({super.key});
@@ -8,7 +8,7 @@ class AccountPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-        color: pageBackgroundColor,
+        color: kPageBackgroundColor,
         child: ListView(
           children: const [Text('Konto')],
         ));
