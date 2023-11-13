@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         title: 'Furious Red Dragon',
         home: const SplashPage(),
         routes: {
-          RegisterPage.routeName: (context) => const RegisterPage(),
+          RegisterPage.routeName: (context) => RegisterPage(),
           LoginPage.routeName: (context) => const LoginPage(),
           HomePage.routeName: (context) => const HomePage(),
         },
