@@ -10,6 +10,7 @@ class ScannerPage extends StatelessWidget {
   Widget build(BuildContext context) {
 <<<<<<< Updated upstream
     return const MaterialApp(
+      DebugShowCheckedModeBanner: false;
       home: Scaffold(
         backgroundColor: kPageBackgroundColor,
         body: MainScannerPage(),
@@ -113,10 +114,10 @@ class SecondPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16),
 =======
-        title: Text('Wprowadź kod kreskowy'),
+        titleLarge: Text('Wprowadź kod kreskowy'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
 >>>>>>> Stashed changes
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,7 +155,7 @@ class SecondPage extends StatelessWidget {
                   ),
                 ),
 <<<<<<< Updated upstream
-                const SizedBox(width: 20),
+                SizedBox(width: 20),
                 Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
                   height: 50,
@@ -162,7 +163,7 @@ class SecondPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             SmallButton(
               onTap: () {},
               buttonTitle: ('Zatwierdź'),
@@ -172,26 +173,26 @@ class SecondPage extends StatelessWidget {
                 SizedBox(width: 20),
                 Image.network(
                   'https://edycja.pl/media/catalog/category/_jpII_www.png',
-                  height: 50.0,
-                  width: 50.0,
+                  height: 50,
+                  width: 50,
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 // Dodaj obsługę po naciśnięciu przycisku "Zatwierdź"
                 print('Zatwierdź');
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue,
+                backgroundColor: Colors.blue,
                 elevation: 5,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
+              child: const Padding(
+                padding: EdgeInsets.all(8),
                 child: Text(
                   'Zatwierdź',
                   style: TextStyle(fontSize: 18),
