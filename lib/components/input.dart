@@ -1,0 +1,73 @@
+import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/constants.dart';
+
+class CustomTextField extends StatefulWidget {
+  final String labelText;
+  final TextEditingController controller;
+  final bool obscureText;
+
+  const CustomTextField({
+    Key? key,
+    required this.labelText,
+    required this.controller,
+    this.obscureText = false, // Default value is false
+  }) : super(key: key);
+
+  @override
+  _CustomTextFieldState createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  bool isFocused = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(43, 10, 43, 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: const Color.fromRGBO(255, 232, 232, 1),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 3,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: widget.controller,
+        obscureText:
+            widget.obscureText, // Set obscureText based on the parameter
+        decoration: InputDecoration(
+          labelText: widget.labelText,
+          labelStyle: kGlobalTextStyle.copyWith(
+            color: const Color.fromRGBO(177, 170, 170, 1),
+            fontSize: 18,
+          ),
+          border: InputBorder.none,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+        style: kGlobalTextStyle.copyWith(
+          color: const Color.fromARGB(255, 2, 2, 2),
+          fontSize: 18,
+        ),
+        onTap: () {
+          setState(() {
+            isFocused = true;
+          });
+        },
+        onFieldSubmitted: (_) {
+          setState(() {
+            isFocused = false;
+          });
+        },
+        onChanged: (value) {
+          // Handle onChanged if needed
+        },
+      ),
+    );
+  }
+}
