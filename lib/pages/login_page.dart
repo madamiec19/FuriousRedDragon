@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:furious_red_dragon/components/input.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -31,21 +32,14 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: kSplashInputMargin,
-            child: TextFormField(
-              controller: emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
+          CustomTextField(
+            labelText: 'Email',
+            controller: emailController,
           ),
-          Container(
-            margin: kSplashInputMargin,
-            child: TextFormField(
-              controller:
-                  passwordController, // Przypisz kontroler do pola tekstowego.
-              decoration: const InputDecoration(labelText: 'Hasło'),
-              obscureText: true,
-            ),
+          CustomTextField(
+            labelText: 'Hasło',
+            controller: passwordController,
+            obscureText: true,
           ),
           kBigGap,
           BigRedButton(
