@@ -4,6 +4,7 @@ import 'package:furious_red_dragon/components/splash_back_button_row.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:furious_red_dragon/components/input.dart';
+import 'package:furious_red_dragon/pages/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -58,7 +59,9 @@ class LoginPage extends StatelessWidget {
                     } on AuthException catch (authError) {
                       print('Błąd logowania: $authError');
                       _showErrorDialog(context, authError.message);
+                      return;
                     }
+                    Navigator.of(context).pushReplacementNamed(HomePage.routeName);
                   },
                   buttonTitle: 'Zaloguj się',
                 ),
