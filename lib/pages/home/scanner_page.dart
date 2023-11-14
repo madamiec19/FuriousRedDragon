@@ -32,12 +32,13 @@ class MainScannerPage extends StatelessWidget {
             width: 200,
             color: kDarkerGrey,
           ),
-          kBigGap,
+          const SizedBox(height: 20),
           BigWhiteButton(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SecondPage()),
+                MaterialPageRoute(
+                    builder: (context) => const SecondScannerPage()),
               );
             },
             buttonTitle: ('Wpisz kod ręcznie'),
@@ -48,15 +49,18 @@ class MainScannerPage extends StatelessWidget {
   }
 }
 
-class SecondPage extends StatelessWidget {
-  const SecondPage({super.key});
+class SecondScannerPage extends StatelessWidget {
+  const SecondScannerPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      /*
       appBar: AppBar(
-        title: const Text('Wprowadź kod kreskowy'),
+        title: const Text('Skanuj'),
+        backgroundColor: kFuriousRedColor,
       ),
+      */
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -67,47 +71,32 @@ class SecondPage extends StatelessWidget {
               'Wprowadź kod kreskowy:',
               style: TextStyle(fontSize: 24),
             ),
-            kBigGap,
+            const SizedBox(height: 20),
             Row(
               children: [
                 const Expanded(
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'Wprowadź kod kreskowy',
+                      hintText: 'Wprowadź cyfry',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
-                kBigGap,
+                const SizedBox(width: 20),
                 Image.network(
-                  'https://edycja.pl/media/catalog/category/_jpII_www.png',
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
                   height: 50,
                   width: 50,
                 ),
               ],
             ),
-            kBigGap,
-            ElevatedButton(
-              onPressed: () {
-                // Dodaj obsługę po naciśnięciu przycisku "Zatwierdź"
-                print('Zatwierdź');
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(8),
-                child: Text(
-                  'Zatwierdź',
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            ),
+            const SizedBox(height: 20),
+            SmallButton(
+              onTap: () {},
+              buttonTitle: ('Zatwierdź'),
+              backgroundColor: kDarkerGrey,
+            )
           ],
         ),
       ),
