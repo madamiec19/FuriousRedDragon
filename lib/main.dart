@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       title: 'Furious Red Dragon',
       home: const SplashPage(),
       routes: {
-        RegisterPage.routeName: (context) => const RegisterPage(),
+        RegisterPage.routeName: (context) => RegisterPage(),
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
       },
@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: const AppBarTheme(
           elevation: 0,
-          backgroundColor: Colors.white,
-          iconTheme: IconThemeData(color: kFuriousRedColor),
+          backgroundColor: kFuriousRedColor,
+          iconTheme: IconThemeData(color: Colors.white),
         ),
       ),
     );

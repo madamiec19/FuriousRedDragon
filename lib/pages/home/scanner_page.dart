@@ -74,7 +74,7 @@ class SecondPage extends StatelessWidget {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'Wprowadź kod',
+                      hintText: 'Wprowadź kod kreskowy',
                       border: OutlineInputBorder(),
                     ),
                   ),
