@@ -27,19 +27,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Furious Red Dragon',
-        home: const SplashPage(),
-        routes: {
-          RegisterPage.routeName: (context) => const RegisterPage(),
-          LoginPage.routeName: (context) => const LoginPage(),
-          HomePage.routeName: (context) => const HomePage(),
-        },
-        navigatorKey: MyApp.navigatorKey,
-        theme: ThemeData(
-            appBarTheme: const AppBarTheme(
-                elevation: 0,
-                backgroundColor: Colors.white,
-                iconTheme: IconThemeData(color: kFuriousRedColor))));
+      debugShowCheckedModeBanner: false,
+      title: 'Furious Red Dragon',
+      home: const SplashPage(),
+      routes: {
+        RegisterPage.routeName: (context) => const RegisterPage(),
+        LoginPage.routeName: (context) => const LoginPage(),
+        HomePage.routeName: (context) => const HomePage(),
+      },
+      navigatorKey: MyApp.navigatorKey,
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: kFuriousRedColor),
+        ),
+      ),
+    );
   }
 }
