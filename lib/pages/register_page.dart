@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
+import 'package:furious_red_dragon/components/input.dart';
+import 'package:furious_red_dragon/components/splash_back_button_row.dart';
 import 'package:furious_red_dragon/constants.dart';
 
 import '../main.dart';
@@ -32,15 +34,10 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: kFuriousRedColor),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // const SplashBackButtonRow(),
+          const SplashBackButtonRow(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,9 +53,9 @@ class RegisterPage extends StatelessWidget {
                 ),
                 Container(
                   margin: kSplashInputMargin,
-                  child: TextFormField(
+                  child: CustomTextField(
                     controller: emailController,
-                    decoration: const InputDecoration(labelText: 'Email'),
+                    labelText: 'Email',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         _showSnackBar(context, 'Wpisz adres e-mail');
@@ -75,9 +72,9 @@ class RegisterPage extends StatelessWidget {
                 ),
                 Container(
                   margin: kSplashInputMargin,
-                  child: TextFormField(
+                  child: CustomTextField(
                     controller: passwordController,
-                    decoration: const InputDecoration(labelText: 'Hasło'),
+                    labelText: 'Hasło',
                     obscureText: true, // Hide entered characters with asterisks
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -90,10 +87,9 @@ class RegisterPage extends StatelessWidget {
                 ),
                 Container(
                   margin: kSplashInputMargin,
-                  child: TextFormField(
+                  child: CustomTextField(
                     controller: repeatPasswordController,
-                    decoration:
-                        const InputDecoration(labelText: 'Powtórz hasło'),
+                    labelText: 'Powtórz hasło',
                     obscureText: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -140,14 +136,6 @@ class RegisterPage extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: kSplashInputMargin,
-            child: TextFormField(
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-          ),
-          kBigGap,
-          BigRedButton(onTap: () {}, buttonTitle: 'Zarejestruj się'),
         ],
       ),
     );

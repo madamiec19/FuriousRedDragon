@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
+import 'package:furious_red_dragon/components/splash_back_button_row.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:furious_red_dragon/components/input.dart';
@@ -17,45 +18,53 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            color: Colors.white,
-            margin: kSplashInputMargin,
-            child: Hero(
-              tag: 'logo',
-              child: Image.asset(
-                kDragonLogoPath,
-                width: kScreenWidth * 0.35,
-              ),
+          const SplashBackButtonRow(),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  color: Colors.white,
+                  margin: kSplashInputMargin,
+                  child: Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      kDragonLogoPath,
+                      width: kScreenWidth * 0.35,
+                    ),
+                  ),
+                ),
+                CustomTextField(
+                  labelText: 'Email',
+                  controller: emailController,
+                ),
+                CustomTextField(
+                  labelText: 'Hasło',
+                  controller: passwordController,
+                  obscureText: true,
+                ),
+                kBigGap,
+                BigRedButton(
+                  onTap: () async {
+                    try {
+                      final AuthResponse res =
+                          await supabase.auth.signInWithPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                    } on AuthException catch (authError) {
+                      print('Błąd logowania: $authError');
+                      _showErrorDialog(context, authError.message);
+                    }
+                  },
+                  buttonTitle: 'Zaloguj się',
+                ),
+              ],
             ),
-          ),
-          CustomTextField(
-            labelText: 'Email',
-            controller: emailController,
-          ),
-          CustomTextField(
-            labelText: 'Hasło',
-            controller: passwordController,
-            obscureText: true,
-          ),
-          kBigGap,
-          BigRedButton(
-            onTap: () async {
-              try {
-                final AuthResponse res = await supabase.auth.signInWithPassword(
-                  email: emailController.text,
-                  password: passwordController.text,
-                );
-              } on AuthException catch (authError) {
-                print('Błąd logowania: $authError');
-                _showErrorDialog(context, authError.message);
-              }
-            },
-            buttonTitle: 'Zaloguj się',
-          ),
+          )
         ],
       ),
     );
