@@ -17,64 +17,66 @@ class LoginPage extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     TextEditingController emailController = TextEditingController();
 
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        surfaceTintColor: Colors.green,
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          surfaceTintColor: Colors.green,
+        leading: const Padding(
+          padding: EdgeInsets.all(8),
+          child: SplashBackButton(),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SplashBackButtonRow(),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    color: Colors.white,
-                    margin: kSplashInputMargin,
-                    child: Hero(
-                      tag: 'logo',
-                      child: Image.asset(
-                        kDragonLogoPath,
-                        width: kScreenWidth * 0.35,
-                      ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  color: Colors.white,
+                  margin: kSplashInputMargin,
+                  child: Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      kDragonLogoPath,
+                      width: kScreenWidth * 0.35,
                     ),
                   ),
-                  CustomTextField(
-                    labelText: 'Email',
-                    controller: emailController,
-                  ),
-                  CustomTextField(
-                    labelText: 'Hasło',
-                    controller: passwordController,
-                    obscureText: true,
-                  ),
-                  kBigGap,
-                  BigRedButton(
-                    onTap: () async {
-                      try {
-                        final AuthResponse res =
-                            await supabase.auth.signInWithPassword(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        );
-                      } on AuthException catch (authError) {
-                        print('Błąd logowania: $authError');
-                        _showErrorDialog(context, authError.message);
-                        return;
-                      }
-                      Navigator.of(context)
-                          .pushReplacementNamed(HomePage.routeName);
-                    },
-                    buttonTitle: 'Zaloguj się',
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                CustomTextField(
+                  labelText: 'Email',
+                  controller: emailController,
+                ),
+                CustomTextField(
+                  labelText: 'Hasło',
+                  controller: passwordController,
+                  obscureText: true,
+                ),
+                kBigGap,
+                BigRedButton(
+                  onTap: () async {
+                    try {
+                      final AuthResponse res =
+                          await supabase.auth.signInWithPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                    } on AuthException catch (authError) {
+                      print('Błąd logowania: $authError');
+                      _showErrorDialog(context, authError.message);
+                      return;
+                    }
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomePage.routeName);
+                  },
+                  buttonTitle: 'Zaloguj się',
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

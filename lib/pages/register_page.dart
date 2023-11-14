@@ -34,10 +34,17 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        surfaceTintColor: Colors.green,
+        backgroundColor: Colors.white,
+        leading: const Padding(
+          padding: EdgeInsets.all(8),
+          child: SplashBackButton(),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SplashBackButtonRow(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
