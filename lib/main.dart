@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/constants.dart';
+import 'package:furious_red_dragon/pages/home/add_room.dart';
 import 'package:furious_red_dragon/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'pages/register_page.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (context) => RegisterPage(),
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
+        AddRoomPage.routeName: (context) => const AddRoomPage(),
       },
       navigatorKey: MyApp.navigatorKey,
       theme: ThemeData(
