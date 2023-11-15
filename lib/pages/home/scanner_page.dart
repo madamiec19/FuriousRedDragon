@@ -68,9 +68,9 @@ class SecondScannerPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               'Wprowadź kod kreskowy:',
-              style: TextStyle(fontFamily: 'Lato', fontSize: 22),
+              style: kGlobalTextStyle.copyWith(fontSize: 22),
             ),
             kBigGap,
             Row(

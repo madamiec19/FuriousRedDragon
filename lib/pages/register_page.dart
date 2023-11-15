@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 import 'package:furious_red_dragon/components/input.dart';
-import 'package:furious_red_dragon/components/splash_back_button_row.dart';
+import 'package:furious_red_dragon/components/splash_back_button.dart';
 import 'package:furious_red_dragon/constants.dart';
 
 import '../main.dart';
@@ -35,115 +35,109 @@ class RegisterPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        surfaceTintColor: Colors.green,
+        leadingWidth: 70,
+        toolbarHeight: 70,
         backgroundColor: Colors.white,
         leading: const Padding(
-          padding: EdgeInsets.all(8),
+          padding: EdgeInsets.only(left: 30, top: 30),
           child: SplashBackButton(),
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  color: Colors.white,
-                  margin: kSplashInputMargin,
-                  child: Hero(
-                    tag: 'logo',
-                    child: Image.asset(kDragonLogoPath,
-                        width: kScreenWidth * 0.35),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                margin: kSplashInputMargin,
+                child: Image.asset(kDragonLogoPath, width: kScreenWidth * 0.35),
+              ),
+              Container(
+                margin: kSplashInputMargin,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    'Załóż konto dla swojej firmy i zacznij inwentaryzować już dziś!',
+                    textAlign: TextAlign.center,
+                    style: kGlobalTextStyle.copyWith(fontSize: 24),
                   ),
                 ),
-                Container(
-                  margin: kSplashInputMargin,
-                  child: CustomTextField(
-                    controller: emailController,
-                    labelText: 'Email',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        _showSnackBar(context, 'Wpisz adres e-mail');
-                        return 'Wpisz adres e-mail';
-                      } else if (!RegExp(
-                              r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-                          .hasMatch(value)) {
-                        _showSnackBar(context, 'Wpisz poprawny adres e-mail');
-                        return 'Wpisz poprawny adres e-mail';
+              ),
+              CustomTextField(
+                controller: emailController,
+                labelText: 'Email',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    _showSnackBar(context, 'Wpisz adres e-mail');
+                    return 'Wpisz adres e-mail';
+                  } else if (!RegExp(
+                          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                      .hasMatch(value)) {
+                    _showSnackBar(context, 'Wpisz poprawny adres e-mail');
+                    return 'Wpisz poprawny adres e-mail';
+                  }
+                  return null;
+                },
+              ),
+              CustomTextField(
+                controller: passwordController,
+                labelText: 'Hasło',
+                obscureText: true, // Hide entered characters with asterisks
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    _showSnackBar(context, 'Wpisz hasło');
+                    return 'Wpisz hasło';
+                  }
+                  return null;
+                },
+              ),
+              CustomTextField(
+                controller: repeatPasswordController,
+                labelText: 'Powtórz hasło',
+                obscureText: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    _showSnackBar(context, 'Powtórz hasło');
+                    return 'Powtórz hasło';
+                  } else if (value != passwordController.text) {
+                    _showSnackBar(context, 'Hasła nie są identyczne');
+                    return 'Hasła nie są identyczne';
+                  }
+                  return null;
+                },
+              ),
+              kBigGap,
+              BigRedButton(
+                onTap: () async {
+                  if (emailController.text.isEmpty ||
+                      passwordController.text.isEmpty ||
+                      repeatPasswordController.text.isEmpty) {
+                    _showSnackBar(context, 'Wypełnij wszystkie pola');
+                  } else if (!RegExp(
+                          r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+                      .hasMatch(emailController.text)) {
+                    _showSnackBar(context, 'Wpisz poprawny adres e-mail');
+                    return 'Wpisz poprawny adres e-mail';
+                  } else if (passwordController.text ==
+                      repeatPasswordController.text) {
+                    await supabase.auth.signUp(
+                        password: passwordController.text,
+                        email: emailController.text);
+                    await supabase.from('roles').insert([
+                      {
+                        'status': 'admin',
+                        'password': passwordController.text,
+                        'email': emailController.text,
                       }
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                  margin: kSplashInputMargin,
-                  child: CustomTextField(
-                    controller: passwordController,
-                    labelText: 'Hasło',
-                    obscureText: true, // Hide entered characters with asterisks
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        _showSnackBar(context, 'Wpisz hasło');
-                        return 'Wpisz hasło';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                  margin: kSplashInputMargin,
-                  child: CustomTextField(
-                    controller: repeatPasswordController,
-                    labelText: 'Powtórz hasło',
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        _showSnackBar(context, 'Powtórz hasło');
-                        return 'Powtórz hasło';
-                      } else if (value != passwordController.text) {
-                        _showSnackBar(context, 'Hasła nie są identyczne');
-                        return 'Hasła nie są identyczne';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                kBigGap,
-                BigRedButton(
-                  onTap: () async {
-                    if (emailController.text.isEmpty ||
-                        passwordController.text.isEmpty ||
-                        repeatPasswordController.text.isEmpty) {
-                      _showSnackBar(context, 'Wypełnij wszystkie pola');
-                    } else if (!RegExp(
-                            r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-                        .hasMatch(emailController.text)) {
-                      _showSnackBar(context, 'Wpisz poprawny adres e-mail');
-                      return 'Wpisz poprawny adres e-mail';
-                    } else if (passwordController.text ==
-                        repeatPasswordController.text) {
-                      await supabase.auth.signUp(
-                          password: passwordController.text,
-                          email: emailController.text);
-                      await supabase.from('roles').insert([
-                        {
-                          'status': 'admin',
-                          'password': passwordController.text,
-                          'email': emailController.text,
-                        }
-                      ]);
-                    } else {
-                      _showSnackBar(context, 'Hasła nie są identyczne');
-                    }
-                  },
-                  buttonTitle: 'Zarejestruj się',
-                ),
-              ],
-            ),
+                    ]);
+                  } else {
+                    _showSnackBar(context, 'Hasła nie są identyczne');
+                  }
+                },
+                buttonTitle: 'Zarejestruj się',
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

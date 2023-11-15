@@ -12,7 +12,7 @@ class CustomTextField extends StatefulWidget {
     required this.labelText,
     required this.controller,
     this.validator,
-    this.obscureText = false, // Default value is false
+    this.obscureText = false,
   }) : super(key: key);
 
   @override
@@ -40,8 +40,7 @@ class CustomTextFieldState extends State<CustomTextField> {
       ),
       child: TextFormField(
         controller: widget.controller,
-        obscureText:
-            widget.obscureText, // Set obscureText based on the parameter
+        obscureText: widget.obscureText,
         decoration: InputDecoration(
           labelText: widget.labelText,
           labelStyle: kGlobalTextStyle.copyWith(
@@ -50,12 +49,13 @@ class CustomTextFieldState extends State<CustomTextField> {
           ),
           border: InputBorder.none,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         style: kGlobalTextStyle.copyWith(
           color: const Color.fromARGB(255, 2, 2, 2),
           fontSize: 18,
         ),
+        cursorColor: kFuriousRedColor,
         validator: widget.validator,
         onTap: () {
           setState(() {
@@ -67,9 +67,7 @@ class CustomTextFieldState extends State<CustomTextField> {
             isFocused = false;
           });
         },
-        onChanged: (value) {
-          // Handle onChanged if needed
-        },
+        onChanged: (value) {},
       ),
     );
   }
