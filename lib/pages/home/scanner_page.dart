@@ -8,13 +8,7 @@ class ScannerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: kPageBackgroundColor,
-        body: MainScannerPage(),
-      ),
-    );
+    return const MainScannerPage();
   }
 }
 
@@ -32,7 +26,7 @@ class MainScannerPage extends StatelessWidget {
             width: 200,
             color: kDarkerGrey,
           ),
-          const SizedBox(height: 20),
+          kBigGap,
           BigWhiteButton(
             onTap: () {
               Navigator.push(
@@ -55,10 +49,19 @@ class SecondScannerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /*appBar: AppBar(
-        title: const Text('Skanuj'),
+      appBar: AppBar(
+        leading: const BackButton(
+          color: Colors.white,
+        ),
+        toolbarHeight: 80,
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(10),
+        )),
         backgroundColor: kFuriousRedColor,
-      ),*/
+        title: const Text('Skanowanie'),
+        actions: const <Widget>[],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -67,9 +70,9 @@ class SecondScannerPage extends StatelessWidget {
           children: [
             const Text(
               'Wprowadź kod kreskowy:',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontFamily: 'Lato', fontSize: 22),
             ),
-            const SizedBox(height: 20),
+            kBigGap,
             Row(
               children: [
                 const Expanded(
@@ -81,15 +84,19 @@ class SecondScannerPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(width: 20),
+                kBigGap,
+                IconButton(
+                    onPressed: () {}, icon: const Icon(Icons.info, size: 32))
+                /*
                 Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
-                  height: 50,
-                  width: 50,
-                ),
+                  height: 30,
+                  width: 30,
+                )*/
+                ,
               ],
             ),
-            const SizedBox(height: 20),
+            kBigGap,
             SmallButton(
               onTap: () {},
               buttonTitle: ('Zatwierdź'),
