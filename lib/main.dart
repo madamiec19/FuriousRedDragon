@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (context) => RegisterPage(),
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
-        AddRoomPage.routeName: (context) => AddRoomPage(),
+        AddRoomPage.routeName: (context) => const AddRoomPage(),
       },
       navigatorKey: MyApp.navigatorKey,
       theme: ThemeData(

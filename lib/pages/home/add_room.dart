@@ -37,8 +37,8 @@ class _AddRoomPageState extends State<AddRoomPage> {
             kBigGap,
             Container(
               color: Colors.white,
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-              padding: EdgeInsets.symmetric(vertical: 5.0),
+              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               child: Row(
                   // margin: const EdgeInsets.fromLTRB(0, 20, 0, 60),
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -57,11 +57,11 @@ class _AddRoomPageState extends State<AddRoomPage> {
                         return DropdownMenuEntry<String>(
                             value: value, label: value);
                       }).toList(),
-                      menuStyle: MenuStyle(
+                      menuStyle: const MenuStyle(
                         backgroundColor: MaterialStatePropertyAll<Color>(
                             kPageBackgroundColor),
                       ),
-                      inputDecorationTheme: InputDecorationTheme(
+                      inputDecorationTheme: const InputDecorationTheme(
                         filled: true,
                         fillColor: kPageBackgroundColor,
                       ),

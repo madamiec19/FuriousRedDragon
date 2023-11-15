@@ -17,7 +17,7 @@ class AccountPage extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, AddRoomPage.routeName);
             },
-            buttonTitle: "Dodaj salę",
+            buttonTitle: 'Dodaj salę',
           ),
         ],
       ),
