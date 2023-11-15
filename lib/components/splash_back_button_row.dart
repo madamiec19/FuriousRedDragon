@@ -5,12 +5,14 @@ class SplashBackButton extends StatelessWidget {
   const SplashBackButton({super.key});
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-        style: const ButtonStyle(
-            iconColor: MaterialStatePropertyAll(Colors.white),
-            backgroundColor: MaterialStatePropertyAll(kFuriousRedColor)),
-        onPressed: () => Navigator.pop(context),
-        child: const Icon(Icons.west));
+    return Container(
+      child: TextButton(
+          style: const ButtonStyle(
+              iconColor: MaterialStatePropertyAll(Colors.white),
+              backgroundColor: MaterialStatePropertyAll(kFuriousRedColor)),
+          onPressed: () => Navigator.pop(context),
+          child: const Icon(Icons.west)),
+    );
   }
 }
 
@@ -22,7 +24,6 @@ class SplashBackButtonRow extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          width: 40,
           height: 40,
           margin: const EdgeInsets.all(10),
           child: const SplashBackButton(),

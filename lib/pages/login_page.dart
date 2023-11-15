@@ -19,10 +19,17 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        surfaceTintColor: Colors.green,
+        backgroundColor: Colors.white,
+        leading: const Padding(
+          padding: EdgeInsets.all(8),
+          child: SplashBackButton(),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SplashBackButtonRow(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,7 +68,8 @@ class LoginPage extends StatelessWidget {
                       _showErrorDialog(context, authError.message);
                       return;
                     }
-                    Navigator.of(context).pushReplacementNamed(HomePage.routeName);
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomePage.routeName);
                   },
                   buttonTitle: 'Zaloguj się',
                 ),

@@ -8,18 +8,22 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: kPageBackgroundColor,
-        body: Center(
-            child: BigWhiteButton(
-              onTap: () {
+    return Material(
+      color: kPageBackgroundColor,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BigWhiteButton(
+            onTap: () {
               Navigator.pushNamed(context, AddRoomPage.routeName);
             },
-            buttonTitle: 'Dodaj salę',
-        )
-      )
+            buttonTitle: "Dodaj salę",
+          ),
+        ],
+      ),
     );
   }
+
 // Było jak poniżej, przerobiłem trochę całość by sensownie umieścić przycisk
 
 /*  @override
@@ -31,8 +35,4 @@ class AccountPage extends StatelessWidget {
         )
     );
   }*/
-
-
-
-
 }
