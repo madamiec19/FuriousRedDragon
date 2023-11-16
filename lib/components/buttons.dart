@@ -131,3 +131,118 @@ class SmallButton extends StatelessWidget {
     );
   }
 }
+
+class DoubleButton extends StatefulWidget {
+  const DoubleButton(
+      {super.key,
+      this.activeColor = Colors.white,
+      this.inactiveColor = kLightGrey,
+      required this.onFirstOptionChosen,
+      required this.onSecondOptionChosen,
+      required this.leftOptionLabel,
+      required this.rightOptionLabel});
+
+  final Color activeColor;
+  final Color inactiveColor;
+  final Function onFirstOptionChosen;
+  final Function onSecondOptionChosen;
+  final String leftOptionLabel;
+  final String rightOptionLabel;
+
+  @override
+  State<DoubleButton> createState() => _DoubleButtonState();
+}
+
+class _DoubleButtonState extends State<DoubleButton> {
+  int selectedOption = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: SizedBox(
+            height: selectedOption == 1 ? 46 : 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: selectedOption == 1
+                    ? widget.activeColor
+                    : widget.inactiveColor,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      bottomLeft: Radius.circular(8)),
+                  side: BorderSide(color: Colors.black),
+                ),
+              ),
+              onPressed: () {
+                if (selectedOption == 2) {
+                  setState(() {
+                    selectedOption = 1;
+                  });
+                  widget.onFirstOptionChosen();
+                }
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text(
+                  widget.leftOptionLabel,
+                  style: kGlobalTextStyle.copyWith(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  maxLines: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: SizedBox(
+            height: selectedOption == 2 ? 46 : 44,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: selectedOption == 2
+                    ? widget.activeColor
+                    : widget.inactiveColor,
+                maximumSize: const Size(300, 100),
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(8),
+                      bottomRight: Radius.circular(8)),
+                  side: BorderSide(color: Colors.black),
+                ),
+              ),
+              onPressed: () {
+                if (selectedOption == 1) {
+                  setState(() {
+                    selectedOption = 2;
+                  });
+                  widget.onSecondOptionChosen();
+                }
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                child: Text(
+                  widget.rightOptionLabel,
+                  style: kGlobalTextStyle.copyWith(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
