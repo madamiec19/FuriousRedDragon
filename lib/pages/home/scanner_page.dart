@@ -65,7 +65,7 @@ class SecondPage extends StatelessWidget {
           children: [
             const Text(
               'Wprowadź kod kreskowy:',
-              style: TextStyle(fontSize: 24),
+              style: kGlobalTextStyle.copyWith(fontSize: 22),
             ),
             kBigGap,
             Row(
