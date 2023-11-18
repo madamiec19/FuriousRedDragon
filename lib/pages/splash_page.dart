@@ -15,56 +15,61 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        margin: kSplashInputMargin,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: kSplashInputMargin,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            margin: kSplashInputMargin,
+            child: Hero(
+              tag: 'logo',
               child: Image.asset(kDragonLogoPath, width: kScreenWidth * 0.5),
             ),
-            Container(
-              color: Colors.white,
-              child: Text(
-                'WŚCIEKŁY CZERWONY SMOK',
-                textAlign: TextAlign.center,
-                style: kGlobalTextStyle.copyWith(
-                  color: kFuriousRedColor,
-                  fontSize: 26,
-                  fontFamily: 'Ruslan Display',
-                  height: 1.75,
-                ),
+          ),
+          Container(
+            color: Colors.white,
+            margin: kSplashInputMargin.copyWith(bottom: 10),
+            child: const Text(
+              'WŚCIEKŁY CZERWONY SMOK',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: kFuriousRedColor,
+                fontSize: 20,
+                fontFamily: 'Ruslan Display',
+                fontWeight: FontWeight.w400,
+                height: 1.75,
+                letterSpacing: 0.41,
               ),
             ),
-            kBigGap,
-            SizedBox(
-              width: double.infinity,
-              child: BigRedButton(
-                  onTap: () {
-                    Navigator.pushNamed(context, LoginPage.routeName);
-                  },
-                  buttonTitle: 'Zaloguj się'),
-            ),
-            kBigGap,
-            SizedBox(
-              width: double.infinity,
-              child: BigWhiteButton(
-                  borderColor: kFuriousRedColor,
-                  onTap: () {
-                    Navigator.pushNamed(context, RegisterPage.routeName);
-                  },
-                  buttonTitle: 'Zarejestruj się'),
-            ),
-            kMediumGap,
-            // przycisk poniżej do usunięcia na produkcji, użytkownik nie może wejść do aplikacji bez zalogowania się
-            SmallButton(
+          ),
+          kBigGap,
+          Container(
+            width: double.infinity,
+            margin: kSplashInputMargin,
+            child: BigRedButton(
                 onTap: () {
-                  Navigator.pushNamed(context, HomePage.routeName);
+                  Navigator.pushNamed(context, LoginPage.routeName);
                 },
-                buttonTitle: 'Home'),
-          ],
-        ),
+                buttonTitle: 'Zaloguj się'),
+          ),
+          kBigGap,
+          Container(
+            width: double.infinity,
+            margin: kSplashInputMargin,
+            child: BigWhiteButton(
+                borderColor: kFuriousRedColor,
+                onTap: () {
+                  Navigator.pushNamed(context, RegisterPage.routeName);
+                },
+                buttonTitle: 'Zarejestruj się'),
+          ),
+          kMediumGap,
+          // przycisk poniżej do usunięcia na produkcji, użytkownik nie może wejść do aplikacji bez zalogowania się
+          SmallButton(
+              onTap: () {
+                Navigator.pushNamed(context, HomePage.routeName);
+              },
+              buttonTitle: 'Home'),
+        ],
       ),
     );
   }

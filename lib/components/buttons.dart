@@ -119,15 +119,13 @@ class SmallButton extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(5)),
           )),
       onPressed: () => onTap(),
-      child: Text(
-        buttonTitle,
-        textAlign: TextAlign.center,
-        style: kGlobalTextStyle.copyWith(
-          color: Colors.black,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      child: Text(buttonTitle,
+          textAlign: TextAlign.center,
+          style: kGlobalTextStyle.copyWith(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily: 'Lato')),
     );
   }
 }
