@@ -77,7 +77,8 @@ class _ReportsStreamState extends State<ReportsStream> {
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(
-                backgroundColor: Colors.lightBlueAccent,
+                color: kFuriousRedColor,
+                backgroundColor: kLightGrey,
               ),
             );
           }

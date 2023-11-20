@@ -270,6 +270,7 @@ class ReportListItem extends StatelessWidget {
         ),
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            elevation: 0,
             backgroundColor: Colors.white,
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             shape: RoundedRectangleBorder(
@@ -278,7 +279,7 @@ class ReportListItem extends StatelessWidget {
           ),
           onPressed: () => onTap(),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 12),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(buttonTitle,
