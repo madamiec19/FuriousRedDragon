@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 import 'package:furious_red_dragon/components/white_card.dart';
 import '../../constants.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 enum View { history, database }
+
+final _supabase = Supabase.instance.client;
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -41,7 +44,7 @@ class _HistoryPageState extends State<HistoryPage> {
           if (selectedView == View.history)
             const Expanded(
               child: WhiteCard(
-                child: Text('Historia'),
+                child: ReportsStream(),
               ),
             )
           else if (selectedView == View.database)
@@ -53,5 +56,45 @@ class _HistoryPageState extends State<HistoryPage> {
         ],
       ),
     );
+  }
+}
+
+class ReportsStream extends StatefulWidget {
+  const ReportsStream({super.key});
+
+  @override
+  State<ReportsStream> createState() => _ReportsStreamState();
+}
+
+class _ReportsStreamState extends State<ReportsStream> {
+  final _stream = _supabase.from('reports').stream(primaryKey: ['id']);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: _stream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.lightBlueAccent,
+              ),
+            );
+          }
+          final reports = snapshot.data;
+          List<ListItemHistory> reportContainers = [];
+          for (var report in reports!) {
+            final room = report['room'];
+            final author = report['author'];
+            final string = room + ', ' + author;
+            reportContainers.add(ListItemHistory(
+              onTap: () {},
+              buttonTitle: string,
+            ));
+          }
+          return ListView(
+            children: reportContainers,
+          );
+        });
   }
 }

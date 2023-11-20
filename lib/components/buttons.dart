@@ -49,11 +49,12 @@ class BigRedButton extends StatelessWidget {
 }
 
 class BigWhiteButton extends StatelessWidget {
-  const BigWhiteButton(
-      {super.key,
-      required this.onTap,
-      required this.buttonTitle,
-      this.borderColor = Colors.black});
+  const BigWhiteButton({
+    super.key,
+    required this.onTap,
+    required this.buttonTitle,
+    this.borderColor = Colors.black,
+  });
   final Function onTap;
   final String buttonTitle;
   final Color borderColor;
@@ -232,7 +233,7 @@ class _DoubleButtonState extends State<DoubleButton> {
                   widget.rightOptionLabel,
                   style: kGlobalTextStyle.copyWith(
                     color: Colors.black,
-                    fontSize: 16,
+                    fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),
                   maxLines: 1,
@@ -244,5 +245,51 @@ class _DoubleButtonState extends State<DoubleButton> {
         ),
       ],
     );
+  }
+}
+
+class ListItemHistory extends StatelessWidget {
+  const ListItemHistory({
+    super.key,
+    required this.onTap,
+    required this.buttonTitle,
+    this.borderColor = Colors.black,
+  });
+  final Function onTap;
+  final String buttonTitle;
+  final Color borderColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.all(5),
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                side: BorderSide(color: borderColor)),
+          ),
+          onPressed: () => onTap(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(buttonTitle,
+                  textAlign: TextAlign.left,
+                  style: kGlobalTextStyle.copyWith(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  )),
+            ),
+          ),
+        ));
   }
 }
