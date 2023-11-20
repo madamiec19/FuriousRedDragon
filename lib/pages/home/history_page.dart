@@ -82,18 +82,18 @@ class _ReportsStreamState extends State<ReportsStream> {
             );
           }
           final reports = snapshot.data;
-          List<ListItemHistory> reportContainers = [];
+          List<ReportListItem> reportListItems = [];
           for (var report in reports!) {
             final room = report['room'];
             final author = report['author'];
-            final string = room + ', ' + author;
-            reportContainers.add(ListItemHistory(
+            final reportString = room + ', ' + author;
+            reportListItems.add(ReportListItem(
               onTap: () {},
-              buttonTitle: string,
+              buttonTitle: reportString,
             ));
           }
           return ListView(
-            children: reportContainers,
+            children: reportListItems,
           );
         });
   }

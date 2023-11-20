@@ -248,8 +248,8 @@ class _DoubleButtonState extends State<DoubleButton> {
   }
 }
 
-class ListItemHistory extends StatelessWidget {
-  const ListItemHistory({
+class ReportListItem extends StatelessWidget {
+  const ReportListItem({
     super.key,
     required this.onTap,
     required this.buttonTitle,
@@ -262,7 +262,7 @@ class ListItemHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(5),
+        margin: const EdgeInsets.all(5),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
