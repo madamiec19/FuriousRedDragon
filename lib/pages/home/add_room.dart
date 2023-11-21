@@ -85,7 +85,7 @@ class _AddRoomPageState extends State<AddRoomPage> {
                     kBigGap,
                     DropdownMenu(
                       textStyle: kGlobalTextStyle,
-                      enabled: (selectedBuilding!=""),
+                      enabled: (selectedBuilding!=''),
                       initialSelection: selectedFloor,
                       onSelected: (newValue) {
                         setState(() {
@@ -125,7 +125,7 @@ class _AddRoomPageState extends State<AddRoomPage> {
                     kBigGap,
                     DropdownMenu(
                       textStyle: kGlobalTextStyle,
-                      enabled: (selectedFloor!=""),
+                      enabled: (selectedFloor!=''),
                       initialSelection: selectedRoom,
                       onSelected: (newValue) {
                         setState(() {
