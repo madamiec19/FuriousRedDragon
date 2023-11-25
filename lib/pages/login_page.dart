@@ -39,35 +39,8 @@ class LoginPage extends StatelessWidget {
                   kDragonLogoPath,
                   width: kScreenWidth * 0.35,
                 ),
-                ForgotPasswordText(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EmailCheckPage()));
-                  },
-                ),
-                kBigGap,
-                BigRedButton(
-                  onTap: () async {
-                    try {
-                      final AuthResponse res =
-                          await supabase.auth.signInWithPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                    } on AuthException catch (authError) {
-                      print('Błąd logowania: $authError');
-                      _showErrorDialog(context, authError.message);
-                      return;
-                    }
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomePage()));
-                  },
-                  buttonTitle: 'Zaloguj się',
               ),
+              kBigGap,
               Container(
                 margin: kSplashInputMargin,
                 child: Padding(
@@ -87,6 +60,14 @@ class LoginPage extends StatelessWidget {
                 labelText: 'Hasło',
                 controller: passwordController,
                 obscureText: true,
+              ),
+              ForgotPasswordText(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EmailCheckPage()));
+                },
               ),
               kBigGap,
               BigRedButton(

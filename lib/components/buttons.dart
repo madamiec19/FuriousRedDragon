@@ -262,7 +262,7 @@ class ForgotPasswordText extends StatelessWidget {
       onTap: onTap,
       child: Container(
         alignment: Alignment.centerRight, // Wyśrodkuj tekst do prawej
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 50).copyWith(bottom: 8),
         child: Text(
           'Zapomniałeś/aś hasła?',
           style: kGlobalTextStyle.copyWith(
@@ -274,7 +274,9 @@ class ForgotPasswordText extends StatelessWidget {
         ),
       ),
     );
-    
+  }
+}
+
 class ReportListItem extends StatelessWidget {
   const ReportListItem({
     super.key,

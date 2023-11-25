@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
-import 'package:furious_red_dragon/components/splash_back_button_row.dart';
+import 'package:furious_red_dragon/components/splash_back_button.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:furious_red_dragon/components/input.dart';
@@ -16,11 +16,19 @@ class ResetPasswordPage extends StatelessWidget {
     TextEditingController passwordController2 = TextEditingController();
 
     return Scaffold(
+      appBar: AppBar(
+        leadingWidth: 70,
+        toolbarHeight: 70,
+        backgroundColor: Colors.white,
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 30, top: 30),
+          child: SplashBackButton(),
+        ),
+      ),
       backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SplashBackButtonRow(),
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
