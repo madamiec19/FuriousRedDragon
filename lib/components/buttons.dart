@@ -248,6 +248,33 @@ class _DoubleButtonState extends State<DoubleButton> {
   }
 }
 
+class ForgotPasswordText extends StatelessWidget {
+  const ForgotPasswordText({
+    Key? key,
+    this.onTap,
+  }) : super(key: key);
+
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.centerRight, // Wyśrodkuj tekst do prawej
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
+        child: Text(
+          'Zapomniałeś/aś hasła?',
+          style: kGlobalTextStyle.copyWith(
+            color: kDarkerGrey,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Lato',
+          ),
+        ),
+      ),
+    );
+    
 class ReportListItem extends StatelessWidget {
   const ReportListItem({
     super.key,

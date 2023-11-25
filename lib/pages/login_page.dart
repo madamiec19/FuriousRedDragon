@@ -5,6 +5,7 @@ import 'package:furious_red_dragon/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:furious_red_dragon/components/input.dart';
 import 'package:furious_red_dragon/pages/home_page.dart';
+import 'package:furious_red_dragon/pages/forget_password/email_check_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -38,6 +39,34 @@ class LoginPage extends StatelessWidget {
                   kDragonLogoPath,
                   width: kScreenWidth * 0.35,
                 ),
+                ForgotPasswordText(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EmailCheckPage()));
+                  },
+                ),
+                kBigGap,
+                BigRedButton(
+                  onTap: () async {
+                    try {
+                      final AuthResponse res =
+                          await supabase.auth.signInWithPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                      );
+                    } on AuthException catch (authError) {
+                      print('Błąd logowania: $authError');
+                      _showErrorDialog(context, authError.message);
+                      return;
+                    }
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()));
+                  },
+                  buttonTitle: 'Zaloguj się',
               ),
               Container(
                 margin: kSplashInputMargin,
