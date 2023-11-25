@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/main.dart';
+import 'package:furious_red_dragon/pages/splash_page.dart';
 import '../../constants.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 
@@ -48,7 +50,7 @@ class DeleteAccountPage extends StatelessWidget {
                 kSmallGap,
                 SmallButton(
                   onTap: () {
-                    // Handle the 'Tak' action
+                    deleteUser(context);
                   },
                   buttonTitle: ('Tak'),
                 ),
@@ -58,5 +60,17 @@ class DeleteAccountPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void getBackToSplash(context) {
+    Navigator.pushNamed(context, SplashPage.routeName);
+  }
+
+  Future<void> deleteUser(context) async {
+    var uuid = supabase.auth.currentUser?.id;
+
+    // await supabase.auth.admin
+    //     .deleteUser(uuid!)
+    //     .then((value) => getBackToSplash(context));
   }
 }

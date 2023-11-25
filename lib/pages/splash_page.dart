@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 import 'package:furious_red_dragon/constants.dart';
 
-import 'home_page.dart';
 import 'login_page.dart';
 import 'register_page.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
-  static const routeName = '/splashPage';
+  static const routeName = '/';
 
   @override
   Widget build(BuildContext context) {
