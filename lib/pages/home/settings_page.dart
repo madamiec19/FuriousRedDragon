@@ -50,6 +50,12 @@ class SettingsPage extends StatelessWidget {
                 },
                 buttonTitle: ('Usuń konto'),
               ),
+              kMediumGap,
+              BigWhiteButton(
+                  onTap: () {
+                    // wyloguj
+                  },
+                  buttonTitle: 'Wyloguj')
             ],
           ),
         ),

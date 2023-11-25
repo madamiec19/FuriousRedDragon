@@ -56,13 +56,6 @@ class SplashPage extends StatelessWidget {
                   },
                   buttonTitle: 'Zarejestruj się'),
             ),
-            kMediumGap,
-            // przycisk poniżej do usunięcia na produkcji, użytkownik nie może wejść do aplikacji bez zalogowania się
-            SmallButton(
-                onTap: () {
-                  Navigator.pushNamed(context, HomePage.routeName);
-                },
-                buttonTitle: 'Home'),
           ],
         ),
       ),
