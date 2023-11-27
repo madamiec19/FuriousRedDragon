@@ -6,6 +6,8 @@ const kFuriousRedColor = Color.fromRGBO(193, 39, 38, 1);
 const kPageBackgroundColor = Color.fromRGBO(243, 243, 243, 1);
 const kLightGrey = Color.fromRGBO(217, 217, 217, 1);
 const kDarkerGrey = Color.fromRGBO(177, 170, 170, 1);
+const kGoodGreenColor = Color.fromRGBO(132, 228, 109, 1);
+const kFuriousLighterRedColor = Color.fromRGBO(229, 31, 30, 1);
 
 final kGlobalContext = MyApp.navigatorKey.currentContext;
 final kScreenWidth = MediaQuery.of(kGlobalContext!).size.width;
