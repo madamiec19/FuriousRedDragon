@@ -4,20 +4,22 @@ import 'package:furious_red_dragon/constants.dart';
 class CustomTextField extends StatefulWidget {
   final String labelText;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
   final bool obscureText;
 
   const CustomTextField({
     Key? key,
     required this.labelText,
     required this.controller,
-    this.obscureText = false, // Default value is false
+    this.validator,
+    this.obscureText = false,
   }) : super(key: key);
 
   @override
-  _CustomTextFieldState createState() => _CustomTextFieldState();
+  CustomTextFieldState createState() => CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class CustomTextFieldState extends State<CustomTextField> {
   bool isFocused = false;
 
   @override
@@ -38,8 +40,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
       child: TextFormField(
         controller: widget.controller,
-        obscureText:
-            widget.obscureText, // Set obscureText based on the parameter
+        obscureText: widget.obscureText,
         decoration: InputDecoration(
           labelText: widget.labelText,
           labelStyle: kGlobalTextStyle.copyWith(
@@ -48,12 +49,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           border: InputBorder.none,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
         style: kGlobalTextStyle.copyWith(
           color: const Color.fromARGB(255, 2, 2, 2),
           fontSize: 18,
         ),
+        cursorColor: kFuriousRedColor,
+        validator: widget.validator,
         onTap: () {
           setState(() {
             isFocused = true;
@@ -64,9 +67,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             isFocused = false;
           });
         },
-        onChanged: (value) {
-          // Handle onChanged if needed
-        },
+        onChanged: (value) {},
       ),
     );
   }
