@@ -8,7 +8,13 @@ class ScannerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MainScannerPage();
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: kPageBackgroundColor,
+        body: MainScannerPage(),
+      ),
+    );
   }
 }
 
@@ -31,8 +37,7 @@ class MainScannerPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const SecondScannerPage()),
+                MaterialPageRoute(builder: (context) => const SecondPage()),
               );
             },
             buttonTitle: ('Wpisz kod ręcznie'),
@@ -43,24 +48,14 @@ class MainScannerPage extends StatelessWidget {
   }
 }
 
-class SecondScannerPage extends StatelessWidget {
-  const SecondScannerPage({super.key});
+class SecondPage extends StatelessWidget {
+  const SecondPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(
-          color: Colors.white,
-        ),
-        toolbarHeight: 80,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(10),
-        )),
-        backgroundColor: kFuriousRedColor,
-        title: const Text('Skanowanie'),
-        actions: const <Widget>[],
+        title: const Text('Wprowadź kod kreskowy'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -68,9 +63,9 @@ class SecondScannerPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Wprowadź kod kreskowy:',
-              style: kGlobalTextStyle.copyWith(fontSize: 22),
+              style: TextStyle(fontSize: 24),
             ),
             kBigGap,
             Row(
@@ -79,29 +74,40 @@ class SecondScannerPage extends StatelessWidget {
                   child: TextField(
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      hintText: 'Wprowadź cyfry',
+                      hintText: 'Wprowadź kod',
                       border: OutlineInputBorder(),
                     ),
                   ),
                 ),
                 kBigGap,
-                IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.info, size: 32))
-                /*
                 Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
-                  height: 30,
-                  width: 30,
-                )*/
-                ,
+                  'https://edycja.pl/media/catalog/category/_jpII_www.png',
+                  height: 50,
+                  width: 50,
+                ),
               ],
             ),
             kBigGap,
-            SmallButton(
-              onTap: () {},
-              buttonTitle: ('Zatwierdź'),
-              backgroundColor: kDarkerGrey,
-            )
+            ElevatedButton(
+              onPressed: () {
+                // Dodaj obsługę po naciśnięciu przycisku "Zatwierdź"
+                print('Zatwierdź');
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(8),
+                child: Text(
+                  'Zatwierdź',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ),
           ],
         ),
       ),
