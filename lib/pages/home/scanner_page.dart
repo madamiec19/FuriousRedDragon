@@ -94,7 +94,6 @@ class _SecondScannerPage extends State<SecondScannerPage> {
                 kBigGap,
                 IconButton(
                     onPressed: () {
-                      print('Klikło się');
                       setState(() {
                         showInfoPopUp = !showInfoPopUp;
                       });
@@ -134,7 +133,7 @@ class InfoPopUp extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Colors.red,
+          color: kFuriousRedColor,
           width: 2,
         ),
         color: Colors.white,
@@ -142,31 +141,27 @@ class InfoPopUp extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          const Text(
+          Text(
             'Dlaczego nie mogę zatwierdzić kodu?',
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-            ),
+            style: kGlobalTextStyle.copyWith(fontSize: 17),
           ),
           kBigGap,
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8), // Zaokrąglenie dla wewnętrznej ramki
+              borderRadius: BorderRadius.circular(8),
               border: Border.all(
-                color: Colors.grey, // Kolor wewnętrznej ramki (szary)
+                color: Colors.grey,
                 width: 2,
               ),
-              color: Colors.white, // Kolor wypełnienia wewnętrznej ramki
+              color: Colors.white,
             ),
             padding: const EdgeInsets.all(8),
-            child: // Tutaj umieść dowolny inny obiekt
-              const Text(
-                'Przed zatwierdzeniem kodu upewnij się, że:',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
-                ),
+            child:
+              Text(
+                'Przed zatwierdzeniem kodu upewnij się, że:\n'
+                '  • kod składa się tylko z cyfr (bez spacji)\n'
+                '  • kod składa się dokładnie z 13 cyfr\n',
+                style: kGlobalTextStyle.copyWith(fontSize: 14, height: 1.5),
               ),
           ),
         ],
