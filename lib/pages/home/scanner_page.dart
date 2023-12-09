@@ -86,7 +86,8 @@ class SecondScannerPage extends StatelessWidget {
                 ),
                 kBigGap,
                 IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.info, size: 32))
+                    onPressed: () {}, 
+                    icon: const Icon(Icons.info, size: 32))
                 /*
                 Image.network(
                   'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
@@ -105,6 +106,19 @@ class SecondScannerPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class InfoPopUp extends StatelessWidget {
+  const InfoPopUp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: 
+        ),
     );
   }
 }
