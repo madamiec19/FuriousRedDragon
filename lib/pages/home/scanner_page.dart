@@ -32,7 +32,8 @@ class MainScannerPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const SecondScannerPage()),
+                  builder: (context) => const SecondScannerPage(),
+                ),
               );
             },
             buttonTitle: ('Wpisz kod ręcznie'),
@@ -44,7 +45,7 @@ class MainScannerPage extends StatelessWidget {
 }
 
 class SecondScannerPage extends StatefulWidget {
-  const SecondScannerPage({super.key});
+  const SecondScannerPage({Key? key}) : super(key: key);
 
   @override
   _SecondScannerPage createState() => _SecondScannerPage();
@@ -60,14 +61,22 @@ class _SecondScannerPage extends State<SecondScannerPage> {
         leading: const BackButton(
           color: Colors.white,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // This will close the current screen
+            },
+            icon: const Icon(Icons.close, color: Colors.white),
+          ),
+        ],
         toolbarHeight: 80,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(10),
-        )),
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+        ),
         backgroundColor: kFuriousRedColor,
         title: const Text('Skanowanie'),
-        actions: const <Widget>[],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -97,15 +106,8 @@ class _SecondScannerPage extends State<SecondScannerPage> {
                       setState(() {
                         showInfoPopUp = !showInfoPopUp;
                       });
-                    }, 
-                    icon: const Icon(Icons.info, size: 32))
-                /*
-                Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
-                  height: 30,
-                  width: 30,
-                )*/
-                ,
+                    },
+                    icon: const Icon(Icons.info, size: 32)),
               ],
             ),
             kBigGap,
@@ -123,10 +125,14 @@ class _SecondScannerPage extends State<SecondScannerPage> {
   }
 }
 
-class InfoPopUp extends StatelessWidget {
-  const InfoPopUp({super.key});
+class InfoPopUp extends StatefulWidget {
+  const InfoPopUp({Key? key}) : super(key: key);
 
+  @override
+  _InfoPopUpState createState() => _InfoPopUpState();
+}
 
+class _InfoPopUpState extends State<InfoPopUp> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -141,9 +147,20 @@ class InfoPopUp extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Text(
-            'Dlaczego nie mogę zatwierdzić kodu?',
-            style: kGlobalTextStyle.copyWith(fontSize: 17),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Dlaczego nie mogę zatwierdzić kodu?',
+                style: kGlobalTextStyle.copyWith(fontSize: 17),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(Icons.close),
+              ),
+            ],
           ),
           kBigGap,
           Container(
@@ -156,16 +173,15 @@ class InfoPopUp extends StatelessWidget {
               color: Colors.white,
             ),
             padding: const EdgeInsets.all(8),
-            child:
-              Text(
-                'Przed zatwierdzeniem kodu upewnij się, że:\n'
-                '  • kod składa się tylko z cyfr (bez spacji)\n'
-                '  • kod składa się dokładnie z 13 cyfr\n',
-                style: kGlobalTextStyle.copyWith(fontSize: 14, height: 1.5),
-              ),
+            child: Text(
+              'Przed zatwierdzeniem kodu upewnij się, że:\n'
+              '  • kod składa się tylko z cyfr (bez spacji)\n'
+              '  • kod składa się dokładnie z 13 cyfr\n',
+              style: kGlobalTextStyle.copyWith(fontSize: 14, height: 1.5),
+            ),
           ),
         ],
-    )
+      ),
     );
   }
 }
