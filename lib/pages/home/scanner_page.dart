@@ -64,7 +64,9 @@ class _SecondScannerPage extends State<SecondScannerPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pop(); // This will close the current screen
+              setState(() {
+                showInfoPopUp = false; // Hide the popup
+              });
             },
             icon: const Icon(Icons.close, color: Colors.white),
           ),
@@ -102,12 +104,13 @@ class _SecondScannerPage extends State<SecondScannerPage> {
                 ),
                 kBigGap,
                 IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showInfoPopUp = !showInfoPopUp;
-                      });
-                    },
-                    icon: const Icon(Icons.info, size: 32)),
+                  onPressed: () {
+                    setState(() {
+                      showInfoPopUp = !showInfoPopUp;
+                    });
+                  },
+                  icon: const Icon(Icons.info, size: 32),
+                ),
               ],
             ),
             kBigGap,
@@ -117,7 +120,12 @@ class _SecondScannerPage extends State<SecondScannerPage> {
               backgroundColor: kDarkerGrey,
             ),
             kBigGap,
-            if (showInfoPopUp) const InfoPopUp()
+            if (showInfoPopUp)
+              InfoPopUp(onClose: () {
+                setState(() {
+                  showInfoPopUp = false; // Hide the popup
+                });
+              }),
           ],
         ),
       ),
@@ -126,7 +134,9 @@ class _SecondScannerPage extends State<SecondScannerPage> {
 }
 
 class InfoPopUp extends StatefulWidget {
-  const InfoPopUp({Key? key}) : super(key: key);
+  final VoidCallback onClose;
+
+  const InfoPopUp({Key? key, required this.onClose}) : super(key: key);
 
   @override
   _InfoPopUpState createState() => _InfoPopUpState();
@@ -155,9 +165,7 @@ class _InfoPopUpState extends State<InfoPopUp> {
                 style: kGlobalTextStyle.copyWith(fontSize: 17),
               ),
               IconButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                onPressed: widget.onClose,
                 icon: const Icon(Icons.close),
               ),
             ],
