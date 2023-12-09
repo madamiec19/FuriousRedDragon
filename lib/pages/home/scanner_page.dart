@@ -43,8 +43,15 @@ class MainScannerPage extends StatelessWidget {
   }
 }
 
-class SecondScannerPage extends StatelessWidget {
+class SecondScannerPage extends StatefulWidget {
   const SecondScannerPage({super.key});
+
+  @override
+  _SecondScannerPage createState() => _SecondScannerPage();
+}
+
+class _SecondScannerPage extends State<SecondScannerPage> {
+  bool showInfoPopUp = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +75,7 @@ class SecondScannerPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (showInfoPopUp) const InfoPopUp(),
             Text(
               'Wprowadź kod kreskowy:',
               style: kGlobalTextStyle.copyWith(fontSize: 22),
@@ -86,7 +94,12 @@ class SecondScannerPage extends StatelessWidget {
                 ),
                 kBigGap,
                 IconButton(
-                    onPressed: () {}, 
+                    onPressed: () {
+                      print('Klikło się');
+                      setState(() {
+                        showInfoPopUp = !showInfoPopUp;
+                      });
+                    }, 
                     icon: const Icon(Icons.info, size: 32))
                 /*
                 Image.network(
@@ -113,12 +126,28 @@ class SecondScannerPage extends StatelessWidget {
 class InfoPopUp extends StatelessWidget {
   const InfoPopUp({super.key});
 
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: 
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: Colors.red,
+          width: 2,
         ),
+        color: Colors.white,
+      ),
+      padding: const EdgeInsets.all(16),
+      child: const Center(
+        child: Text(
+          'Hello, Flutter!',
+          style: TextStyle(
+            fontSize: 18,
+            color: Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }
