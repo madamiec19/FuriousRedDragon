@@ -277,8 +277,8 @@ class ForgotPasswordText extends StatelessWidget {
   }
 }
 
-class ReportListItem extends StatelessWidget {
-  const ReportListItem({
+class BasicListItem extends StatelessWidget {
+  const BasicListItem({
     super.key,
     required this.onTap,
     required this.buttonTitle,

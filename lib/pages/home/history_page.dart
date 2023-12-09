@@ -4,7 +4,9 @@ import 'package:furious_red_dragon/components/white_card.dart';
 import '../../constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-enum View { history, database }
+enum View { history, database, details }
+
+int selectedRoomId = 0;
 
 final _supabase = Supabase.instance.client;
 
@@ -50,7 +52,7 @@ class _HistoryPageState extends State<HistoryPage> {
           else if (selectedView == View.database)
             const Expanded(
               child: WhiteCard(
-                child: Text('Baza danych'),
+                child: RoomsStream(),
               ),
             )
         ],
@@ -83,18 +85,130 @@ class _ReportsStreamState extends State<ReportsStream> {
             );
           }
           final reports = snapshot.data;
-          List<ReportListItem> reportListItems = [];
+          List<BasicListItem> reportListItems = [];
           for (var report in reports!) {
             final room = report['room'];
             final author = report['author'];
             final reportString = room + ', ' + author;
-            reportListItems.add(ReportListItem(
+            reportListItems.add(BasicListItem(
               onTap: () {},
               buttonTitle: reportString,
             ));
           }
           return ListView(
             children: reportListItems,
+          );
+        });
+  }
+}
+
+class RoomsStream extends StatefulWidget {
+  const RoomsStream({super.key});
+
+  @override
+  State<RoomsStream> createState() => _RoomsStreamState();
+}
+
+class _RoomsStreamState extends State<RoomsStream> {
+  final _stream = _supabase.from('rooms').stream(primaryKey: ['id']);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: _stream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: kFuriousRedColor,
+                backgroundColor: kLightGrey,
+              ),
+            );
+          }
+          final rooms = snapshot.data;
+          List<BasicListItem> reportListItems = [];
+          for (var room in rooms!) {
+            final name = room['name'];
+            final building = room['id_building'];
+            final floor = room['floor'];
+            final roomString = 'Sala ' +
+                floor.toString() +
+                "/" +
+                name.toString() +
+                " p." +
+                floor.toString() +
+                ", bud. " +
+                building.toString();
+            reportListItems.add(BasicListItem(
+              onTap: () {
+                selectedRoomId = room['id'];
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => RoomDetailsScreen()));
+              },
+              buttonTitle: roomString,
+            ));
+          }
+          return ListView(
+            children: reportListItems,
+          );
+        });
+  }
+}
+
+class RoomDetailsScreen extends StatelessWidget {
+  const RoomDetailsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: WhiteCard(
+        child: ItemsStream(),
+      ),
+    );
+  }
+}
+
+class ItemsStream extends StatefulWidget {
+  const ItemsStream({super.key});
+
+  @override
+  State<ItemsStream> createState() => _ItemsStreamState();
+}
+
+class _ItemsStreamState extends State<ItemsStream> {
+  final _stream = _supabase
+      .from('items')
+      .stream(primaryKey: ['id']).eq('id_room', selectedRoomId);
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+        stream: _stream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: kFuriousRedColor,
+                backgroundColor: kLightGrey,
+              ),
+            );
+          }
+          final items = snapshot.data;
+          List<BasicListItem> itemsListItems = [];
+          for (var item in items!) {
+            final type = item['type'];
+            final brand = item['brand'];
+            final serialNumber = item['serial_number'];
+            final reportString = type + ' ' + brand;
+            itemsListItems.add(BasicListItem(
+              onTap: () {},
+              buttonTitle: reportString,
+            ));
+          }
+          return ListView(
+            children: itemsListItems,
           );
         });
   }
