@@ -61,16 +61,6 @@ class _SecondScannerPage extends State<SecondScannerPage> {
         leading: const BackButton(
           color: Colors.white,
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                showInfoPopUp = false; // Hide the popup
-              });
-            },
-            icon: const Icon(Icons.close, color: Colors.white),
-          ),
-        ],
         toolbarHeight: 80,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
@@ -123,7 +113,7 @@ class _SecondScannerPage extends State<SecondScannerPage> {
             if (showInfoPopUp)
               InfoPopUp(onClose: () {
                 setState(() {
-                  showInfoPopUp = false; // Hide the popup
+                  showInfoPopUp = false;
                 });
               }),
           ],
@@ -146,6 +136,7 @@ class _InfoPopUpState extends State<InfoPopUp> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.bottomCenter,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
@@ -162,7 +153,7 @@ class _InfoPopUpState extends State<InfoPopUp> {
             children: [
               Text(
                 'Dlaczego nie mogę zatwierdzić kodu?',
-                style: kGlobalTextStyle.copyWith(fontSize: 17),
+                style: kGlobalTextStyle.copyWith(fontSize: 15),
               ),
               IconButton(
                 onPressed: widget.onClose,
@@ -170,8 +161,8 @@ class _InfoPopUpState extends State<InfoPopUp> {
               ),
             ],
           ),
-          kBigGap,
           Container(
+            alignment: Alignment.bottomCenter,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(
