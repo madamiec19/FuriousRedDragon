@@ -140,15 +140,37 @@ class InfoPopUp extends StatelessWidget {
         color: Colors.white,
       ),
       padding: const EdgeInsets.all(16),
-      child: const Center(
-        child: Text(
-          'Dlaczego nie mogę zatwierdzić kodu?',
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.black,
+      child: Column(
+        children: [
+          const Text(
+            'Dlaczego nie mogę zatwierdzić kodu?',
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.black,
+            ),
           ),
-        ),
-      ),
+          kBigGap,
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8), // Zaokrąglenie dla wewnętrznej ramki
+              border: Border.all(
+                color: Colors.grey, // Kolor wewnętrznej ramki (szary)
+                width: 2,
+              ),
+              color: Colors.white, // Kolor wypełnienia wewnętrznej ramki
+            ),
+            padding: const EdgeInsets.all(8),
+            child: // Tutaj umieść dowolny inny obiekt
+              const Text(
+                'Przed zatwierdzeniem kodu upewnij się, że:',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.black,
+                ),
+              ),
+          ),
+        ],
+    )
     );
   }
 }
