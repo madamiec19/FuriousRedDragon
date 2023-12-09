@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/components/scan_barcode.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:furious_red_dragon/pages/home/add_room.dart';
 import 'package:furious_red_dragon/pages/login_page.dart';
+import 'package:furious_red_dragon/pages/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'pages/register_page.dart';
 
 import 'pages/home_page.dart';
-import 'pages/splash_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

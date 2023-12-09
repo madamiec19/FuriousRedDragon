@@ -19,8 +19,13 @@ const TextStyle kGlobalTextStyle =
 
 const kButtonElevation = 2.0;
 
+/// Creates a gap that has 10px.
 const Widget kSmallGap = Gap(10);
+
+/// Creates a gap that has 15px.
 const Widget kMediumGap = Gap(15);
+
+/// Creates a gap that has 20px.
 const Widget kBigGap = Gap(20);
 
 const kDragonLogoPath = 'assets/images/dragon.png';

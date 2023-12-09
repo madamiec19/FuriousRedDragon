@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/components/scan_barcode.dart';
 
 import '../../constants.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
@@ -18,26 +19,27 @@ class MainScannerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 200,
-            width: 200,
-            color: kDarkerGrey,
-          ),
-          kBigGap,
-          BigWhiteButton(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const SecondScannerPage()),
-              );
-            },
-            buttonTitle: ('Wpisz kod ręcznie'),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Expanded(
+              child: BarcodeReader(),
+            ),
+            kBigGap,
+            BigWhiteButton(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SecondScannerPage()),
+                );
+              },
+              buttonTitle: ('Wpisz kod ręcznie'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -86,14 +88,7 @@ class SecondScannerPage extends StatelessWidget {
                 ),
                 kBigGap,
                 IconButton(
-                    onPressed: () {}, icon: const Icon(Icons.info, size: 32))
-                /*
-                Image.network(
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Minimalist_info_Icon.png/800px-Minimalist_info_Icon.png',
-                  height: 30,
-                  width: 30,
-                )*/
-                ,
+                    onPressed: () {}, icon: const Icon(Icons.info, size: 32)),
               ],
             ),
             kBigGap,

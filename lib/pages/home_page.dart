@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/components/scan_barcode.dart';
 import 'package:furious_red_dragon/pages/home/account_page.dart';
 import 'package:furious_red_dragon/pages/home/help_page.dart';
 import 'package:furious_red_dragon/pages/home/history_page.dart';

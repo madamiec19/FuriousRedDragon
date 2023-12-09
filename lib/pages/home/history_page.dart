@@ -131,21 +131,14 @@ class _RoomsStreamState extends State<RoomsStream> {
             final name = room['name'];
             final building = room['id_building'];
             final floor = room['floor'];
-            final roomString = 'Sala ' +
-                floor.toString() +
-                "/" +
-                name.toString() +
-                " p." +
-                floor.toString() +
-                ", bud. " +
-                building.toString();
+            final roomString = 'Sala $floor/$name p.$floor, bud. $building';
             reportListItems.add(BasicListItem(
               onTap: () {
                 selectedRoomId = room['id'];
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => RoomDetailsScreen()));
+                        builder: (context) => const RoomDetailsScreen()));
               },
               buttonTitle: roomString,
             ));
@@ -164,7 +157,7 @@ class RoomDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: WhiteCard(
+      body: const WhiteCard(
         child: ItemsStream(),
       ),
     );

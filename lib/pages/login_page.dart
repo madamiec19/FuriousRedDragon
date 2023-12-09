@@ -7,6 +7,7 @@ import 'package:furious_red_dragon/components/input.dart';
 import 'package:furious_red_dragon/pages/home_page.dart';
 import 'package:furious_red_dragon/pages/forget_password/email_check_page.dart';
 
+/// This class creates a Login Page, where a user can login
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -73,8 +74,7 @@ class LoginPage extends StatelessWidget {
               BigRedButton(
                 onTap: () async {
                   try {
-                    final AuthResponse res =
-                        await supabase.auth.signInWithPassword(
+                    await supabase.auth.signInWithPassword(
                       email: emailController.text,
                       password: passwordController.text,
                     );
