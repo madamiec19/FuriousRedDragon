@@ -75,7 +75,6 @@ class _SecondScannerPage extends State<SecondScannerPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (showInfoPopUp) const InfoPopUp(),
             Text(
               'Wprowadź kod kreskowy:',
               style: kGlobalTextStyle.copyWith(fontSize: 22),
@@ -115,7 +114,9 @@ class _SecondScannerPage extends State<SecondScannerPage> {
               onTap: () {},
               buttonTitle: ('Zatwierdź'),
               backgroundColor: kDarkerGrey,
-            )
+            ),
+            kBigGap,
+            if (showInfoPopUp) const InfoPopUp()
           ],
         ),
       ),
@@ -141,7 +142,7 @@ class InfoPopUp extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: const Center(
         child: Text(
-          'Hello, Flutter!',
+          'Dlaczego nie mogę zatwierdzić kodu?',
           style: TextStyle(
             fontSize: 18,
             color: Colors.black,
