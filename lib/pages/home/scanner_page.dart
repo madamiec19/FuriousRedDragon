@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../constants.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
+import 'package:flutter/services.dart';
 
 class ScannerPage extends StatelessWidget {
   const ScannerPage({super.key});
@@ -55,6 +56,8 @@ class _SecondScannerPage extends State<SecondScannerPage> {
   bool showInfoPopUp = false;
   TextEditingController barCodeController = TextEditingController();
   Color buttonColor = kDarkerGrey;
+  Color buttonTextColor = Colors.black;
+  int inputMaxLenght = 8;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +92,7 @@ class _SecondScannerPage extends State<SecondScannerPage> {
               onTap: () {},
               buttonTitle: ('Zatwierdź'),
               backgroundColor: buttonColor,
+              textColor: buttonTextColor,
             ),
             kBigGap,
             if (showInfoPopUp) popUpInfo(),
@@ -105,13 +109,18 @@ class _SecondScannerPage extends State<SecondScannerPage> {
           child: TextField(
             controller: barCodeController,
             keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+              LengthLimitingTextInputFormatter(inputMaxLenght),
+            ],
             decoration: const InputDecoration(
+              counterText: '',
               hintText: 'Wprowadź cyfry',
               border: OutlineInputBorder(),
             ),
             onChanged: (text) {
               setState(() {
-                buttonColor = barCodeController.text.length != 2 ? kDarkerGrey : Colors.green;
+                colorController();
               });    
             },
           ),
@@ -127,6 +136,17 @@ class _SecondScannerPage extends State<SecondScannerPage> {
         ),
       ],
     );
+  }
+
+  void colorController() {
+    if (barCodeController.text.length != inputMaxLenght) {
+      buttonColor = kDarkerGrey;
+      buttonTextColor = Colors.black;
+    }
+    else {
+      buttonColor = kFuriousRedColor;
+      buttonTextColor = Colors.white;
+    }
   }
 
   InfoPopUp popUpInfo() {
