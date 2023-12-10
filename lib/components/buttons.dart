@@ -101,12 +101,14 @@ class SmallButton extends StatelessWidget {
   const SmallButton(
       {super.key,
       this.backgroundColor = kDarkerGrey,
+      this.textColor = Colors.black,
       required this.onTap,
       required this.buttonTitle});
 
   final Function onTap;
   final String buttonTitle;
   final Color backgroundColor;
+  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +126,7 @@ class SmallButton extends StatelessWidget {
         buttonTitle,
         textAlign: TextAlign.center,
         style: kGlobalTextStyle.copyWith(
-          color: Colors.black,
+          color: textColor,
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
