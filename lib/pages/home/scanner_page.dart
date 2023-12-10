@@ -53,6 +53,8 @@ class SecondScannerPage extends StatefulWidget {
 
 class _SecondScannerPage extends State<SecondScannerPage> {
   bool showInfoPopUp = false;
+  TextEditingController barCodeController = TextEditingController();
+  Color buttonColor = kDarkerGrey;
 
   @override
   Widget build(BuildContext context) {
@@ -81,45 +83,58 @@ class _SecondScannerPage extends State<SecondScannerPage> {
               style: kGlobalTextStyle.copyWith(fontSize: 22),
             ),
             kBigGap,
-            Row(
-              children: [
-                const Expanded(
-                  child: TextField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      hintText: 'Wprowadź cyfry',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                ),
-                kBigGap,
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      showInfoPopUp = !showInfoPopUp;
-                    });
-                  },
-                  icon: const Icon(Icons.info, size: 32),
-                ),
-              ],
-            ),
+            inputAndIcon(),
             kBigGap,
             SmallButton(
               onTap: () {},
               buttonTitle: ('Zatwierdź'),
-              backgroundColor: kDarkerGrey,
+              backgroundColor: buttonColor,
             ),
             kBigGap,
-            if (showInfoPopUp)
-              InfoPopUp(onClose: () {
-                setState(() {
-                  showInfoPopUp = false;
-                });
-              }),
+            if (showInfoPopUp) popUpInfo(),
           ],
         ),
       ),
     );
+  }
+
+  Row inputAndIcon() {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            controller: barCodeController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              hintText: 'Wprowadź cyfry',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (text) {
+              setState(() {
+                buttonColor = barCodeController.text.length != 2 ? kDarkerGrey : Colors.green;
+              });    
+            },
+          ),
+        ),
+        kBigGap,
+        IconButton(
+          onPressed: () {
+            setState(() {
+              showInfoPopUp = !showInfoPopUp;
+            });
+          },
+          icon: const Icon(Icons.info, size: 32),
+        ),
+      ],
+    );
+  }
+
+  InfoPopUp popUpInfo() {
+    return InfoPopUp(onClose: () {
+      setState(() {
+        showInfoPopUp = false;
+      });
+    });
   }
 }
 
@@ -148,38 +163,46 @@ class _InfoPopUpState extends State<InfoPopUp> {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                'Dlaczego nie mogę zatwierdzić kodu?',
-                style: kGlobalTextStyle.copyWith(fontSize: 15),
-              ),
-              IconButton(
-                onPressed: widget.onClose,
-                icon: const Icon(Icons.close),
-              ),
-            ],
-          ),
-          Container(
-            alignment: Alignment.bottomCenter,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                color: Colors.grey,
-                width: 2,
-              ),
-              color: Colors.white,
-            ),
-            padding: const EdgeInsets.all(8),
-            child: Text(
-              'Przed zatwierdzeniem kodu upewnij się, że:\n'
-              '  • kod składa się tylko z cyfr (bez spacji)\n'
-              '  • kod składa się dokładnie z 13 cyfr\n',
-              style: kGlobalTextStyle.copyWith(fontSize: 14, height: 1.5),
-            ),
-          ),
+          textAndExit(),
+          textInFrame(),
         ],
+      ),
+    );
+  }
+
+  Row textAndExit() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(
+          'Dlaczego nie mogę zatwierdzić kodu?',
+          style: kGlobalTextStyle.copyWith(fontSize: 15),
+        ),
+        IconButton(
+          onPressed: widget.onClose,
+          icon: const Icon(Icons.close),
+        ),
+      ],
+    );
+  }
+
+  Container textInFrame() {
+    return Container(
+      alignment: Alignment.bottomCenter,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
+        ),
+        color: Colors.white,
+      ),
+      padding: const EdgeInsets.all(8),
+      child: Text(
+        'Przed zatwierdzeniem kodu upewnij się, że:\n'
+        '  • kod składa się tylko z cyfr (bez spacji)\n'
+        '  • kod składa się dokładnie z 13 cyfr\n',
+        style: kGlobalTextStyle.copyWith(fontSize: 14, height: 1.5),
       ),
     );
   }
