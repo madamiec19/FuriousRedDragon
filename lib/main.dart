@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:furious_red_dragon/components/scan_barcode.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:furious_red_dragon/pages/home/add_room.dart';
 import 'package:furious_red_dragon/pages/login_page.dart';
