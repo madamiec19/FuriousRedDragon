@@ -8,7 +8,9 @@ import 'package:furious_red_dragon/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../main.dart';
+import 'login_page.dart';
 
+// ignore: must_be_immutable
 @override
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
@@ -40,61 +42,73 @@ class RegisterPage extends StatelessWidget {
 
   // Function to show a Token Confirmation Dialog
   Future<void> _showTokenConfirmationDialog(String email) async {
-    return showDialog(
-      context: _context!,
-      builder: (context) => AlertDialog(
-        title: const Text('Potwierdź rejestrację'),
-        content: Column(
-          children: [
-            const Text(
-                'Wprowadź token potwierdzający rejestrację, który został wysłany na Twój adres e-mail.'),
-            kMediumGap,
-            TextFormField(
-              controller: tokenController,
-              decoration: const InputDecoration(labelText: 'Token'),
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  showDialog(
+    context: _context!,
+    builder: (context) {
+      return Builder(
+        builder: (BuildContext context) {
+          return Scaffold(
+            key: scaffoldKey,
+            appBar: AppBar(
+              title: const Text('Potwierdź rejestrację'),
             ),
-          ],
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () async {
-              try {
-                //Verify the token with Supabase
-                await supabase.auth.verifyOTP(
-                  type: OtpType.signup,
-                  token: tokenController.text,
-                  email: email,
-                );
+            body: AlertDialog(
+              content: Column(
+                children: [
+                  const Text('Wprowadź token potwierdzający rejestrację, który został wysłany na Twój adres e-mail.'),
+                  kMediumGap,
+                  TextFormField(
+                    controller: tokenController,
+                    decoration: const InputDecoration(labelText: 'Token'),
+                  ),
+                ],
+              ),
+              actions: [
+                BigRedButton(
+                  onTap: () async {
+                    try {
+                      // Verify the token with Supabase
+                      await supabase.auth.verifyOTP(
+                        type: OtpType.signup,
+                        token: tokenController.text,
+                        email: email,
+                      );
+                      // Handle verification error
+                    } catch (error) {
+                      _showSnackBar('Nieudana weryfikacja tokena. Sprawdź poprawność tokena.');
+                      return;
+                    }
 
-                //Add new user
-                await supabase.from('roles').insert([
-                  {
-                    'status': 'admin',
-                    'email': email,
-                  }
-                ]);
+                    // Add new user
+                    await supabase.from('roles').insert([
+                      {
+                        'status': 'admin',
+                        'email': email,
+                      }
+                    ]);
 
-                // Close the dialog
-                if (!context.mounted) return;
-                Navigator.pop(context);
+                    // Close the dialog
+                    if (!context.mounted) return;
+                    Navigator.pop(context);
 
-                // Show a success message
-                _showSnackBar('Zarejestrowano pomyślnie!');
-              } catch (error) {
-                // Close the dialog
-                if (!context.mounted) return;
-                Navigator.pop(context);
-                // Handle verification error
-                _showSnackBar(
-                    'Weryfikacja nieudana. Sprawdź poprawność tokena.');
-              }
-            },
-            child: const Text('Potwierdź'),
-          ),
-        ],
-      ),
-    );
-  }
+                    _showSnackBar('Zarejestrowano pomyślnie!');
+
+                    // Navigate to login page
+                    Navigator.pushNamed(context, LoginPage.routeName);
+                  },
+                  buttonTitle:'Potwierdź',
+                  
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    },
+  );
+}
 
   @override
   Widget build(BuildContext context) {
