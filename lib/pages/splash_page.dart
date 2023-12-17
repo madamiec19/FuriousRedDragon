@@ -1,63 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 import 'package:furious_red_dragon/constants.dart';
+import 'package:furious_red_dragon/main.dart';
+import 'package:furious_red_dragon/pages/home_page.dart';
+import 'package:furious_red_dragon/pages/welcome_page.dart';
 
-import 'login_page.dart';
-import 'register_page.dart';
-
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
-  static const routeName = '/';
+  static const routeName = '/splash';
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+    _redirect();
+  }
+
+  Future<void> _redirect() async {
+    await Future.delayed(Duration.zero);
+    if (!mounted) {
+      return;
+    }
+
+    final session = supabase.auth.currentSession;
+    if (session != null) {
+      Navigator.pushReplacementNamed(context, HomePage.routeName);
+    } else {
+      Navigator.pushReplacementNamed(context, WelcomePage.routeName);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        margin: kSplashInputMargin,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: kSplashInputMargin,
-              child: Image.asset(kDragonLogoPath, width: kScreenWidth * 0.5),
-            ),
-            Container(
-              color: Colors.white,
-              child: Text(
-                'WŚCIEKŁY CZERWONY SMOK',
-                textAlign: TextAlign.center,
-                style: kGlobalTextStyle.copyWith(
-                  color: kFuriousRedColor,
-                  fontSize: 26,
-                  fontFamily: 'Ruslan Display',
-                  height: 1.75,
-                ),
-              ),
-            ),
-            kBigGap,
-            SizedBox(
-              width: double.infinity,
-              child: BigRedButton(
-                  onTap: () {
-                    Navigator.pushNamed(context, LoginPage.routeName);
-                  },
-                  buttonTitle: 'Zaloguj się'),
-            ),
-            kBigGap,
-            SizedBox(
-              width: double.infinity,
-              child: BigWhiteButton(
-                  borderColor: kFuriousRedColor,
-                  onTap: () {
-                    Navigator.pushNamed(context, RegisterPage.routeName);
-                  },
-                  buttonTitle: 'Zarejestruj się'),
-            ),
-          ],
-        ),
-      ),
+    return const Scaffold(
+      body: Center(child: CircularProgressIndicator()),
     );
   }
 }

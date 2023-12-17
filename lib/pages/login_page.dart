@@ -83,8 +83,9 @@ class LoginPage extends StatelessWidget {
                     _showErrorDialog(context, authError.message);
                     return;
                   }
-                  Navigator.of(context)
-                      .pushReplacementNamed(HomePage.routeName);
+                  Navigator.popUntil(
+                      context, ModalRoute.withName("/welcomePage"));
+                  Navigator.pushReplacementNamed(context, HomePage.routeName);
                 },
                 buttonTitle: 'Zaloguj się',
               ),
