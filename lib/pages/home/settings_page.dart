@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/main.dart';
 import 'package:furious_red_dragon/pages/welcome_page.dart';
 import 'package:furious_red_dragon/pages/splash_page.dart';
+import 'package:furious_red_dragon/sevices/auth_service.dart';
 import 'delete_account.dart'; // Załóżmy, że plik delete_account.dart znajduje się w tym samym folderze co ten plik
 import 'package:furious_red_dragon/components/buttons.dart';
 import '../../constants.dart';
@@ -55,10 +56,8 @@ class SettingsPage extends StatelessWidget {
               ),
               kMediumGap,
               BigWhiteButton(
-                  onTap: () async {
-                    await supabase.auth
-                        .signOut()
-                        .then((value) => getBackToSplash(context));
+                  onTap: () {
+                    AuthService(client).signOut();
                   },
                   buttonTitle: 'Wyloguj')
             ],

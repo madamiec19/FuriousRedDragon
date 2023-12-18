@@ -67,7 +67,7 @@ class DeleteAccountPage extends StatelessWidget {
   }
 
   Future<void> deleteUser(context) async {
-    var uuid = supabase.auth.currentUser?.id;
+    var uuid = client.auth.currentUser?.id;
 
     // await supabase.auth.admin
     //     .deleteUser(uuid!)

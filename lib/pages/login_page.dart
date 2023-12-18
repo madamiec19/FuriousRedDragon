@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/components/buttons.dart';
 import 'package:furious_red_dragon/components/splash_back_button.dart';
 import 'package:furious_red_dragon/constants.dart';
+import 'package:furious_red_dragon/main.dart';
+import 'package:furious_red_dragon/sevices/auth_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:furious_red_dragon/components/input.dart';
 import 'package:furious_red_dragon/pages/home_page.dart';
@@ -15,7 +17,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final supabase = Supabase.instance.client;
     TextEditingController passwordController = TextEditingController();
     TextEditingController emailController = TextEditingController();
 
@@ -72,19 +73,12 @@ class LoginPage extends StatelessWidget {
               ),
               kBigGap,
               BigRedButton(
-                onTap: () async {
-                  try {
-                    await supabase.auth.signInWithPassword(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-                  } on AuthException catch (authError) {
-                    print('Błąd logowania: $authError');
-                    _showErrorDialog(context, authError.message);
-                    return;
-                  }
+                onTap: () {
+                  AuthService auth = AuthService(client);
+                  auth.signInUser(emailController.text.trim(),
+                      passwordController.text.trim());
                   Navigator.popUntil(
-                      context, ModalRoute.withName("/welcomePage"));
+                      context, ModalRoute.withName('/welcomePage'));
                   Navigator.pushReplacementNamed(context, HomePage.routeName);
                 },
                 buttonTitle: 'Zaloguj się',
