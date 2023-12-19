@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/constants.dart';
 import 'package:furious_red_dragon/pages/home/add_room.dart';
+import 'package:furious_red_dragon/pages/home/history_tab/room_details_screen.dart';
 import 'package:furious_red_dragon/pages/login_page.dart';
 import 'package:furious_red_dragon/pages/welcome_page.dart';
 import 'package:furious_red_dragon/pages/splash_page.dart';
@@ -20,8 +21,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-final client = Supabase.instance.client;
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -38,6 +37,7 @@ class MyApp extends StatelessWidget {
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
         AddRoomPage.routeName: (context) => const AddRoomPage(),
+        RoomDetailsScreen.routeName: (context) => const RoomDetailsScreen(),
       },
       navigatorKey: MyApp.navigatorKey,
       theme: ThemeData(

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/main.dart';
 import 'package:gap/gap.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+final client = Supabase.instance.client;
 
 const kFuriousRedColor = Color.fromRGBO(193, 39, 38, 1);
 const kPageBackgroundColor = Color.fromRGBO(243, 243, 243, 1);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/main.dart';
 import 'package:furious_red_dragon/pages/home/account_page.dart';
 import 'package:furious_red_dragon/pages/home/help_page.dart';
-import 'package:furious_red_dragon/pages/home/history_page.dart';
+import 'package:furious_red_dragon/pages/home/history_tab/history_page.dart';
 import 'package:furious_red_dragon/pages/home/scanner_page.dart';
 import 'package:furious_red_dragon/pages/home/settings_page.dart';
 import 'package:furious_red_dragon/sevices/auth_service.dart';
