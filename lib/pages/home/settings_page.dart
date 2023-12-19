@@ -56,8 +56,9 @@ class SettingsPage extends StatelessWidget {
               ),
               kMediumGap,
               BigWhiteButton(
-                  onTap: () {
-                    AuthService(client).signOut();
+                  onTap: () async {
+                    await AuthService(client).signOut();
+                    getBackToSplash(context);
                   },
                   buttonTitle: 'Wyloguj')
             ],
