@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:furious_red_dragon/main.dart';
+import 'package:furious_red_dragon/core/main.dart';
 
 void main() {
   // Example test
