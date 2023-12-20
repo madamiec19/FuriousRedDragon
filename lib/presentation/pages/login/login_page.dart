@@ -3,12 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/splash_back_button.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/domain/services/auth_service.dart';
 import 'package:furious_red_dragon/presentation/pages/login/login_bloc.dart';
-import 'package:modal_progress_hud_alt/modal_progress_hud_alt.dart';
-import 'package:furious_red_dragon/presentation/components/input.dart';
 import 'package:furious_red_dragon/presentation/pages/home_page.dart';
-import 'package:furious_red_dragon/presentation/pages/forget_password/email_check_page.dart';
 
 /// This class creates a Login Page, where a user can login
 class LoginPage extends StatefulWidget {
@@ -66,26 +62,6 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-void _showErrorDialog(BuildContext context, String errorMessage) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Błąd logowania'),
-        content: Text(errorMessage),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      );
-    },
-  );
-}
-
 class _LoginForm extends StatelessWidget {
   const _LoginForm();
 
@@ -99,7 +75,7 @@ class _LoginForm extends StatelessWidget {
             Navigator.pushReplacementNamed(context, HomePage.routeName);
           }
           if (state.formSubmissionStatus == FormSubmissionStatus.failure) {
-            _showErrorDialog(context, '');
+            _showErrorDialog(context, state.errorMessage!);
           }
         },
         child: const Column(
@@ -206,7 +182,7 @@ class _PasswordInputField extends StatelessWidget {
 }
 
 class _LoginButton extends StatelessWidget {
-  const _LoginButton({super.key});
+  const _LoginButton();
 
   @override
   Widget build(BuildContext context) => BlocBuilder<LoginBloc, LoginState>(
@@ -216,4 +192,24 @@ class _LoginButton extends StatelessWidget {
                 : context.read<LoginBloc>().add(LoginButtonPressed()),
             buttonTitle: state.isSubmitting() ? 'Logowanie...' : 'Login',
           ));
+}
+
+void _showErrorDialog(BuildContext context, String errorMessage) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Błąd logowania'),
+        content: Text(errorMessage),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+        ],
+      );
+    },
+  );
 }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/presentation/pages/home_page.dart';
-import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
-import 'package:furious_red_dragon/domain/services/auth_service.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

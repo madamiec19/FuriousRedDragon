@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/core/dependency_injection.dart';
-import 'package:furious_red_dragon/presentation/auth_bloc.dart';
+import 'package:furious_red_dragon/domain/auth_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/login/login_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/add_room.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/room_details_screen.dart';

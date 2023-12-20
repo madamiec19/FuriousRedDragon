@@ -30,8 +30,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         password: state.password.value,
       );
       emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.success));
-    } catch (_) {
-      emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.failure));
+    } catch (error) {
+      emit(state.copyWith(
+        formSubmissionStatus: FormSubmissionStatus.failure,
+        errorMessage: error.toString(),
+      ));
     }
   }
 
@@ -79,22 +82,25 @@ class LoginState extends Equatable {
   final EmailAddress email;
   final Password password;
   final FormSubmissionStatus formSubmissionStatus;
+  final String? errorMessage;
 
-  const LoginState({
-    this.email = EmailAddress.empty,
-    this.password = Password.empty,
-    this.formSubmissionStatus = FormSubmissionStatus.initial,
-  });
+  const LoginState(
+      {this.email = EmailAddress.empty,
+      this.password = Password.empty,
+      this.formSubmissionStatus = FormSubmissionStatus.initial,
+      this.errorMessage});
 
   LoginState copyWith({
     EmailAddress? email,
     Password? password,
     FormSubmissionStatus? formSubmissionStatus,
+    String? errorMessage,
   }) =>
       LoginState(
         email: email ?? this.email,
         password: password ?? this.password,
         formSubmissionStatus: formSubmissionStatus ?? this.formSubmissionStatus,
+        errorMessage: errorMessage ?? this.errorMessage,
       );
 
   @override
@@ -102,6 +108,7 @@ class LoginState extends Equatable {
         email,
         password,
         formSubmissionStatus,
+        errorMessage,
       ];
 
   bool isSubmitting() =>

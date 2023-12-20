@@ -13,7 +13,7 @@ import 'package:furious_red_dragon/data/repositories/authentication/authenticati
     as _i5;
 import 'package:furious_red_dragon/domain/repositories/authentication/i_authentication_repository.dart'
     as _i4;
-import 'package:furious_red_dragon/presentation/auth_bloc.dart' as _i7;
+import 'package:furious_red_dragon/domain/auth_bloc.dart' as _i7;
 import 'package:furious_red_dragon/presentation/pages/login/login_bloc.dart'
     as _i6;
 import 'package:get_it/get_it.dart' as _i1;

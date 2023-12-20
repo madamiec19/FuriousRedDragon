@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:furious_red_dragon/presentation/auth_bloc.dart';
+import 'package:furious_red_dragon/domain/auth_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/account_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/help_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/history_page.dart';
@@ -11,11 +11,16 @@ import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import '../components/nav_tabs.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   static const routeName = '/home';
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthStatus>(
@@ -36,7 +41,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             backgroundColor: kFuriousRedColor,
-            title: Text('Witaj, ${AuthService(client).getEmail()}'),
+            title: const TextNameAppBar(),
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -66,6 +71,23 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class TextNameAppBar extends StatelessWidget {
+  const TextNameAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AuthBloc, AuthStatus>(
+      builder: (context, state) {
+        if (state is AuthUserAuthenticated) {
+          String email = state.user.email.toString();
+          return Text('Witaj, $email ');
+        }
+        return const Placeholder();
+      },
     );
   }
 }
