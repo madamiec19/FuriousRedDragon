@@ -15,24 +15,6 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   @override
-  void initState() {
-    super.initState();
-    _redirect();
-  }
-
-  Future<void> _redirect() async {
-    await Future.delayed(Duration.zero);
-    if (!mounted) {
-      return;
-    }
-    if (AuthService(client).isLoggedIn()) {
-      Navigator.pushReplacementNamed(context, HomePage.routeName);
-    } else {
-      Navigator.pushReplacementNamed(context, WelcomePage.routeName);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(

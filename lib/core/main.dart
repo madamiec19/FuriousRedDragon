@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/core/dependency_injection.dart';
 import 'package:furious_red_dragon/presentation/auth_bloc.dart';
+import 'package:furious_red_dragon/presentation/pages/login/login_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/add_room.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/room_details_screen.dart';
-import 'package:furious_red_dragon/presentation/login/login_page.dart';
+import 'package:furious_red_dragon/presentation/pages/login/login_page.dart';
 import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import 'package:furious_red_dragon/presentation/pages/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,20 +14,25 @@ import '../presentation/pages/register_page.dart';
 
 import '../presentation/pages/home_page.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
+void main() async {
   await Supabase.initialize(
     url: 'https://ubjqvkvameebwmsjujbd.supabase.co',
     anonKey:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVianF2a3ZhbWVlYndtc2p1amJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkwNjIwNTUsImV4cCI6MjAxNDYzODA1NX0.C0T-L8L_T5ny_gL2Mm4RAQJ36-DtZDoByAbLAqPcymk',
   );
-
+  WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
 
   runApp(
-    BlocProvider(
-      create: (_) => getIt<AuthBloc>()..add(AuthInitialCheckRequested()),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<AuthBloc>(
+          create: (_) => getIt<AuthBloc>()..add(AuthInitialCheckRequested()),
+        ),
+        BlocProvider(
+          create: (_) => getIt<LoginBloc>(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );

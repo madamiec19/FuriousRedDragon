@@ -13,9 +13,6 @@ class EmailCheckPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final supabase = Supabase.instance.client;
-    final TextEditingController emailController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 70,
@@ -45,20 +42,9 @@ class EmailCheckPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                CustomTextField(
-                  labelText: 'Email',
-                  controller: emailController,
-                ),
                 kBigGap,
                 BigRedButton(
-                  onTap: () async {
-                    var email = emailController.text;
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                ResetPasswordPage(email: email)));
-                  },
+                  onTap: () {},
                   buttonTitle: 'Zatwierdź',
                 ),
               ],

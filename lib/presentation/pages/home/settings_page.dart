@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import 'package:furious_red_dragon/domain/services/auth_service.dart';
-import 'delete_account.dart'; // Załóżmy, że plik delete_account.dart znajduje się w tym samym folderze co ten plik
+import 'delete_account.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 
@@ -67,7 +67,7 @@ class SettingsPage extends StatelessWidget {
   }
 
   void getBackToSplash(context) {
-    Navigator.popUntil(context, ModalRoute.withName("/"));
+    Navigator.popUntil(context, ModalRoute.withName('/welcomePage'));
     Navigator.pushNamed(context, WelcomePage.routeName);
   }
 }

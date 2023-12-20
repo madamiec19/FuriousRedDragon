@@ -6,7 +6,7 @@ import 'package:furious_red_dragon/domain/repositories/entities/email_address.da
 import 'package:furious_red_dragon/domain/repositories/entities/password.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@Injectable()
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final IAuthenticationRepository _authenticationRepository;
 
@@ -50,6 +50,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           formSubmissionStatus: FormSubmissionStatus.initial));
 }
 
+//Events
 abstract class LoginEvent {}
 
 class LoginEmailAddressChanged extends LoginEvent {
@@ -66,6 +67,7 @@ class LoginPasswordChanged extends LoginEvent {
 
 class LoginButtonPressed extends LoginEvent {}
 
+//Status
 enum FormSubmissionStatus {
   initial,
   submitting,

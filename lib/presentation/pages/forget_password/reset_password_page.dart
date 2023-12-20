@@ -44,16 +44,6 @@ class ResetPasswordPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                CustomTextField(
-                  labelText: 'Hasło',
-                  controller: passwordController1,
-                  obscureText: true,
-                ),
-                CustomTextField(
-                  labelText: 'Powtórz hasło',
-                  controller: passwordController2,
-                  obscureText: true,
-                ),
                 kBigGap,
                 BigRedButton(
                   onTap: () async {

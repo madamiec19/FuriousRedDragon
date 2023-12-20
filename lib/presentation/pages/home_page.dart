@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
+    return BlocListener<AuthBloc, AuthStatus>(
       listener: (BuildContext context, state) {
         if (state is AuthUserUnauthenticated) {
           Navigator.pushReplacementNamed(context, WelcomePage.routeName);

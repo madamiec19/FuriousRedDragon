@@ -8,7 +8,7 @@ import 'package:furious_red_dragon/core/constants.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:furious_red_dragon/core/main.dart';
-import '../login/login_page.dart';
+import 'package:furious_red_dragon/presentation/pages/login/login_page.dart';
 
 // ignore: must_be_immutable
 @override
@@ -146,20 +146,20 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
               ),
-              CustomTextField(
-                controller: emailController,
-                labelText: 'Email',
-              ),
-              CustomTextField(
-                controller: passwordController,
-                labelText: 'Hasło',
-                obscureText: true, // Hide entered characters with asterisks
-              ),
-              CustomTextField(
-                controller: repeatPasswordController,
-                labelText: 'Powtórz hasło',
-                obscureText: true,
-              ),
+              // CustomTextField(
+              //   controller: emailController,
+              //   labelText: 'Email',
+              // ),
+              // CustomTextField(
+              //   controller: passwordController,
+              //   labelText: 'Hasło',
+              //   obscureText: true, // Hide entered characters with asterisks
+              // ),
+              // CustomTextField(
+              //   controller: repeatPasswordController,
+              //   labelText: 'Powtórz hasło',
+              //   obscureText: true,
+              // ),
               kBigGap,
               BigRedButton(
                 onTap: () async {

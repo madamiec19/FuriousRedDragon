@@ -3,25 +3,23 @@ import 'package:furious_red_dragon/core/constants.dart';
 
 class CustomTextField extends StatefulWidget {
   final String labelText;
-  final TextEditingController controller;
-  final String? Function(String?)? validator;
+  final Function onChanged;
   final bool obscureText;
+  final TextInputType keyboardType;
 
   const CustomTextField({
     Key? key,
     required this.labelText,
-    required this.controller,
-    this.validator,
+    required this.onChanged,
+    this.keyboardType = TextInputType.text,
     this.obscureText = false,
   }) : super(key: key);
 
   @override
-  CustomTextFieldState createState() => CustomTextFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class CustomTextFieldState extends State<CustomTextField> {
-  bool isFocused = false;
-
+class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,8 +36,8 @@ class CustomTextFieldState extends State<CustomTextField> {
           ),
         ],
       ),
-      child: TextFormField(
-        controller: widget.controller,
+      child: TextField(
+        onChanged: widget.onChanged(),
         obscureText: widget.obscureText,
         decoration: InputDecoration(
           labelText: widget.labelText,
@@ -56,18 +54,6 @@ class CustomTextFieldState extends State<CustomTextField> {
           fontSize: 18,
         ),
         cursorColor: kFuriousRedColor,
-        validator: widget.validator,
-        onTap: () {
-          setState(() {
-            isFocused = true;
-          });
-        },
-        onFieldSubmitted: (_) {
-          setState(() {
-            isFocused = false;
-          });
-        },
-        onChanged: (value) {},
       ),
     );
   }
