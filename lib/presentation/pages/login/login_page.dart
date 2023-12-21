@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/splash_back_button.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/presentation/pages/login/login_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home_page.dart';
 
-/// This class creates a Login Page, where a user can login
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

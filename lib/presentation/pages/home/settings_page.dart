@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:furious_red_dragon/domain/auth_bloc.dart';
-import 'package:furious_red_dragon/presentation/pages/login/login_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'delete_account.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/core/constants.dart';
