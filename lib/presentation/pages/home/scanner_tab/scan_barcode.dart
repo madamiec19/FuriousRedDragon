@@ -87,6 +87,8 @@ class BarcodeReaderState extends State<BarcodeReader> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
+      //TODO tutaj dostęp do zeskanowanego kodu
+
       setState(() {
         result = scanData;
         // pause a camera when code detected

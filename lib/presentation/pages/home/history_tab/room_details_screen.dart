@@ -53,10 +53,13 @@ class _ItemsStreamViewState extends State<ItemsStreamView> {
           List<BasicListItem> itemsListItems = [];
           for (var item in items!) {
             Item newItem = Item(
-                type: item['type'],
-                brand: item['brand'],
-                barcode: '',
-                serialNumber: item['serial_number']);
+              type: item['type'],
+              brand: item['brand'],
+              barcode: item['serial_number'],
+              id: item['id'],
+              idRoom: item['id_room'],
+              state: item['state'],
+            );
             itemsListItems.add(BasicListItem(
               onTap: () {},
               buttonTitle: newItem.toString(),

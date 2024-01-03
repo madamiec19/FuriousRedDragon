@@ -1,17 +1,26 @@
+import 'package:furious_red_dragon/data/models/item.dart';
+
 class Report {
   int id;
   String createdAt;
-  String room;
   String author;
+  String roomId;
+  List<Item> scannedItems;
+  bool isCompleted;
 
-  Report(
-      {required this.id,
-      required this.createdAt,
-      required this.room,
-      required this.author});
+  Report({
+    required this.id,
+    required this.createdAt,
+    required this.roomId,
+    required this.author,
+    required this.scannedItems,
+    required this.isCompleted,
+  });
+
+  void markAsCompleted() => isCompleted = true;
 
   @override
   String toString() {
-    return '$room $author';
+    return '$roomId $author';
   }
 }

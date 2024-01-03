@@ -32,3 +32,31 @@ const Widget kMediumGap = Gap(15);
 const Widget kBigGap = Gap(20);
 
 const kDragonLogoPath = 'assets/images/dragon.png';
+
+InputDecoration kCredentialsTextFieldInputDecoration = InputDecoration(
+  labelStyle: kGlobalTextStyle.copyWith(
+    color: const Color.fromRGBO(177, 170, 170, 1),
+    fontSize: 18,
+  ),
+  border: InputBorder.none,
+  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  errorStyle: TextStyle(color: kFuriousRedColor),
+);
+
+TextStyle kCredentialsTextStyle = kGlobalTextStyle.copyWith(
+  color: const Color.fromARGB(255, 2, 2, 2),
+  fontSize: 18,
+);
+
+BoxDecoration kCredentialsTextFieldContainerDecoration = BoxDecoration(
+  borderRadius: BorderRadius.circular(8),
+  color: const Color.fromRGBO(255, 232, 232, 1),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.black.withOpacity(0.2),
+      spreadRadius: 1,
+      blurRadius: 3,
+      offset: const Offset(0, 2),
+    ),
+  ],
+);

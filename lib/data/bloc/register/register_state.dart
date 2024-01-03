@@ -35,6 +35,7 @@ class RegistrationState extends Equatable {
         password: password ?? this.password,
         confirmPassword: confirmPassword ?? this.confirmPassword,
         formSubmissionStatus: formSubmissionStatus ?? this.formSubmissionStatus,
+        errorMessage: errorMessage ?? this.errorMessage,
       );
 
   @override

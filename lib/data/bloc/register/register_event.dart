@@ -23,3 +23,5 @@ class RegistrationConfirmPasswordChanged extends RegistrationEvent {
 class RegistrationRegisterButtonPressed extends RegistrationEvent {}
 
 class RegistrationForgottenPasswordPressed extends RegistrationEvent {}
+
+class RegistrationConfirmPasswordEditingComplete extends RegistrationEvent {}

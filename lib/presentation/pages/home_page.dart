@@ -4,9 +4,8 @@ import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/account_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/help_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/history_page.dart';
-import 'package:furious_red_dragon/presentation/pages/home/scanner_page.dart';
+import 'package:furious_red_dragon/presentation/pages/home/scanner_tab/scanner_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/settings_page.dart';
-import 'package:furious_red_dragon/domain/services/auth_service.dart';
 import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import '../components/nav_tabs.dart';
 import 'package:furious_red_dragon/core/constants.dart';
@@ -47,7 +46,6 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: InkWell(
                   onTap: () {
-                    // Przenieś się do innej strony po kliknięciu
                     Navigator.push(
                       context,
                       MaterialPageRoute(

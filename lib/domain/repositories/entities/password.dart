@@ -12,12 +12,13 @@ class Password extends Equatable {
   });
 
   factory Password.create(String value) {
-    if (value.isEmpty || value.length < 6) {
+    if (value.length < 6) {
       return Password(
           value: value,
-          errorMessage: 'Hasło powinno mieć co najmniej 8 znaków',
+          errorMessage: 'Hasło powinno mieć co najmniej 6 znaków',
           hasError: true);
     }
+
     return Password(value: value, errorMessage: '', hasError: false);
   }
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:furious_red_dragon/components/buttons.dart';
+import 'package:furious_red_dragon/presentation/components/buttons.dart';
 
 void main() {
   testWidgets('Custom Widgets Test', (WidgetTester tester) async {

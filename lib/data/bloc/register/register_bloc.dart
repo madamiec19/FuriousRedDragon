@@ -25,7 +25,9 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     RegistrationRegisterButtonPressed event,
     Emitter<RegistrationState> emit,
   ) async {
-    if (!state.isValid) return;
+    if (!state.isValid) {
+      return;
+    }
 
     emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.submitting));
 

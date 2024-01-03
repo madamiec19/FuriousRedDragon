@@ -1,59 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:furious_red_dragon/presentation/components/scan_barcode.dart';
+part of 'scanner_page.dart';
 
-import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/presentation/components/buttons.dart';
-import 'package:flutter/services.dart';
-
-class ScannerPage extends StatelessWidget {
-  const ScannerPage({super.key});
+class ScannerManualInput extends StatefulWidget {
+  const ScannerManualInput({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return const MainScannerPage();
-  }
+  State<ScannerManualInput> createState() => _ScannerManualInput();
 }
 
-class MainScannerPage extends StatelessWidget {
-  const MainScannerPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Expanded(
-              child: BarcodeReader(),
-            ),
-            kBigGap,
-            BigWhiteButton(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SecondScannerPage()),
-                );
-              },
-              buttonTitle: ('Wpisz kod ręcznie'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SecondScannerPage extends StatefulWidget {
-  const SecondScannerPage({Key? key}) : super(key: key);
-
-  @override
-  _SecondScannerPage createState() => _SecondScannerPage();
-}
-
-class _SecondScannerPage extends State<SecondScannerPage> {
+class _ScannerManualInput extends State<ScannerManualInput> {
   bool showInfoPopUp = false;
   TextEditingController barCodeController = TextEditingController();
   Color buttonColor = kDarkerGrey;

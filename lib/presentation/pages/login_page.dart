@@ -6,16 +6,11 @@ import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home_page.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   static const routeName = '/loginPage';
 
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,41 +88,21 @@ class _EmailInputField extends StatelessWidget {
   const _EmailInputField();
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<LoginBloc, LoginState>(
-        buildWhen: (previous, current) => current.email != previous.email,
-        builder: (context, state) => Container(
-          margin: const EdgeInsets.fromLTRB(43, 10, 43, 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: const Color.fromRGBO(255, 232, 232, 1),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: TextField(
-            onChanged: (password) => context
-                .read<LoginBloc>()
-                .add(LoginEmailAddressChanged(password)),
-            decoration: InputDecoration(
+  Widget build(BuildContext context) => Container(
+        margin: kSplashInputMargin.copyWith(bottom: 20),
+        decoration: kCredentialsTextFieldContainerDecoration,
+        child: BlocBuilder<LoginBloc, LoginState>(
+          buildWhen: (previous, current) => current.email != previous.email,
+          builder: (context, state) => TextField(
+            onChanged: (email) =>
+                context.read<LoginBloc>().add(LoginEmailAddressChanged(email)),
+            decoration: kCredentialsTextFieldInputDecoration.copyWith(
               labelText: 'email',
-              labelStyle: kGlobalTextStyle.copyWith(
-                color: const Color.fromRGBO(177, 170, 170, 1),
-                fontSize: 18,
-              ),
-              border: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              errorText: state.email.hasError ? state.email.errorMessage : null,
+              errorText: state.email.hasError
+                  ? state.email.errorMessage.toString()
+                  : null,
             ),
-            style: kGlobalTextStyle.copyWith(
-              color: const Color.fromARGB(255, 2, 2, 2),
-              fontSize: 18,
-            ),
+            style: kCredentialsTextStyle,
             cursorColor: kFuriousRedColor,
           ),
         ),
@@ -138,42 +113,22 @@ class _PasswordInputField extends StatelessWidget {
   const _PasswordInputField({super.key});
 
   @override
-  Widget build(BuildContext context) => BlocBuilder<LoginBloc, LoginState>(
-        buildWhen: (previous, current) => current.password != previous.password,
-        builder: (context, state) => Container(
-          margin: const EdgeInsets.fromLTRB(43, 10, 43, 10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: const Color.fromRGBO(255, 232, 232, 1),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 3,
-                offset: const Offset(0, 2),
-              ),
-            ],
-          ),
-          child: TextField(
+  Widget build(BuildContext context) => Container(
+        margin: kSplashInputMargin.copyWith(bottom: 20),
+        decoration: kCredentialsTextFieldContainerDecoration,
+        child: BlocBuilder<LoginBloc, LoginState>(
+          buildWhen: (previous, current) =>
+              current.password != previous.password,
+          builder: (context, state) => TextField(
+            obscureText: true,
             onChanged: (password) =>
                 context.read<LoginBloc>().add(LoginPasswordChanged(password)),
-            obscureText: true,
-            decoration: InputDecoration(
+            decoration: kCredentialsTextFieldInputDecoration.copyWith(
               labelText: 'hasło',
-              labelStyle: kGlobalTextStyle.copyWith(
-                color: const Color.fromRGBO(177, 170, 170, 1),
-                fontSize: 18,
-              ),
-              border: InputBorder.none,
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               errorText:
                   state.password.hasError ? state.password.errorMessage : null,
             ),
-            style: kGlobalTextStyle.copyWith(
-              color: const Color.fromARGB(255, 2, 2, 2),
-              fontSize: 18,
-            ),
+            style: kCredentialsTextStyle,
             cursorColor: kFuriousRedColor,
           ),
         ),

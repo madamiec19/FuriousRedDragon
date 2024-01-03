@@ -32,8 +32,10 @@ class _ReportsStreamState extends State<ReportsStream> {
             Report newReport = Report(
                 id: report['id'],
                 createdAt: report['created_at'],
-                room: report['room'],
-                author: report['author']);
+                roomId: report['room'],
+                author: report['author'],
+                scannedItems: [],
+                isCompleted: false);
             reportListItems.add(BasicListItem(
               onTap: () {},
               buttonTitle: newReport.toString(),

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/presentation/pages/login_page.dart';
 import 'package:furious_red_dragon/presentation/pages/register_page.dart';
 
 import '../components/buttons.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/presentation/pages/login/login_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

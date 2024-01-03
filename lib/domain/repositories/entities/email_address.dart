@@ -12,8 +12,11 @@ class EmailAddress extends Equatable {
   });
 
   factory EmailAddress.create(String value) {
-    if (value.isEmpty ||
-        !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+    if (value.isEmpty) {
+      return EmailAddress(value: value, errorMessage: '', hasError: true);
+    }
+
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       return EmailAddress(
           value: value,
           errorMessage: 'Wpisz poprawny adres email',
