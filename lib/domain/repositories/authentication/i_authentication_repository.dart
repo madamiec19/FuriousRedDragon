@@ -15,5 +15,7 @@ abstract class IAuthenticationRepository {
 
   Stream<User?> getCurrentUser();
 
+  Future<String> getCurrentUserName();
+
   User? getSignedInUser();
 }

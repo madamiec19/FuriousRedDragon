@@ -81,8 +81,8 @@ class TextNameAppBar extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthStatus>(
       builder: (context, state) {
         if (state is AuthUserAuthenticated) {
-          String email = state.user.email.toString();
-          return Text('Witaj, $email ');
+          String username = state.userName.toString();
+          return Text('Witaj, $username ');
         }
         return const Placeholder();
       },

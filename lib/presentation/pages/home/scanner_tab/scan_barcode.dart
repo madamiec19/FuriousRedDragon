@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
+import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class BarcodeReader extends StatefulWidget {
@@ -39,19 +41,23 @@ class BarcodeReaderState extends State<BarcodeReader> {
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    Text('Value: ${result!.code}')
-                  else
-                    const Text('Scanning...'),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[],
-                  ),
-                ],
+              child: BlocBuilder<ScannerBloc, ScannerState>(
+                builder: (context, state) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      if (state.item.barcode != '')
+                        Text('Value: ${state.item.brand}')
+                      else
+                        const Text('Scanning...'),
+                      const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           )
@@ -70,7 +76,17 @@ class BarcodeReaderState extends State<BarcodeReader> {
     // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
       key: barcodeKey,
-      onQRViewCreated: onBarcodeReaderCreated,
+      onQRViewCreated: (controller) {
+        setState(() {
+          this.controller = controller;
+        });
+        controller.scannedDataStream.listen((scanData) {
+          print(scanData);
+          context
+              .read<ScannerBloc>()
+              .add(ScannerBarcodeScanned(barcode: scanData));
+        });
+      },
       overlay: QrScannerOverlayShape(
           borderColor: kFuriousRedColor,
           borderRadius: 10,

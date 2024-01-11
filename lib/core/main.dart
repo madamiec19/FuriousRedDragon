@@ -5,6 +5,7 @@ import 'package:furious_red_dragon/core/dependency_injection.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/add_room.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/room_details_screen.dart';
 import 'package:furious_red_dragon/presentation/pages/login_page.dart';
@@ -36,6 +37,7 @@ void main() async {
         BlocProvider(
           create: (_) => getIt<RegistrationBloc>(),
         ),
+        BlocProvider(create: (_) => getIt<ScannerBloc>())
       ],
       child: const MyApp(),
     ),

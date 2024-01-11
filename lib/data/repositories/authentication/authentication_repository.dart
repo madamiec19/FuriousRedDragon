@@ -5,10 +5,11 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 @Injectable(as: IAuthenticationRepository)
 class AuthenticationRepository implements IAuthenticationRepository {
   final GoTrueClient _supabaseAuth;
+  final SupabaseClient _supabaseDb;
   static const String _redirectUrl =
       'io.supabase.flutterexample://signup-callback';
 
-  AuthenticationRepository(this._supabaseAuth);
+  AuthenticationRepository(this._supabaseAuth, this._supabaseDb);
 
   @override
   Stream<User?> getCurrentUser() =>
@@ -36,4 +37,14 @@ class AuthenticationRepository implements IAuthenticationRepository {
         email: email,
         emailRedirectTo: _redirectUrl,
       );
+
+  @override
+  Future<String> getCurrentUserName() async {
+    var response = await _supabaseDb
+        .from('roles')
+        .select('name')
+        .eq('user_id', _supabaseAuth.currentUser!.id)
+        .single();
+    return response['name'] as String;
+  }
 }

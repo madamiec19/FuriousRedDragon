@@ -20,8 +20,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthStatus> {
   Future<void> _onInitialAuthChecked(
       AuthInitialCheckRequested event, Emitter<AuthStatus> emit) async {
     User? signedInUser = _authenticationRepository.getSignedInUser();
+
     signedInUser != null
-        ? emit(AuthUserAuthenticated(signedInUser))
+        ? emit(AuthUserAuthenticated(signedInUser, ''))
         : emit(AuthUserUnauthenticated());
   }
 
@@ -31,10 +32,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthStatus> {
   }
 
   Future<void> _onCurrentUserChanged(
-          AuthOnCurrentUserChanged event, Emitter<AuthStatus> emit) async =>
-      event.user != null
-          ? emit(AuthUserAuthenticated(event.user!))
-          : emit(AuthUserUnauthenticated());
+      AuthOnCurrentUserChanged event, Emitter<AuthStatus> emit) async {
+    String? signedInUserName =
+        await _authenticationRepository.getCurrentUserName();
+    event.user != null
+        ? emit(AuthUserAuthenticated(event.user!, signedInUserName))
+        : emit(AuthUserUnauthenticated());
+  }
 
   void _startUserSubscription() => _userSubscription = _authenticationRepository
       .getCurrentUser()
@@ -53,7 +57,6 @@ class AuthInitialCheckRequested extends AuthEvent {}
 
 class AuthOnCurrentUserChanged extends AuthEvent {
   final User? user;
-
   AuthOnCurrentUserChanged(this.user);
 }
 
@@ -65,8 +68,9 @@ class AuthInitial extends AuthStatus {}
 
 class AuthUserAuthenticated extends AuthStatus {
   final User user;
+  final String userName;
 
-  AuthUserAuthenticated(this.user);
+  AuthUserAuthenticated(this.user, this.userName);
 }
 
 class AuthUserUnauthenticated extends AuthStatus {}

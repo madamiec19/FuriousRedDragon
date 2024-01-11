@@ -1,12 +1,14 @@
-class Item {
-  int id;
-  int idRoom;
-  String type;
-  String brand;
-  String barcode;
-  String state;
+import 'package:equatable/equatable.dart';
 
-  Item({
+class Item extends Equatable {
+  final int id;
+  final int idRoom;
+  final String type;
+  final String brand;
+  final String barcode;
+  final String state;
+
+  const Item({
     required this.id,
     required this.idRoom,
     required this.type,
@@ -19,4 +21,16 @@ class Item {
   String toString() {
     return '$type $brand';
   }
+
+  @override
+  List<Object?> get props => [id, idRoom, type, brand, barcode, state];
+
+  static const empty = Item(
+    id: 0,
+    idRoom: 0,
+    type: '',
+    brand: '',
+    barcode: '',
+    state: '',
+  );
 }
