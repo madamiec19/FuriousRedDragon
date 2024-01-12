@@ -32,36 +32,46 @@ class BarcodeReaderState extends State<BarcodeReader> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 45),
-      child: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: buildBarcodeReader(context)),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: BlocBuilder<ScannerBloc, ScannerState>(
-                builder: (context, state) {
-                  return Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      if (state.item.barcode != '')
-                        Text('Value: ${state.item.brand}')
-                      else
-                        const Text('Scanning...'),
-                      const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[],
+    return BlocListener<ScannerBloc, ScannerState>(
+      listenWhen: (previous, current) =>
+          previous.scannerStatus != current.scannerStatus,
+      listener: (context, state) {
+        if (state.isScannerOffScreen()) {
+          controller?.pauseCamera();
+        } else {
+          controller?.resumeCamera();
+        }
+      },
+      child: BlocBuilder<ScannerBloc, ScannerState>(
+        builder: (context, state) {
+          if (state.isScannerOffScreen()) {
+            return Scaffold(body: Text(state.scannerStatus.toString()));
+          } else {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45),
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 4,
+                    child: buildBarcodeReader(context),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text('status: ${state.scannerStatus}'),
+                        ],
                       ),
-                    ],
-                  );
-                },
+                    ),
+                  )
+                ],
               ),
-            ),
-          )
-        ],
+            );
+          }
+        },
       ),
     );
   }
@@ -76,17 +86,7 @@ class BarcodeReaderState extends State<BarcodeReader> {
     // we need to listen for Flutter SizeChanged notification and update controller
     return QRView(
       key: barcodeKey,
-      onQRViewCreated: (controller) {
-        setState(() {
-          this.controller = controller;
-        });
-        controller.scannedDataStream.listen((scanData) {
-          print(scanData);
-          context
-              .read<ScannerBloc>()
-              .add(ScannerBarcodeScanned(barcode: scanData));
-        });
-      },
+      onQRViewCreated: onBarcodeReaderCreated,
       overlay: QrScannerOverlayShape(
           borderColor: kFuriousRedColor,
           borderRadius: 10,
@@ -99,20 +99,11 @@ class BarcodeReaderState extends State<BarcodeReader> {
   }
 
   void onBarcodeReaderCreated(QRViewController controller) {
-    setState(() {
-      this.controller = controller;
-    });
+    this.controller = controller;
+
     controller.scannedDataStream.listen((scanData) {
-      //TODO tutaj dostęp do zeskanowanego kodu
-
-      setState(() {
-        result = scanData;
-        // pause a camera when code detected
-
-        // check if code is in database
-        //  controller.pauseCamera();
-        //  controller.resumeCamera();
-      });
+      context.read<ScannerBloc>().add(ScannerBarcodeScanned(barcode: scanData));
+      controller.pauseCamera();
     });
   }
 

@@ -14,6 +14,18 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
 
   ScannerBloc(this._itemsRepository) : super(const ScannerState()) {
     on<ScannerBarcodeScanned>(_onScannerBarcodeScanned);
+    on<ScannerInitialized>(_onScannerInitialized);
+    on<ScannerDetailsShown>(_onScannerDetailsShown);
+  }
+
+  void _onScannerDetailsShown(
+      ScannerDetailsShown event, Emitter<ScannerState> emit) {
+    emit(state.copyWith(item: null, scannerStatus: ScannerStatus.initialized));
+  }
+
+  void _onScannerInitialized(
+      ScannerInitialized event, Emitter<ScannerState> emit) {
+    emit(state.copyWith(item: null, scannerStatus: ScannerStatus.scanning));
   }
 
   Future<void> _onScannerBarcodeScanned(
@@ -22,9 +34,9 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
       Item item =
           await _itemsRepository.getItemWithBarcode(event.barcode.code!);
       emit(state.copyWith(item: item, scannerStatus: ScannerStatus.itemFound));
-      print('sdasdsad');
     } catch (error) {
       print(error.toString());
+      emit(state.copyWith(scannerStatus: ScannerStatus.itemNotFound));
     }
   }
 }

@@ -7,3 +7,7 @@ class ScannerBarcodeScanned extends ScannerEvent {
 
   ScannerBarcodeScanned({required this.barcode});
 }
+
+class ScannerInitialized extends ScannerEvent {}
+
+class ScannerDetailsShown extends ScannerEvent {}

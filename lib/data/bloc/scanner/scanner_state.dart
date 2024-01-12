@@ -1,6 +1,7 @@
 part of 'scanner_bloc.dart';
 
 enum ScannerStatus {
+  initialized,
   scanning,
   scanned,
   itemFound,
@@ -13,7 +14,7 @@ class ScannerState extends Equatable {
 
   const ScannerState({
     this.item = Item.empty,
-    this.scannerStatus = ScannerStatus.scanning,
+    this.scannerStatus = ScannerStatus.initialized,
   });
 
   ScannerState copyWith({Item? item, ScannerStatus? scannerStatus}) =>
@@ -26,4 +27,10 @@ class ScannerState extends Equatable {
         item,
         scannerStatus,
       ];
+
+  bool isItemFound() => scannerStatus == ScannerStatus.itemFound;
+  bool isScannerOffScreen() =>
+      scannerStatus == ScannerStatus.itemFound ||
+      scannerStatus == ScannerStatus.scanned ||
+      scannerStatus == ScannerStatus.initialized;
 }
