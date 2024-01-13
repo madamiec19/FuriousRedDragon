@@ -4,6 +4,7 @@ enum ScannerStatus {
   initialized,
   scanning,
   scanned,
+  manualInput,
   itemFound,
   itemNotFound,
 }
@@ -29,8 +30,7 @@ class ScannerState extends Equatable {
       ];
 
   bool isItemFound() => scannerStatus == ScannerStatus.itemFound;
-  bool isScannerOffScreen() =>
-      scannerStatus == ScannerStatus.itemFound ||
-      scannerStatus == ScannerStatus.scanned ||
-      scannerStatus == ScannerStatus.initialized;
+  bool isScannerOffScreen() => scannerStatus != ScannerStatus.scanning;
+  bool isItemNotFound() => scannerStatus == ScannerStatus.itemNotFound;
+  bool isManualInput() => scannerStatus == ScannerStatus.manualInput;
 }

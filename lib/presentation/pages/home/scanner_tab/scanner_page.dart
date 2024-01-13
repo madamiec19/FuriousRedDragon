@@ -25,6 +25,15 @@ class ScannerPage extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (context) => const ItemDetailsPage()),
           );
+        } else if (state.isItemNotFound()) {
+          const snackBar = SnackBar(
+            content: Text('Brak przedmiotu w bazie'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          context.read<ScannerBloc>().add(ScannerInitialized());
+        } else if (state.isManualInput()) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => ScannerManualInput()));
         }
       },
       child: Center(
@@ -33,17 +42,15 @@ class ScannerPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
+              const Expanded(
                 child: BarcodeReader(),
               ),
               kBigGap,
               BigWhiteButton(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ScannerManualInput()),
-                  );
+                  context
+                      .read<ScannerBloc>()
+                      .add(ScannerManualInputButtonClicked());
                 },
                 buttonTitle: ('Wpisz kod ręcznie'),
               ),

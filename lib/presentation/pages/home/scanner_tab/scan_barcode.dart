@@ -15,7 +15,6 @@ class BarcodeReader extends StatefulWidget {
 }
 
 class BarcodeReaderState extends State<BarcodeReader> {
-  Barcode? result;
   QRViewController? controller;
   final GlobalKey barcodeKey = GlobalKey(debugLabel: 'Barcode');
 
@@ -55,18 +54,6 @@ class BarcodeReaderState extends State<BarcodeReader> {
                     flex: 4,
                     child: buildBarcodeReader(context),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Text('status: ${state.scannerStatus}'),
-                        ],
-                      ),
-                    ),
-                  )
                 ],
               ),
             );

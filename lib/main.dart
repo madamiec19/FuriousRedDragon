@@ -12,9 +12,9 @@ import 'package:furious_red_dragon/presentation/pages/login_page.dart';
 import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import 'package:furious_red_dragon/presentation/pages/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../presentation/pages/register_page.dart';
+import 'presentation/pages/register_page.dart';
 
-import '../presentation/pages/home_page.dart';
+import 'presentation/pages/home_page.dart';
 
 void main() async {
   await Supabase.initialize(
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         WelcomePage.routeName: (context) => const WelcomePage(),
-        RegisterPage.routeName: (context) => RegisterPage(),
+        RegisterPage.routeName: (context) => const RegisterPage(),
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
         AddRoomPage.routeName: (context) => const AddRoomPage(),

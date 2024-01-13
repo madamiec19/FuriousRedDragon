@@ -11,3 +11,11 @@ class ScannerBarcodeScanned extends ScannerEvent {
 class ScannerInitialized extends ScannerEvent {}
 
 class ScannerDetailsShown extends ScannerEvent {}
+
+class ScannerManualInputButtonClicked extends ScannerEvent {}
+
+class ScannerManualInputValue extends ScannerEvent {
+  final String code;
+
+  ScannerManualInputValue({required this.code});
+}

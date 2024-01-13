@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:furious_red_dragon/core/main.dart';
+import 'package:furious_red_dragon/main.dart';
 import 'package:gap/gap.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 

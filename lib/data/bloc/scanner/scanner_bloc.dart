@@ -16,6 +16,24 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
     on<ScannerBarcodeScanned>(_onScannerBarcodeScanned);
     on<ScannerInitialized>(_onScannerInitialized);
     on<ScannerDetailsShown>(_onScannerDetailsShown);
+    on<ScannerManualInputButtonClicked>(_onScannerManualInputButtonClicked);
+    on<ScannerManualInputValue>(_onScannerManualInputValue);
+  }
+
+  void _onScannerManualInputValue(
+      ScannerManualInputValue event, Emitter<ScannerState> emit) async {
+    try {
+      Item item = await _itemsRepository.getItemWithBarcode(event.code);
+      emit(state.copyWith(item: item, scannerStatus: ScannerStatus.itemFound));
+    } catch (error) {
+      print(error.toString());
+      emit(state.copyWith(scannerStatus: ScannerStatus.itemNotFound));
+    }
+  }
+
+  void _onScannerManualInputButtonClicked(
+      ScannerManualInputButtonClicked event, Emitter<ScannerState> emit) {
+    emit(state.copyWith(scannerStatus: ScannerStatus.manualInput));
   }
 
   void _onScannerDetailsShown(
