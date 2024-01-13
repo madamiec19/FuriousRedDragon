@@ -84,7 +84,7 @@ class TextNameAppBar extends StatelessWidget {
           String username = state.userName.toString();
           return Text('Witaj, $username ');
         }
-        return const Placeholder();
+        return const Text('');
       },
     );
   }

@@ -28,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStatus> {
 
   Future<void> _onLogoutButtonPressed(
       AuthLogoutButtonPressed event, Emitter<AuthStatus> emit) async {
+    emit(AuthInitial());
     await _authenticationRepository.signOut();
   }
 
