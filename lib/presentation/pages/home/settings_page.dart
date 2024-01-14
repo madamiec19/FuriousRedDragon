@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
-import 'package:furious_red_dragon/presentation/pages/splash_page.dart';
-import 'package:go_router/go_router.dart';
 import '../welcome_page.dart';
 import 'delete_account.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';

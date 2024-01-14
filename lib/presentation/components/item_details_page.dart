@@ -32,7 +32,7 @@ class ItemDetailsPage extends StatelessWidget {
                     child: WhiteCard(
                         child: Column(
                   children: [
-                    Text('Informacje o przedmiocie'),
+                    const Text('Informacje o przedmiocie'),
                     Row(
                       children: [
                         const Text(

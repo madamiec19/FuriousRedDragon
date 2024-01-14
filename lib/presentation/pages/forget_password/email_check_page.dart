@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/splash_back_button.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:furious_red_dragon/presentation/components/input.dart';
-import 'reset_password_page.dart';
 
 class EmailCheckPage extends StatelessWidget {
   const EmailCheckPage({super.key});

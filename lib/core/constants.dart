@@ -40,7 +40,7 @@ InputDecoration kCredentialsTextFieldInputDecoration = InputDecoration(
   ),
   border: InputBorder.none,
   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  errorStyle: TextStyle(color: kFuriousRedColor),
+  errorStyle: const TextStyle(color: kFuriousRedColor),
 );
 
 TextStyle kCredentialsTextStyle = kGlobalTextStyle.copyWith(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
-import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart';
 
 class CustomTextField extends StatefulWidget {
   final String labelText;
@@ -102,7 +101,7 @@ class _CredentialsTextFieldState extends State<CredentialsTextField> {
           ],
         ),
         child: Container(
-          margin: EdgeInsets.only(bottom: 4, top: 4),
+          margin: const EdgeInsets.only(bottom: 4, top: 4),
           child: TextFormField(
             onChanged: widget.onChanged(),
             obscureText: widget.obscureText,

@@ -33,7 +33,7 @@ class ScannerPage extends StatelessWidget {
           context.read<ScannerBloc>().add(ScannerInitialized());
         } else if (state.isManualInput()) {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => ScannerManualInput()));
+              MaterialPageRoute(builder: (context) => const ScannerManualInput()));
         }
       },
       child: Center(

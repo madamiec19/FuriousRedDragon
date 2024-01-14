@@ -57,7 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
 }
 
 class _RegistrationForm extends StatelessWidget {
-  const _RegistrationForm({super.key});
+  const _RegistrationForm();
 
   @override
   Widget build(BuildContext context) =>
