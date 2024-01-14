@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/core/dependency_injection.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
@@ -37,7 +38,13 @@ void main() async {
         BlocProvider(
           create: (_) => getIt<RegistrationBloc>(),
         ),
-        BlocProvider(create: (_) => getIt<ScannerBloc>())
+        BlocProvider(
+          create: (_) => getIt<ScannerBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<HistoryDatabaseBloc>()
+            ..add(HistoryDatabaseInitialCheckRequest()),
+        ),
       ],
       child: const MyApp(),
     ),

@@ -41,7 +41,6 @@ class _RoomsStreamState extends State<RoomsStream> {
             reportListItems.add(BasicListItem(
               onTap: () {
                 final selectedRoomId = room['id'];
-
                 Navigator.pushNamed(
                   context,
                   RoomDetailsScreen.routeName,

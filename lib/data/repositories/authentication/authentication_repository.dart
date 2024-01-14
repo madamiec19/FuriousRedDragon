@@ -47,4 +47,14 @@ class AuthenticationRepository implements IAuthenticationRepository {
         .single();
     return response['name'] as String;
   }
+
+  @override
+  Future<String> getCurrentUserRole() async {
+    var response = await _supabaseDb
+        .from('roles')
+        .select('status')
+        .eq('user_id', _supabaseAuth.currentUser!.id)
+        .single();
+    return response['status'] as String;
+  }
 }

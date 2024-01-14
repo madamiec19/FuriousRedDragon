@@ -18,4 +18,6 @@ abstract class IAuthenticationRepository {
   Future<String> getCurrentUserName();
 
   User? getSignedInUser();
+
+  Future<String> getCurrentUserRole();
 }
