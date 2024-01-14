@@ -110,7 +110,7 @@ class _EmailInputField extends StatelessWidget {
 }
 
 class _PasswordInputField extends StatelessWidget {
-  const _PasswordInputField({super.key});
+  const _PasswordInputField();
 
   @override
   Widget build(BuildContext context) => Container(

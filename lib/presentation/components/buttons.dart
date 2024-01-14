@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
 
 class BigRedButton extends StatelessWidget {
   const BigRedButton({

@@ -14,7 +14,7 @@ class HistoryDatabaseBloc
   final IAuthenticationRepository _authenticationRepository;
 
   HistoryDatabaseBloc(this._itemsRepository, this._authenticationRepository)
-      : super(HistoryDatabaseState()) {
+      : super(const HistoryDatabaseState()) {
     on<HistoryDatabaseInitialCheckRequest>(_onInitialLoad);
     on<HistoryDatabaseDatabaseMenuChosen>(_onDatabaseMenuChosen);
     on<HistoryDatabaseHistoryMenuChosen>(_onHistoryMenuChosen);

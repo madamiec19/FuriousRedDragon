@@ -20,7 +20,7 @@ class _ScannerManualInput extends State<ScannerManualInput> {
       listener: (BuildContext context, ScannerState state) {
         if (state.isItemFound()) {
           Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => ItemDetailsPage()));
+              MaterialPageRoute(builder: (context) => const ItemDetailsPage()));
         }
       },
       child: WillPopScope(
