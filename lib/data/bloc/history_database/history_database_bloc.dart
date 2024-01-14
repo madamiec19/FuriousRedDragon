@@ -18,12 +18,28 @@ class HistoryDatabaseBloc
     on<HistoryDatabaseInitialCheckRequest>(_onInitialLoad);
     on<HistoryDatabaseDatabaseMenuChosen>(_onDatabaseMenuChosen);
     on<HistoryDatabaseHistoryMenuChosen>(_onHistoryMenuChosen);
+    on<HistoryDatabaseAdminLocalizationsButtonClicked>(
+        _onAdminLocalizationsButtonClicked);
+    on<HistoryAdminUsersButtonClicked>(_onAdminUsersButtonClicked);
+  }
+
+  void _onAdminUsersButtonClicked(HistoryAdminUsersButtonClicked event,
+      Emitter<HistoryDatabaseState> emit) {
+    emit(state.copyWith(
+        historyDatabaseStatus: HistoryDatabaseStatus.usersAdminView));
+  }
+
+  void _onAdminLocalizationsButtonClicked(
+      HistoryDatabaseAdminLocalizationsButtonClicked event,
+      Emitter<HistoryDatabaseState> emit) {
+    emit(state.copyWith(
+        historyDatabaseStatus: HistoryDatabaseStatus.localizationsAdminView));
   }
 
   Future<void> _onInitialLoad(HistoryDatabaseInitialCheckRequest event,
       Emitter<HistoryDatabaseState> emit) async {
     try {
-      if (_authenticationRepository.getCurrentUserRole() == 'admin') {
+      if (await _authenticationRepository.getCurrentUserRole() == 'admin') {
         emit(state.copyWith(isAdmin: true));
       }
     } catch (error) {

@@ -3,6 +3,8 @@ part of 'history_database_bloc.dart';
 enum HistoryDatabaseStatus {
   historyView,
   databaseView,
+  localizationsAdminView,
+  usersAdminView,
 }
 
 class HistoryDatabaseState extends Equatable {
@@ -32,4 +34,8 @@ class HistoryDatabaseState extends Equatable {
       historyDatabaseStatus == HistoryDatabaseStatus.historyView;
   bool isDatabaseMenuChosen() =>
       historyDatabaseStatus == HistoryDatabaseStatus.databaseView;
+  bool isLocalizationsViewChosen() =>
+      historyDatabaseStatus == HistoryDatabaseStatus.localizationsAdminView;
+  bool isUsersViewChosen() =>
+      historyDatabaseStatus == HistoryDatabaseStatus.usersAdminView;
 }

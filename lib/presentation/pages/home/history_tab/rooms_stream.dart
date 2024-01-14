@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/presentation/pages/home/history_tab/room_details_screen.dart';
 
 class ScreenArguments {
   final int selectedRoomId;
@@ -40,12 +39,7 @@ class _RoomsStreamState extends State<RoomsStream> {
             final roomString = 'Sala $floor/$name p.$floor, bud. $building';
             reportListItems.add(BasicListItem(
               onTap: () {
-                final selectedRoomId = room['id'];
-                Navigator.pushNamed(
-                  context,
-                  RoomDetailsScreen.routeName,
-                  arguments: ScreenArguments(selectedRoomId),
-                );
+                //TODO
               },
               buttonTitle: roomString,
             ));

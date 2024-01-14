@@ -6,15 +6,11 @@ import 'package:furious_red_dragon/presentation/components/white_card.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/reports_stream.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/rooms_stream.dart';
 import 'package:furious_red_dragon/core/constants.dart';
+import 'package:furious_red_dragon/presentation/pages/home/history_tab/users_stream.dart';
 
-class HistoryPage extends StatefulWidget {
+class HistoryPage extends StatelessWidget {
   const HistoryPage({super.key});
 
-  @override
-  State<HistoryPage> createState() => _HistoryPageState();
-}
-
-class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -38,8 +34,74 @@ class _HistoryPageState extends State<HistoryPage> {
               );
             } else if (state.isDatabaseMenuChosen()) {
               return state.isAdmin
-                  ? const RoomsStream()
-                  : const AdminDatabaseMenu();
+                  ? const AdminDatabaseMenu()
+                  : Expanded(child: WhiteCard(child: const RoomsStream()));
+            } else if (state.isLocalizationsViewChosen()) {
+              return Expanded(
+                child: WhiteCard(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: TextButton(
+                                style: const ButtonStyle(
+                                  iconColor:
+                                      MaterialStatePropertyAll(Colors.white),
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      kFuriousRedColor),
+                                ),
+                                onPressed: () => context
+                                    .read<HistoryDatabaseBloc>()
+                                    .add(HistoryDatabaseDatabaseMenuChosen()),
+                                child: const Icon(Icons.west),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(child: RoomsStream()),
+                    ],
+                  ),
+                ),
+              );
+            } else if (state.isUsersViewChosen()) {
+              return Expanded(
+                child: WhiteCard(
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: TextButton(
+                                style: const ButtonStyle(
+                                  iconColor:
+                                      MaterialStatePropertyAll(Colors.white),
+                                  backgroundColor: MaterialStatePropertyAll(
+                                      kFuriousRedColor),
+                                ),
+                                onPressed: () => context
+                                    .read<HistoryDatabaseBloc>()
+                                    .add(HistoryDatabaseDatabaseMenuChosen()),
+                                child: const Icon(Icons.west),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Expanded(child: UsersStream()),
+                    ],
+                  ),
+                ),
+              );
             } else {
               return const WhiteCard(child: Text(''));
             }
@@ -84,7 +146,9 @@ class DoubleButton extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  if (state.isDatabaseMenuChosen()) {
+                  if (state.isDatabaseMenuChosen() ||
+                      state.isLocalizationsViewChosen() ||
+                      state.isUsersViewChosen()) {
                     context
                         .read<HistoryDatabaseBloc>()
                         .add(HistoryDatabaseHistoryMenuChosen());
@@ -108,10 +172,16 @@ class DoubleButton extends StatelessWidget {
           ),
           Expanded(
             child: SizedBox(
-              height: state.isDatabaseMenuChosen() ? 46 : 44,
+              height: state.isDatabaseMenuChosen() ||
+                      state.isLocalizationsViewChosen() ||
+                      state.isUsersViewChosen()
+                  ? 46
+                  : 44,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: state.isDatabaseMenuChosen()
+                  backgroundColor: (state.isDatabaseMenuChosen() ||
+                          state.isLocalizationsViewChosen() ||
+                          state.isUsersViewChosen())
                       ? activeColor
                       : inactiveColor,
                   maximumSize: const Size(300, 100),
@@ -174,10 +244,9 @@ class AdminDatabaseMenu extends StatelessWidget {
                 child: BigWhiteButton(
                   buttonTitle: 'Lokalizacje',
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const RoomsScreen()));
+                    context
+                        .read<HistoryDatabaseBloc>()
+                        .add(HistoryDatabaseAdminLocalizationsButtonClicked());
                   },
                 ),
               ),
@@ -186,10 +255,9 @@ class AdminDatabaseMenu extends StatelessWidget {
                   width: kScreenWidth,
                   child: BigWhiteButton(
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const UsersScreen()));
+                        context
+                            .read<HistoryDatabaseBloc>()
+                            .add(HistoryAdminUsersButtonClicked());
                       },
                       buttonTitle: 'Użytkownicy')),
             ],
