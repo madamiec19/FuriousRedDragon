@@ -35,7 +35,11 @@ class HistoryPage extends StatelessWidget {
             } else if (state.isDatabaseMenuChosen()) {
               return state.isAdmin
                   ? const AdminDatabaseMenu()
-                  : Expanded(child: WhiteCard(child: const RoomsStream()));
+                  : const Expanded(
+                      child: WhiteCard(
+                        child: RoomsStream(),
+                      ),
+                    );
             } else if (state.isLocalizationsViewChosen()) {
               return Expanded(
                 child: WhiteCard(
@@ -97,7 +101,7 @@ class HistoryPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Expanded(child: UsersStream()),
+                      const Expanded(child: UsersStream()),
                     ],
                   ),
                 ),

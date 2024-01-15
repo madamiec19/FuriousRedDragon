@@ -1,4 +1,4 @@
-import 'package:furious_red_dragon/data/models/item.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/items/i_items_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

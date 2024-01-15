@@ -87,7 +87,6 @@ class BarcodeReaderState extends State<BarcodeReader> {
 
   void onBarcodeReaderCreated(QRViewController controller) {
     this.controller = controller;
-
     controller.scannedDataStream.listen((scanData) {
       context.read<ScannerBloc>().add(ScannerBarcodeScanned(barcode: scanData));
       controller.pauseCamera();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/data/models/report.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 
 class ReportsStream extends StatefulWidget {
   const ReportsStream({super.key});

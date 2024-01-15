@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/presentation/components/white_card.dart';
-import 'package:furious_red_dragon/data/models/item.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/rooms_stream.dart';
 
 import '../../../components/buttons.dart';

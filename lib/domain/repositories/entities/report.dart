@@ -1,4 +1,4 @@
-import 'package:furious_red_dragon/data/models/item.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 
 class Report {
   int id;

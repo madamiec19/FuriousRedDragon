@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:furious_red_dragon/data/models/item.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/items/i_items_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';

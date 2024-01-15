@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
-import 'package:furious_red_dragon/presentation/pages/home/account_page.dart';
-import 'package:furious_red_dragon/presentation/pages/home/help_page.dart';
+import 'package:furious_red_dragon/presentation/pages/home/account_tab/account_page.dart';
+import 'package:furious_red_dragon/presentation/pages/home/help_tab/help_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/history_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/scanner_tab/scanner_page.dart';
-import 'package:furious_red_dragon/presentation/pages/home/settings_page.dart';
+import 'package:furious_red_dragon/presentation/pages/home/settings/settings_page.dart';
 import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import '../components/nav_tabs.dart';
 import 'package:furious_red_dragon/core/constants.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
-import 'package:furious_red_dragon/data/models/item.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/presentation/components/white_card.dart';
 
 class ItemDetailsPage extends StatelessWidget {
