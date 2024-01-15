@@ -50,9 +50,9 @@ class HistoryPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SizedBox(
-                              height: 40,
-                              width: 40,
-                              child: TextButton(
+                              height: 43,
+                              width: 43,
+                              child: IconButton(
                                 style: const ButtonStyle(
                                   iconColor:
                                       MaterialStatePropertyAll(Colors.white),
@@ -62,7 +62,9 @@ class HistoryPage extends StatelessWidget {
                                 onPressed: () => context
                                     .read<HistoryDatabaseBloc>()
                                     .add(HistoryDatabaseDatabaseMenuChosen()),
-                                child: const Icon(Icons.west),
+                                icon: Icon(
+                                  Icons.west,
+                                ),
                               ),
                             ),
                           ),

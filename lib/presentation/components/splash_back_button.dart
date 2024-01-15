@@ -8,13 +8,13 @@ class SplashBackButton extends StatelessWidget {
     return SizedBox(
       height: 40,
       width: 40,
-      child: TextButton(
+      child: IconButton(
         style: const ButtonStyle(
           iconColor: MaterialStatePropertyAll(Colors.white),
           backgroundColor: MaterialStatePropertyAll(kFuriousRedColor),
         ),
         onPressed: () => Navigator.pop(context),
-        child: const Icon(Icons.west),
+        icon: const Icon(Icons.west),
       ),
     );
   }
