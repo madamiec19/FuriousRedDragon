@@ -21,6 +21,26 @@ class HistoryDatabaseBloc
     on<HistoryDatabaseAdminLocalizationsButtonClicked>(
         _onAdminLocalizationsButtonClicked);
     on<HistoryAdminUsersButtonClicked>(_onAdminUsersButtonClicked);
+    on<HistoryAdminAddUserButtonClicked>(_onAdminAddUserButtonClicked);
+    on<HistoryAdminAddUser>(_onAdminAddUser);
+  }
+
+  Future<void> _onAdminAddUser(
+      HistoryAdminAddUser event, Emitter<HistoryDatabaseState> emit) async {
+    try {
+      _authenticationRepository.addUser(
+          email: event.email,
+          name: event.name,
+          idAdmin: _authenticationRepository.getSignedInUser()!.id);
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void _onAdminAddUserButtonClicked(HistoryAdminAddUserButtonClicked event,
+      Emitter<HistoryDatabaseState> emit) {
+    emit(state.copyWith(
+        historyDatabaseStatus: HistoryDatabaseStatus.addUserAdminView));
   }
 
   void _onAdminUsersButtonClicked(HistoryAdminUsersButtonClicked event,

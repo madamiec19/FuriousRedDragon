@@ -5,6 +5,7 @@ enum HistoryDatabaseStatus {
   databaseView,
   localizationsAdminView,
   usersAdminView,
+  addUserAdminView,
 }
 
 class HistoryDatabaseState extends Equatable {
@@ -38,4 +39,6 @@ class HistoryDatabaseState extends Equatable {
       historyDatabaseStatus == HistoryDatabaseStatus.localizationsAdminView;
   bool isUsersViewChosen() =>
       historyDatabaseStatus == HistoryDatabaseStatus.usersAdminView;
+  bool isAddUserViewChosen() =>
+      historyDatabaseStatus == HistoryDatabaseStatus.addUserAdminView;
 }

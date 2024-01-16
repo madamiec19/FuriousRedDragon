@@ -57,4 +57,28 @@ class AuthenticationRepository implements IAuthenticationRepository {
         .single();
     return response['status'] as String;
   }
+
+  @override
+  int getCurrentUserId() {
+    var id = _supabaseAuth.currentUser!.id;
+    return id as int;
+  }
+
+  @override
+  Future<void> addUser(
+      {required String email,
+      required String name,
+      required String idAdmin}) async {
+    await _supabaseAuth.signUp(
+      password: 'qwerty123',
+      email: email,
+      emailRedirectTo: _redirectUrl,
+    );
+    await _supabaseDb.from('roles').insert({
+      'name': name,
+      'status': 'pracownik',
+      'email': email,
+      'id_admin': idAdmin
+    });
+  }
 }

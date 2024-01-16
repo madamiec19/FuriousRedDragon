@@ -11,6 +11,9 @@ abstract class IAuthenticationRepository {
     required String password,
   });
 
+  Future<void> addUser(
+      {required String email, required String name, required String idAdmin});
+
   Future<void> signOut();
 
   Stream<User?> getCurrentUser();

@@ -17,6 +17,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthStatus> {
     _startUserSubscription();
   }
 
+
   Future<void> _onInitialAuthChecked(
       AuthInitialCheckRequested event, Emitter<AuthStatus> emit) async {
     User? signedInUser = _authenticationRepository.getSignedInUser();
