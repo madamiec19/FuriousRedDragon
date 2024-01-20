@@ -115,7 +115,7 @@ class HistoryPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Expanded(child: UsersStream()),
+                        UsersStream(),
                         Column(
                           children: [
                             IconButton(
@@ -125,7 +125,7 @@ class HistoryPage extends StatelessWidget {
                                     .add(HistoryAdminAddUserButtonClicked());
                               },
                               icon: const Icon(Icons.add_circle_outline),
-                              iconSize: 30,
+                              iconSize: 37,
                             ),
                             const Text('Dodaj użytkownika'),
                           ],

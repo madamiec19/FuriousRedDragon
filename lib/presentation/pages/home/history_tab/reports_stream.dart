@@ -32,8 +32,8 @@ class _ReportsStreamState extends State<ReportsStream> {
             Report newReport = Report(
                 id: report['id'],
                 createdAt: report['created_at'],
-                roomId: report['room'],
-                author: report['author'],
+                roomId: report['room_id'],
+                idAuthor: report['author_id'],
                 scannedItems: [],
                 isCompleted: false);
             reportListItems.add(BasicListItem(

@@ -12,14 +12,14 @@ abstract class IAuthenticationRepository {
   });
 
   Future<void> addUser(
-      {required String email, required String name, required String idAdmin});
+      {required String email, required String name, required int idAdmin});
 
   Future<void> signOut();
 
   Stream<User?> getCurrentUser();
 
   Future<String> getCurrentUserName();
-
+  Future<int> getCurrentUserId();
   User? getSignedInUser();
 
   Future<String> getCurrentUserRole();

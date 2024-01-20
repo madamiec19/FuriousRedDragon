@@ -11,25 +11,33 @@ enum HistoryDatabaseStatus {
 class HistoryDatabaseState extends Equatable {
   final bool isAdmin;
   final HistoryDatabaseStatus historyDatabaseStatus;
+  final int idAdmin;
 
   const HistoryDatabaseState({
     this.isAdmin = false,
     this.historyDatabaseStatus = HistoryDatabaseStatus.historyView,
+    this.idAdmin = 0,
   });
 
   HistoryDatabaseState copyWith(
-          {bool? isAdmin, HistoryDatabaseStatus? historyDatabaseStatus}) =>
+          {bool? isAdmin,
+          HistoryDatabaseStatus? historyDatabaseStatus,
+          int? idAdmin}) =>
       HistoryDatabaseState(
         isAdmin: isAdmin ?? this.isAdmin,
         historyDatabaseStatus:
             historyDatabaseStatus ?? this.historyDatabaseStatus,
+        idAdmin: idAdmin ?? this.idAdmin,
       );
 
   @override
   List<Object?> get props => [
         isAdmin,
         historyDatabaseStatus,
+        idAdmin,
       ];
+
+  int getAdminId() => idAdmin;
 
   bool isHistoryMenuChosen() =>
       historyDatabaseStatus == HistoryDatabaseStatus.historyView;
