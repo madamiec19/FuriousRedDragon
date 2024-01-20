@@ -26,7 +26,20 @@ class AccountPage extends StatelessWidget {
               context.read<ReportBloc>().add(ReportInitialized(
                   idAuthor: 2, createdAt: DateTime.now(), idRoom: 1));
             },
-            buttonTitle: 'test',
+            buttonTitle: 'inicjalizacja raportu',
+          ),
+          BigWhiteButton(
+            onTap: () {
+              var state = BlocProvider.of<ReportBloc>(context).state;
+              print(state.report.id);
+            },
+            buttonTitle: 'print id rozpoczatego raportu',
+          ),
+          BigWhiteButton(
+            onTap: () {
+              context.read<ReportBloc>().add(ReportItemScanned(code: '123214'));
+            },
+            buttonTitle: 'udpate raportu',
           ),
         ],
       ),

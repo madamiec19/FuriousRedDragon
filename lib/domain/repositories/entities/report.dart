@@ -1,12 +1,11 @@
 import 'package:equatable/equatable.dart';
-import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 
 class Report extends Equatable {
   final int id;
   final int idAuthor;
   final String createdAt;
   final int roomId;
-  final List<Item> scannedItems;
+  final scannedItems;
   final bool isCompleted;
 
   const Report({
@@ -32,6 +31,14 @@ class Report extends Equatable {
         scannedItems,
         isCompleted,
       ];
+
+  Report.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int,
+        idAuthor = json['author_id'] as int,
+        roomId = json['room_id'] as int,
+        createdAt = json['created_at'] as String,
+        scannedItems = json['scatted_items_id'],
+        isCompleted = json['is_completed'] as bool;
 
   static const empty = Report(
       id: 0,

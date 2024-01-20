@@ -16,15 +16,32 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   ReportBloc(this._reportsRepository, this._authenticationRepository)
       : super(const ReportState()) {
     on<ReportInitialized>(_onReportInitialized);
+    on<ReportItemScanned>(_onReportItemScanned);
+  }
+
+  void _onReportItemScanned(
+      ReportItemScanned event, Emitter<ReportState> emit) async {
+    try {
+      _reportsRepository.updateReport(
+          reportId: state.report.id, code: event.code);
+      print('działa?');
+    } catch (error) {
+      print(error.toString());
+    }
   }
 
   void _onReportInitialized(
       ReportInitialized event, Emitter<ReportState> emit) async {
     try {
+      print('1');
       int id = await _authenticationRepository.getCurrentUserId();
-      await _reportsRepository.addReport(event.idRoom, id);
-      emit(state.copyWith(reportStatus: ReportStatus.initialized));
-      print(state.reportStatus);
+      print('2');
+      var response = await _reportsRepository.addReport(event.idRoom, id);
+      print('3');
+      emit(state.copyWith(
+          reportStatus: ReportStatus.initialized, report: response));
+
+      print('4');
     } catch (error) {
       print(error.toString());
     }
