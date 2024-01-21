@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/authentication/i_authentication_repository.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/domain/repositories/items/i_items_repository.dart';
+import 'package:furious_red_dragon/domain/repositories/reports/i_reports_repository.dart';
 import 'package:injectable/injectable.dart';
 
 part 'history_database_state.dart';
@@ -12,8 +14,10 @@ class HistoryDatabaseBloc
     extends Bloc<HistoryDatabaseEvent, HistoryDatabaseState> {
   final IItemsRepository _itemsRepository;
   final IAuthenticationRepository _authenticationRepository;
+  final IReportsRepository _reportsRepository;
 
-  HistoryDatabaseBloc(this._itemsRepository, this._authenticationRepository)
+  HistoryDatabaseBloc(this._itemsRepository, this._authenticationRepository,
+      this._reportsRepository)
       : super(const HistoryDatabaseState()) {
     on<HistoryDatabaseInitialCheckRequest>(_onInitialLoad);
     on<HistoryDatabaseDatabaseMenuChosen>(_onDatabaseMenuChosen);
@@ -58,9 +62,10 @@ class HistoryDatabaseBloc
   }
 
   void _onDatabaseMenuChosen(HistoryDatabaseDatabaseMenuChosen event,
-      Emitter<HistoryDatabaseState> emit) {
+      Emitter<HistoryDatabaseState> emit) async {
     emit(state.copyWith(
-        historyDatabaseStatus: HistoryDatabaseStatus.databaseView));
+      historyDatabaseStatus: HistoryDatabaseStatus.databaseView,
+    ));
   }
 
   void _onHistoryMenuChosen(HistoryDatabaseHistoryMenuChosen event,

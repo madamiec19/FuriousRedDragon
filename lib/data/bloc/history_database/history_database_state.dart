@@ -12,22 +12,26 @@ class HistoryDatabaseState extends Equatable {
   final bool isAdmin;
   final HistoryDatabaseStatus historyDatabaseStatus;
   final int idAdmin;
+  final List<Report>? reports;
 
   const HistoryDatabaseState({
     this.isAdmin = false,
     this.historyDatabaseStatus = HistoryDatabaseStatus.historyView,
     this.idAdmin = 0,
+    this.reports,
   });
 
   HistoryDatabaseState copyWith(
           {bool? isAdmin,
           HistoryDatabaseStatus? historyDatabaseStatus,
-          int? idAdmin}) =>
+          int? idAdmin,
+          List<Report>? reports}) =>
       HistoryDatabaseState(
         isAdmin: isAdmin ?? this.isAdmin,
         historyDatabaseStatus:
             historyDatabaseStatus ?? this.historyDatabaseStatus,
         idAdmin: idAdmin ?? this.idAdmin,
+        reports: reports ?? this.reports,
       );
 
   @override
@@ -35,6 +39,7 @@ class HistoryDatabaseState extends Equatable {
         isAdmin,
         historyDatabaseStatus,
         idAdmin,
+        reports,
       ];
 
   int getAdminId() => idAdmin;

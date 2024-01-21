@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
+import 'package:furious_red_dragon/presentation/pages/home/account_tab/report_overview_page.dart';
 import 'add_room.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 
@@ -12,37 +14,52 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: kPageBackgroundColor,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          BigWhiteButton(
-            onTap: () {
-              Navigator.pushNamed(context, AddRoomPage.routeName);
-            },
-            buttonTitle: 'Dodaj salę',
-          ),
-          BigWhiteButton(
-            onTap: () {
-              context.read<ReportBloc>().add(ReportInitialized(
-                  idAuthor: 2, createdAt: DateTime.now(), idRoom: 1));
-            },
-            buttonTitle: 'inicjalizacja raportu',
-          ),
-          BigWhiteButton(
-            onTap: () {
-              var state = BlocProvider.of<ReportBloc>(context).state;
-              print(state.report.id);
-            },
-            buttonTitle: 'print id rozpoczatego raportu',
-          ),
-          BigWhiteButton(
-            onTap: () {
-              context.read<ReportBloc>().add(ReportItemScanned(code: '123214'));
-            },
-            buttonTitle: 'udpate raportu',
-          ),
-        ],
-      ),
+      child: BlocBuilder<ReportBloc, ReportState>(builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            state.isReportInitialized()
+                ? Text('Id aktywnego raportu: ' + state.report.id.toString())
+                : Text(''),
+            BigWhiteButton(
+              onTap: () {
+                Navigator.pushNamed(context, AddRoomPage.routeName);
+              },
+              buttonTitle: 'Dodaj salę',
+            ),
+            kBigGap,
+            Text('PRZYCISKI TESTOWE'),
+            kSmallGap,
+            BigWhiteButton(
+              onTap: () {
+                final authstate = BlocProvider.of<AuthBloc>(context).state;
+                if (authstate is AuthUserAuthenticated) {
+                  context.read<ReportBloc>().add(ReportInitialized(
+                      idAuthor: authstate.userId,
+                      createdAt: DateTime.now(),
+                      idRoom: 1));
+                }
+              },
+              buttonTitle: 'inicjalizacja raportu dla pomieszczenia o id 1',
+            ),
+            kBigGap,
+            BigWhiteButton(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ReportOverview()));
+              },
+              buttonTitle: 'podgląd raportu',
+            ),
+            kBigGap,
+            BigWhiteButton(
+              onTap: () {
+                context.read<ReportBloc>().add(ReportFinished());
+              },
+              buttonTitle: 'zakonczenie raportu',
+            ),
+          ],
+        );
+      }),
     );
   }
 

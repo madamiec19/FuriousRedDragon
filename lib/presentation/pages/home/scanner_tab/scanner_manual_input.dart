@@ -16,59 +16,52 @@ class _ScannerManualInput extends State<ScannerManualInput> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ScannerBloc, ScannerState>(
-      listener: (BuildContext context, ScannerState state) {
-        if (state.isItemFound()) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const ItemDetailsPage()));
-        }
+    return WillPopScope(
+      onWillPop: () async {
+        ///gdy klikniemy przycisk wstecz, włączamy skaner
+        context.read<ScannerBloc>().add(ScannerInitialized());
+        Navigator.pop(context);
+        return false;
       },
-      child: WillPopScope(
-        onWillPop: () async {
-          context.read<ScannerBloc>().add(ScannerInitialized());
-          Navigator.pop(context);
-          return false;
-        },
-        child: Scaffold(
-          appBar: AppBar(
-            leading: const BackButton(
-              color: Colors.white,
-            ),
-            toolbarHeight: 80,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(10),
-              ),
-            ),
-            backgroundColor: kFuriousRedColor,
-            title: const Text('Skanowanie'),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: const BackButton(
+            color: Colors.white,
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Wprowadź kod kreskowy:',
-                  style: kGlobalTextStyle.copyWith(fontSize: 22),
-                ),
-                kBigGap,
-                inputAndIcon(),
-                kBigGap,
-                SmallButton(
-                  onTap: () {
-                    context.read<ScannerBloc>().add(
-                        ScannerManualInputValue(code: barCodeController.text));
-                  },
-                  buttonTitle: ('Zatwierdź'),
-                  backgroundColor: buttonColor,
-                  textColor: buttonTextColor,
-                ),
-                kBigGap,
-                if (showInfoPopUp) popUpInfo(),
-              ],
+          toolbarHeight: 80,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(10),
             ),
+          ),
+          backgroundColor: kFuriousRedColor,
+          title: const Text('Skanowanie'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Wprowadź kod kreskowy:',
+                style: kGlobalTextStyle.copyWith(fontSize: 22),
+              ),
+              kBigGap,
+              inputAndIcon(),
+              kBigGap,
+              SmallButton(
+                onTap: () {
+                  context.read<ScannerBloc>().add(
+                      ScannerManualInputValue(code: barCodeController.text));
+                },
+                buttonTitle: ('Zatwierdź'),
+                backgroundColor: buttonColor,
+                textColor: buttonTextColor,
+              ),
+              kBigGap,
+              if (showInfoPopUp) popUpInfo(),
+            ],
           ),
         ),
       ),

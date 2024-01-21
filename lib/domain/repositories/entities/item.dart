@@ -33,4 +33,23 @@ class Item extends Equatable {
     barcode: '',
     state: '',
   );
+
+  Item.fromJson(Map<String, dynamic> json)
+      : id = json['id'] as int,
+        idRoom = json['idRoom'] as int,
+        type = json['type'] as String,
+        brand = json['brand'] as String,
+        barcode = json['barcode'] as String,
+        state = json['state'] as String;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'idRoom': idRoom,
+      'type': type,
+      'brand': brand,
+      'barcode': barcode,
+      'state': state,
+    };
+  }
 }

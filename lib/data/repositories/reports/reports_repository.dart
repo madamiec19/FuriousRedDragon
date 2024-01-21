@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/domain/repositories/reports/i_reports_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -23,17 +26,35 @@ class ReportsRepository implements IReportsRepository {
   }
 
   @override
-  Stream<Report?> getReportStream() {
-    // TODO: implement getReportStream
-    throw UnimplementedError();
+  Future<List<Report>> getReports() async {
+    final response = await _supabaseClient.from('reports').select('*');
+    List<Report> reports = [];
+    response.forEach((element) {
+      reports.add(Report.fromJson(element));
+    });
+    return reports;
   }
 
   @override
-  Future<void> updateReport(
-      {required int reportId, required String code}) async {
+  Future<void> updateReportWithScannedItem(
+      {required int reportId, required Item item}) async {
     await _supabaseClient.rpc('add_item_to_report', params: {
-      'item_id': code,
+      'item_id': item.toJson(),
       'report_id': reportId,
     });
+  }
+
+  @override
+  Future<void> finishReport(int reportId) async {
+    final response = await _supabaseClient
+        .from('reports')
+        .update({'is_completed': true}).eq('id', reportId);
+  }
+
+  @override
+  Future<Report> getReportWithId(int id) async {
+    final response =
+        await _supabaseClient.from('reports').select('*').eq('id', id).single();
+    return Report.fromJson(response);
   }
 }

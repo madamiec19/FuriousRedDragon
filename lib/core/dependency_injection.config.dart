@@ -77,6 +77,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i17.HistoryDatabaseBloc>(() => _i17.HistoryDatabaseBloc(
           gh<_i6.IItemsRepository>(),
           gh<_i4.IAuthenticationRepository>(),
+          gh<_i8.IReportsRepository>(),
         ));
     return this;
   }

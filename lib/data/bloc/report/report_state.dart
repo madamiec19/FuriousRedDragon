@@ -4,6 +4,7 @@ enum ReportStatus {
   noReport,
   initialized,
   inProgress,
+  itemAdded,
   finished,
 }
 
@@ -24,4 +25,6 @@ class ReportState extends Equatable {
 
   @override
   List<Object?> get props => [report, reportStatus];
+
+  bool isReportInitialized() => reportStatus == ReportStatus.initialized;
 }

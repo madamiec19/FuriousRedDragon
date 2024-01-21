@@ -15,9 +15,13 @@ class ReportInitialized extends ReportEvent {
 }
 
 class ReportItemScanned extends ReportEvent {
-  final String code;
+  final Item item;
 
-  ReportItemScanned({required this.code});
+  ReportItemScanned({required this.item});
 }
 
+class ReportRefresh extends ReportEvent {}
+
 class ReportFinished extends ReportEvent {}
+
+class ReportItemTesting extends ReportEvent {}

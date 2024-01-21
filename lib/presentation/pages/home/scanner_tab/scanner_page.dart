@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/item_details_page.dart';
+import 'package:furious_red_dragon/presentation/components/white_card.dart';
 import 'package:furious_red_dragon/presentation/pages/home/scanner_tab/barcode_reader.dart';
 
 import 'package:furious_red_dragon/core/constants.dart';
@@ -20,20 +22,42 @@ class ScannerPage extends StatelessWidget {
       listenWhen: (previous, current) =>
           previous.scannerStatus != current.scannerStatus,
       listener: (BuildContext context, state) {
+        ///gdy zeskanowany kod jest w bazie
         if (state.isItemFound()) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const ItemDetailsPage()),
-          );
-        } else if (state.isItemNotFound()) {
+          final reportState = BlocProvider.of<ReportBloc>(context).state;
+
+          ///gdy raport jest zainicjowany dodaje zeskanowany przedmiot do raportu
+          if (reportState.reportStatus == ReportStatus.initialized) {
+            context.read<ReportBloc>().add(ReportItemScanned(item: state.item));
+            context.read<ScannerBloc>().add(ScannerInitialized());
+            const snackBar = SnackBar(
+              content: Text('Przedmiot dodany do raportu!'),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            context.read<ScannerBloc>().add(ScannerInitialized());
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ItemDetailsPage()),
+            );
+          }
+        }
+
+        ///gdy zeskanowany kod którego nie ma w bazie TODO dodać możliwość dodania nowego przedmiotu, rozważyć co kiedy raport jest zainicjalizowany a zeskowanego kodu nie ma w bazie
+        else if (state.isItemNotFound()) {
           const snackBar = SnackBar(
             content: Text('Brak przedmiotu w bazie'),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           context.read<ScannerBloc>().add(ScannerInitialized());
-        } else if (state.isManualInput()) {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ScannerManualInput()));
+        }
+
+        ///gdy klikniemy w przycisk ręcznego dodania
+        else if (state.isManualInput()) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const ScannerManualInput()));
         }
       },
       child: Center(
