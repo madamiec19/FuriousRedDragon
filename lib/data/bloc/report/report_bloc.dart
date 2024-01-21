@@ -24,7 +24,6 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     try {
       _reportsRepository.updateReport(
           reportId: state.report.id, code: event.code);
-      print('działa?');
     } catch (error) {
       print(error.toString());
     }
@@ -33,15 +32,12 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   void _onReportInitialized(
       ReportInitialized event, Emitter<ReportState> emit) async {
     try {
-      print('1');
       int id = await _authenticationRepository.getCurrentUserId();
-      print('2');
+
       var response = await _reportsRepository.addReport(event.idRoom, id);
-      print('3');
+
       emit(state.copyWith(
           reportStatus: ReportStatus.initialized, report: response));
-
-      print('4');
     } catch (error) {
       print(error.toString());
     }

@@ -11,7 +11,6 @@ class ReportsRepository implements IReportsRepository {
 
   @override
   Future<Report> addReport(int idRoom, int idAuthor) async {
-    print('5');
     final response = await _supabaseClient.from('reports').insert([
       {
         'author_id': idAuthor,
@@ -19,9 +18,7 @@ class ReportsRepository implements IReportsRepository {
         'is_completed': false,
       }
     ]).select();
-    print(response[0].toString());
     Report report = Report.fromJson(response[0]);
-    print('elo');
     return report;
   }
 
@@ -36,7 +33,7 @@ class ReportsRepository implements IReportsRepository {
       {required int reportId, required String code}) async {
     await _supabaseClient.rpc('add_item_to_report', params: {
       'item_id': code,
-      'report_id': 52,
+      'report_id': reportId,
     });
   }
 }
