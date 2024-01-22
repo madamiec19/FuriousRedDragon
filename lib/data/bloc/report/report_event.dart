@@ -14,14 +14,12 @@ class ReportInitialized extends ReportEvent {
   });
 }
 
-class ReportItemScanned extends ReportEvent {
+class ReportItemAdded extends ReportEvent {
   final Item item;
 
-  ReportItemScanned({required this.item});
+  ReportItemAdded({required this.item});
 }
 
-class ReportRefresh extends ReportEvent {}
+class ReportSnackBarShowed extends ReportEvent {}
 
 class ReportFinished extends ReportEvent {}
-
-class ReportItemTesting extends ReportEvent {}

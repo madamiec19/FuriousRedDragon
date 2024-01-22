@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/white_card.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/add_user_screen.dart';
@@ -23,122 +24,132 @@ class HistoryPage extends StatelessWidget {
           );
         }
       },
-      child: Material(
-        color: kPageBackgroundColor,
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(10),
-              child: DoubleButton(
-                leftOptionLabel: 'Historia',
-                rightOptionLabel: 'Baza danych',
+      child: BlocListener<ReportBloc, ReportState>(
+        listener: (BuildContext context, ReportState state) {
+          if (state.isReportAdded()) {
+            //TODO zrobic snackbar informujacy ze dodano przedmiot do raportu
+            context.read<ReportBloc>().add(ReportSnackBarShowed());
+          }
+        },
+        child: Material(
+          color: kPageBackgroundColor,
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: DoubleButton(
+                  leftOptionLabel: 'Historia',
+                  rightOptionLabel: 'Baza danych',
+                ),
               ),
-            ),
-            BlocBuilder<HistoryDatabaseBloc, HistoryDatabaseState>(
-                builder: (context, state) {
-              if (state.isHistoryMenuChosen()) {
-                return const Expanded(
-                  child: WhiteCard(
-                    child: ReportsStream(),
-                  ),
-                );
-              } else if (state.isDatabaseMenuChosen()) {
-                return state.isAdmin
-                    ? const AdminDatabaseMenu()
-                    : const Expanded(
-                        child: WhiteCard(
-                          child: RoomsStream(),
-                        ),
-                      );
-              } else if (state.isLocalizationsViewChosen()) {
-                return Expanded(
-                  child: WhiteCard(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 43,
-                                width: 43,
-                                child: IconButton(
-                                  style: const ButtonStyle(
-                                    iconColor:
-                                        MaterialStatePropertyAll(Colors.white),
-                                    backgroundColor: MaterialStatePropertyAll(
-                                        kFuriousRedColor),
-                                  ),
-                                  onPressed: () => context
-                                      .read<HistoryDatabaseBloc>()
-                                      .add(HistoryDatabaseDatabaseMenuChosen()),
-                                  icon: const Icon(
-                                    Icons.west,
+              BlocBuilder<HistoryDatabaseBloc, HistoryDatabaseState>(
+                  builder: (context, state) {
+                if (state.isHistoryMenuChosen()) {
+                  return const Expanded(
+                    child: WhiteCard(
+                      child: ReportsStream(),
+                    ),
+                  );
+                } else if (state.isDatabaseMenuChosen()) {
+                  return state.isAdmin
+                      ? const AdminDatabaseMenu()
+                      : const Expanded(
+                          child: WhiteCard(
+                            child: RoomsStream(),
+                          ),
+                        );
+                } else if (state.isLocalizationsViewChosen()) {
+                  return Expanded(
+                    child: WhiteCard(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: SizedBox(
+                                  height: 43,
+                                  width: 43,
+                                  child: IconButton(
+                                    style: const ButtonStyle(
+                                      iconColor: MaterialStatePropertyAll(
+                                          Colors.white),
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          kFuriousRedColor),
+                                    ),
+                                    onPressed: () => context
+                                        .read<HistoryDatabaseBloc>()
+                                        .add(
+                                            HistoryDatabaseDatabaseMenuChosen()),
+                                    icon: const Icon(
+                                      Icons.west,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const Expanded(child: RoomsStream()),
-                      ],
+                            ],
+                          ),
+                          const Expanded(child: RoomsStream()),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else if (state.isUsersViewChosen()) {
-                return Expanded(
-                  child: WhiteCard(
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: IconButton(
-                                  style: const ButtonStyle(
-                                    iconColor:
-                                        MaterialStatePropertyAll(Colors.white),
-                                    backgroundColor: MaterialStatePropertyAll(
-                                        kFuriousRedColor),
-                                  ),
-                                  onPressed: () => context
-                                      .read<HistoryDatabaseBloc>()
-                                      .add(HistoryDatabaseDatabaseMenuChosen()),
-                                  icon: const Icon(
-                                    Icons.west,
+                  );
+                } else if (state.isUsersViewChosen()) {
+                  return Expanded(
+                    child: WhiteCard(
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: IconButton(
+                                    style: const ButtonStyle(
+                                      iconColor: MaterialStatePropertyAll(
+                                          Colors.white),
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          kFuriousRedColor),
+                                    ),
+                                    onPressed: () => context
+                                        .read<HistoryDatabaseBloc>()
+                                        .add(
+                                            HistoryDatabaseDatabaseMenuChosen()),
+                                    icon: const Icon(
+                                      Icons.west,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        UsersStream(),
-                        Column(
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                context
-                                    .read<HistoryDatabaseBloc>()
-                                    .add(HistoryAdminAddUserButtonClicked());
-                              },
-                              icon: const Icon(Icons.add_circle_outline),
-                              iconSize: 37,
-                            ),
-                            const Text('Dodaj użytkownika'),
-                          ],
-                        )
-                      ],
+                            ],
+                          ),
+                          UsersStream(),
+                          Column(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  context
+                                      .read<HistoryDatabaseBloc>()
+                                      .add(HistoryAdminAddUserButtonClicked());
+                                },
+                                icon: const Icon(Icons.add_circle_outline),
+                                iconSize: 37,
+                              ),
+                              const Text('Dodaj użytkownika'),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              } else {
-                return const WhiteCard(child: Text(''));
-              }
-            })
-          ],
+                  );
+                } else {
+                  return const WhiteCard(child: Text(''));
+                }
+              })
+            ],
+          ),
         ),
       ),
     );

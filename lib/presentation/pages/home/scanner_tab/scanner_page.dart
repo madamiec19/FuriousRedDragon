@@ -28,7 +28,7 @@ class ScannerPage extends StatelessWidget {
 
           ///gdy raport jest zainicjowany dodaje zeskanowany przedmiot do raportu
           if (reportState.reportStatus == ReportStatus.initialized) {
-            context.read<ReportBloc>().add(ReportItemScanned(item: state.item));
+            context.read<ReportBloc>().add(ReportItemAdded(item: state.item));
             context.read<ScannerBloc>().add(ScannerInitialized());
             const snackBar = SnackBar(
               content: Text('Przedmiot dodany do raportu!'),

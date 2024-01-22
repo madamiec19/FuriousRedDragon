@@ -3,7 +3,6 @@ part of 'report_bloc.dart';
 enum ReportStatus {
   noReport,
   initialized,
-  inProgress,
   itemAdded,
   finished,
 }
@@ -27,4 +26,5 @@ class ReportState extends Equatable {
   List<Object?> get props => [report, reportStatus];
 
   bool isReportInitialized() => reportStatus == ReportStatus.initialized;
+  bool isReportAdded() => reportStatus == ReportStatus.itemAdded;
 }

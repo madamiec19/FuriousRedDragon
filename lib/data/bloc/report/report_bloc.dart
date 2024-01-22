@@ -17,8 +17,13 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   ReportBloc(this._reportsRepository, this._authenticationRepository)
       : super(const ReportState()) {
     on<ReportInitialized>(_onReportInitialized);
-    on<ReportItemScanned>(_onReportItemScanned);
+    on<ReportItemAdded>(_onReportItemAdded);
     on<ReportFinished>(_onReportFinished);
+    on<ReportSnackBarShowed>(_onReportSnackBarShowed);
+  }
+
+  void _onReportSnackBarShowed(ReportSnackBarShowed event, Emitter<ReportState> emit) {
+    emit(state.copyWith(reportStatus: ReportStatus.initialized));
   }
 
   Future<void> _onReportFinished(
@@ -32,13 +37,14 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     }
   }
 
-  Future<void> _onReportItemScanned(
-      ReportItemScanned event, Emitter<ReportState> emit) async {
+  Future<void> _onReportItemAdded(
+      ReportItemAdded event, Emitter<ReportState> emit) async {
     try {
       await _reportsRepository.updateReportWithScannedItem(
           reportId: state.report.id, item: event.item);
       emit(state.copyWith(
         report: await _reportsRepository.getReportWithId(state.report.id),
+        reportStatus: ReportStatus.itemAdded,
       ));
     } catch (error) {
       print(error.toString());
@@ -48,8 +54,8 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
   Future<void> _onReportInitialized(
       ReportInitialized event, Emitter<ReportState> emit) async {
     try {
-      int id = await _authenticationRepository.getCurrentUserId();
-      var response = await _reportsRepository.addReport(event.idRoom, id);
+      int authorId = await _authenticationRepository.getCurrentUserId();
+      var response = await _reportsRepository.addReport(event.idRoom, authorId);
       emit(state.copyWith(
           reportStatus: ReportStatus.initialized, report: response));
     } catch (error) {
