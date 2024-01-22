@@ -27,11 +27,34 @@ class ReportsRepository implements IReportsRepository {
 
   @override
   Future<List<Report>> getReports() async {
-    final response = await _supabaseClient.from('reports').select('*');
+    final response = await _supabaseClient
+        .from('reports')
+        .select('*')
+        .order('created_at')
+        .limit(10);
     List<Report> reports = [];
-    response.forEach((element) {
-      reports.add(Report.fromJson(element));
-    });
+    print(response);
+    for (var value in response) {
+      Report report = Report.fromJson(value);
+      final authorResponse = await _supabaseClient
+          .from('roles')
+          .select('name')
+          .eq('id', report.idAuthor)
+          .single();
+      String author = authorResponse['name'];
+
+      final roomResponse = await _supabaseClient
+          .from('rooms')
+          .select('name,floor,id_building')
+          .eq('id', report.roomId)
+          .single();
+      String room =
+          'Sala ${roomResponse['name'].toString()}/${roomResponse['floor'].toString()} bud. ${roomResponse['id_building'].toString()}';
+
+      report = report.copyWith(author: author, room: room);
+      reports.add(report);
+    }
+
     return reports;
   }
 

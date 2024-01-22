@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
-import 'package:furious_red_dragon/presentation/pages/home/account_tab/report_overview_page.dart';
+import 'package:furious_red_dragon/presentation/components/report_overview_page.dart';
 import 'add_room.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 
@@ -45,8 +45,11 @@ class AccountPage extends StatelessWidget {
             kBigGap,
             BigWhiteButton(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ReportOverview()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ReportOverview(report: state.report)));
               },
               buttonTitle: 'podgląd raportu',
             ),

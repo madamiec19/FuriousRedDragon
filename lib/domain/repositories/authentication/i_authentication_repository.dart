@@ -12,7 +12,10 @@ abstract class IAuthenticationRepository {
   });
 
   Future<void> addUser(
-      {required String email, required String name, required int idAdmin});
+      {required String email,
+      required String name,
+      required String password,
+      required int idAdmin});
 
   Future<void> signOut();
 

@@ -1,3 +1,4 @@
+import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
 import 'package:furious_red_dragon/domain/repositories/rooms/i_rooms_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -22,8 +23,39 @@ class RoomRepository implements IRoomsRepository {
   }
 
   @override
-  Future<List<Room>> getAllRooms() {
-    // TODO: implement getAllRooms
-    throw UnimplementedError();
+  Future<List<Room>> getAllRooms() async {
+    final response =
+        await _supabaseClient.from('rooms').select('*').order('name');
+    List<Room> rooms = [];
+
+    for (var value in response) {
+      Room room = Room.fromJson(value);
+      List<Item> roomItems = [];
+      final itemsResponse = await _supabaseClient
+          .from('items')
+          .select('*')
+          .eq('id_room', room.id);
+      print(itemsResponse);
+      for (var value in itemsResponse) {
+        Item item = Item.fromJson(value);
+        roomItems.add(item);
+      }
+      room = room.copyWith(items: roomItems);
+      rooms.add(room);
+    }
+    return rooms;
+  }
+
+  @override
+  Future<Room> getRoomWithId(int id) async {
+    try {
+      final response =
+          await _supabaseClient.from('rooms').select('*').eq('id', id);
+
+      return response;
+    } catch (error) {
+      print(error.toString());
+    }
+    return Room.empty;
   }
 }

@@ -23,7 +23,7 @@ void main() async {
   await Supabase.initialize(
     url: 'https://ubjqvkvameebwmsjujbd.supabase.co',
     anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVianF2a3ZhbWVlYndtc2p1amJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTkwNjIwNTUsImV4cCI6MjAxNDYzODA1NX0.C0T-L8L_T5ny_gL2Mm4RAQJ36-DtZDoByAbLAqPcymk',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVianF2a3ZhbWVlYndtc2p1amJkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY5OTA2MjA1NSwiZXhwIjoyMDE0NjM4MDU1fQ.YLPceJ2EnaSBlM_FNeDlRJPp-WMzxySnM5uEgFe4jj0',
   );
 
   configureDependencies();
@@ -45,7 +45,8 @@ void main() async {
         ),
         BlocProvider(
           create: (_) => getIt<HistoryDatabaseBloc>()
-            ..add(HistoryDatabaseInitialCheckRequest()),
+            ..add(HistoryDatabaseInitialCheckRequest())
+            ..add(HistoryDatabaseHistoryMenuChosen()),
         ),
         BlocProvider(create: (_) => getIt<ReportBloc>()),
       ],
@@ -70,6 +71,9 @@ class MyApp extends StatelessWidget {
           }
           if (state is AuthUserAuthenticated) {
             Navigator.pushReplacementNamed(context, HomePage.routeName);
+            context
+                .read<HistoryDatabaseBloc>()
+                .add(HistoryDatabaseInitialCheckRequest());
           }
         },
         builder: (context, state) => const SplashPage(),

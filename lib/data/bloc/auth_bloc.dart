@@ -13,8 +13,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthStatus> {
     on<AuthInitialCheckRequested>(_onInitialAuthChecked);
     on<AuthLogoutButtonPressed>(_onLogoutButtonPressed);
     on<AuthOnCurrentUserChanged>(_onCurrentUserChanged);
-
+    on<AuthAdminUserAdding>(_onAdminAddingUser);
     _startUserSubscription();
+  }
+
+  Future<void> _onAdminAddingUser(
+      AuthAdminUserAdding event, Emitter<AuthStatus> emit) async {
+    await _authenticationRepository.addUser(
+        email: event.email,
+        name: event.name,
+        password: event.password,
+        idAdmin: await _authenticationRepository.getCurrentUserId());
   }
 
   Future<void> _onInitialAuthChecked(
@@ -64,6 +73,14 @@ class AuthOnCurrentUserChanged extends AuthEvent {
 }
 
 class AuthLogoutButtonPressed extends AuthEvent {}
+
+class AuthAdminUserAdding extends AuthEvent {
+  final String name;
+  final String email;
+  final String password;
+
+  AuthAdminUserAdding(this.name, this.email, this.password);
+}
 
 abstract class AuthStatus {}
 

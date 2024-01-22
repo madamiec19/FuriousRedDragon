@@ -68,19 +68,30 @@ class AuthenticationRepository implements IAuthenticationRepository {
     return response['id'] as int;
   }
 
-  //TODO do przeniesienia do admin_bloc.dart
   @override
   Future<void> addUser(
       {required String email,
       required String name,
+      required String password,
       required int idAdmin}) async {
+    final data =
+        await _supabaseDb.from('roles').select('email').eq('email', email);
+    final count = data.length;
+    if (count == 0) {
+      await _supabaseAuth.admin.createUser(AdminUserAttributes(
+          email: email, password: password, emailConfirm: true));
+    }
+
+    final list = await _supabaseAuth.admin.listUsers();
+    final user = list.firstWhere((user) => user.email == email);
+    final userId = user.id;
+
     await _supabaseDb.from('roles').insert({
+      'user_id': userId,
       'name': name,
       'status': 'pracownik',
       'email': email,
       'id_admin': idAdmin
     });
-
-    await _supabaseAuth.admin.inviteUserByEmail(email);
   }
 }

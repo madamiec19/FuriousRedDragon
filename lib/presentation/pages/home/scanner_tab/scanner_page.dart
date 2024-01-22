@@ -29,16 +29,20 @@ class ScannerPage extends StatelessWidget {
           ///gdy raport jest zainicjowany dodaje zeskanowany przedmiot do raportu
           if (reportState.reportStatus == ReportStatus.initialized) {
             context.read<ReportBloc>().add(ReportItemAdded(item: state.item));
-            context.read<ScannerBloc>().add(ScannerInitialized());
             const snackBar = SnackBar(
               content: Text('Przedmiot dodany do raportu!'),
+              duration: Duration(seconds: 1),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
             context.read<ScannerBloc>().add(ScannerInitialized());
-          } else {
+          }
+
+          ///gdy raport nie jest zainicjowany, ale przedmiot jest w bazie pokaż jego szczegóły
+          else {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ItemDetailsPage()),
+              MaterialPageRoute(
+                  builder: (context) => ItemDetailsPage(item: state.item)),
             );
           }
         }

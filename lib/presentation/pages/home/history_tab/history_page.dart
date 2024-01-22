@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
+import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
+import 'package:furious_red_dragon/presentation/components/room_details_page.dart';
 import 'package:furious_red_dragon/presentation/components/white_card.dart';
+import 'package:furious_red_dragon/presentation/components/report_overview_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/add_user_screen.dart';
-import 'package:furious_red_dragon/presentation/pages/home/history_tab/reports_stream.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/rooms_stream.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/users_stream.dart';
@@ -44,10 +47,35 @@ class HistoryPage extends StatelessWidget {
               ),
               BlocBuilder<HistoryDatabaseBloc, HistoryDatabaseState>(
                   builder: (context, state) {
+                /// gdy wybrane jest menu historia wyświetlane są raporty
                 if (state.isHistoryMenuChosen()) {
-                  return const Expanded(
+                  List<Report> reports = state.reports;
+                  List<BasicListItem> items = [];
+                  if (reports.isNotEmpty) {
+                    for (var report in reports) {
+                      items.add(BasicListItem(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ReportOverview(report: report)));
+                          },
+                          buttonTitle: report.toString()));
+                    }
+                  }
+                  return Expanded(
                     child: WhiteCard(
-                      child: ReportsStream(),
+                      child: items.isEmpty
+                          ? const Center(
+                              child: CircularProgressIndicator(
+                                color: kFuriousRedColor,
+                                backgroundColor: kLightGrey,
+                              ),
+                            )
+                          : ListView(
+                              children: items,
+                            ),
                     ),
                   );
                 } else if (state.isDatabaseMenuChosen()) {
@@ -59,6 +87,21 @@ class HistoryPage extends StatelessWidget {
                           ),
                         );
                 } else if (state.isLocalizationsViewChosen()) {
+                  List<Room> rooms = state.rooms;
+                  List<BasicListItem> items = [];
+                  if (rooms.isNotEmpty) {
+                    for (var room in rooms) {
+                      items.add(BasicListItem(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        RoomDetailsPage(room: room)));
+                          },
+                          buttonTitle: room.toString()));
+                    }
+                  }
                   return Expanded(
                     child: WhiteCard(
                       child: Column(
@@ -89,7 +132,10 @@ class HistoryPage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Expanded(child: RoomsStream()),
+                          Expanded(
+                              child: ListView(
+                            children: items,
+                          )),
                         ],
                       ),
                     ),

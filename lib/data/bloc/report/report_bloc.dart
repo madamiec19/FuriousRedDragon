@@ -22,7 +22,8 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     on<ReportSnackBarShowed>(_onReportSnackBarShowed);
   }
 
-  void _onReportSnackBarShowed(ReportSnackBarShowed event, Emitter<ReportState> emit) {
+  void _onReportSnackBarShowed(
+      ReportSnackBarShowed event, Emitter<ReportState> emit) {
     emit(state.copyWith(reportStatus: ReportStatus.initialized));
   }
 
@@ -46,6 +47,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
         report: await _reportsRepository.getReportWithId(state.report.id),
         reportStatus: ReportStatus.itemAdded,
       ));
+      emit(state.copyWith(reportStatus: ReportStatus.initialized));
     } catch (error) {
       print(error.toString());
     }
