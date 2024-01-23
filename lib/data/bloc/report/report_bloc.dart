@@ -60,9 +60,14 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
       ReportInitialized event, Emitter<ReportState> emit) async {
     try {
       int authorId = await _authenticationRepository.getCurrentUserId();
-      var response = await _reportsRepository.addReport(event.idRoom, authorId);
+      final reportResponse =
+          await _reportsRepository.addReport(event.idRoom, authorId);
+      final room = await _roomsRepository.getRoomWithId(event.idRoom);
+      print('dsadasd ${room.floor}');
       emit(state.copyWith(
-          reportStatus: ReportStatus.initialized, report: response));
+        reportStatus: ReportStatus.initialized,
+        report: reportResponse.copyWith(room: room.toString()),
+      ));
     } catch (error) {
       print(error.toString());
     }

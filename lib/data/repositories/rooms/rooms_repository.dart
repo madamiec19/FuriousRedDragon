@@ -53,9 +53,9 @@ class RoomRepository implements IRoomsRepository {
   Future<Room> getRoomWithId(int id) async {
     try {
       final response =
-          await _supabaseClient.from('rooms').select('*').eq('id', id);
+          await _supabaseClient.from('rooms').select('*').eq('id', id).single();
 
-      return response;
+      return Room.fromJson(response);
     } catch (error) {
       print(error.toString());
       return Room.empty;
