@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/authentication/i_authentication_repository.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
-import 'package:furious_red_dragon/domain/repositories/items/i_items_repository.dart';
 import 'package:furious_red_dragon/domain/repositories/reports/i_reports_repository.dart';
 import 'package:furious_red_dragon/domain/repositories/rooms/i_rooms_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -76,7 +75,7 @@ class HistoryDatabaseBloc
       Emitter<HistoryDatabaseState> emit) async {
     emit(state.copyWith(
         historyDatabaseStatus: HistoryDatabaseStatus.historyView));
-    final reports = await _reportsRepository.getReports();
+    final reports = await _reportsRepository.getAllReports();
     emit(state.copyWith(reports: reports));
   }
 }

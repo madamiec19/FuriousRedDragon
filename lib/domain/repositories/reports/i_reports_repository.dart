@@ -6,9 +6,11 @@ abstract class IReportsRepository {
   Future<void> updateReportWithScannedItem(
       {required int reportId, required Item item});
 
-  Future<List<Report>> getReports();
+  Future<List<Report>> getAllReports();
 
   Future<Report> getReportWithId(int id);
 
   Future<void> finishReport(int reportId);
+
+  Future<List<Report>> getReportForRoom(int roomId);
 }

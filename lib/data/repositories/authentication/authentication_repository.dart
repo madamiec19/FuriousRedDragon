@@ -40,32 +40,47 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
   @override
   Future<String> getCurrentUserName() async {
-    var response = await _supabaseDb
-        .from('roles')
-        .select('name')
-        .eq('user_id', _supabaseAuth.currentUser!.id)
-        .single();
-    return response['name'] as String;
+    try {
+      var response = await _supabaseDb
+          .from('roles')
+          .select('name')
+          .eq('user_id', _supabaseAuth.currentUser!.id)
+          .single();
+      return response['name'] as String;
+    } catch (e) {
+      print(e.toString());
+    }
+    return '';
   }
 
   @override
   Future<String> getCurrentUserRole() async {
-    var response = await _supabaseDb
-        .from('roles')
-        .select('status')
-        .eq('user_id', _supabaseAuth.currentUser!.id)
-        .single();
-    return response['status'] as String;
+    try {
+      var response = await _supabaseDb
+          .from('roles')
+          .select('status')
+          .eq('user_id', _supabaseAuth.currentUser!.id)
+          .single();
+      return response['status'] as String;
+    } catch (error) {
+      print(error.toString());
+    }
+    return '';
   }
 
   @override
   Future<int> getCurrentUserId() async {
-    var response = await _supabaseDb
-        .from('roles')
-        .select('id')
-        .eq('user_id', _supabaseAuth.currentUser!.id)
-        .single();
-    return response['id'] as int;
+    try {
+      final response = await _supabaseDb
+          .from('roles')
+          .select('id')
+          .eq('user_id', _supabaseAuth.currentUser!.id)
+          .single();
+      return response['id'] as int;
+    } catch (error) {
+      print(error.toString());
+    }
+    return -1;
   }
 
   @override
@@ -74,24 +89,28 @@ class AuthenticationRepository implements IAuthenticationRepository {
       required String name,
       required String password,
       required int idAdmin}) async {
-    final data =
-        await _supabaseDb.from('roles').select('email').eq('email', email);
-    final count = data.length;
-    if (count == 0) {
-      await _supabaseAuth.admin.createUser(AdminUserAttributes(
-          email: email, password: password, emailConfirm: true));
+    try {
+      final data =
+          await _supabaseDb.from('roles').select('email').eq('email', email);
+      final count = data.length;
+      if (count == 0) {
+        await _supabaseAuth.admin.createUser(AdminUserAttributes(
+            email: email, password: password, emailConfirm: true));
+      }
+
+      final list = await _supabaseAuth.admin.listUsers();
+      final user = list.firstWhere((user) => user.email == email);
+      final userId = user.id;
+
+      await _supabaseDb.from('roles').insert({
+        'user_id': userId,
+        'name': name,
+        'status': 'pracownik',
+        'email': email,
+        'id_admin': idAdmin
+      });
+    } catch (error) {
+      print(error.toString());
     }
-
-    final list = await _supabaseAuth.admin.listUsers();
-    final user = list.firstWhere((user) => user.email == email);
-    final userId = user.id;
-
-    await _supabaseDb.from('roles').insert({
-      'user_id': userId,
-      'name': name,
-      'status': 'pracownik',
-      'email': email,
-      'id_admin': idAdmin
-    });
   }
 }

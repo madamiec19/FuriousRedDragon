@@ -28,7 +28,7 @@ class Report extends Equatable {
   @override
   String toString() {
     DateTime createdAtDT = DateTime.parse(createdAt);
-    return '$room z dnia ${createdAtDT.day}/${createdAtDT.month}/${createdAtDT.year}';
+    return 'Raport sali $room z dnia ${createdAtDT.day}/${createdAtDT.month}/${createdAtDT.year}';
   }
 
   @override

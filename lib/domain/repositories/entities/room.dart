@@ -36,7 +36,7 @@ class Room extends Equatable {
 
   @override
   String toString() {
-    return 'Sala $name/$floor budynek $buildingId';
+    return '$name/$floor budynek $buildingId';
   }
 
   Room.fromJson(Map<String, dynamic> json)

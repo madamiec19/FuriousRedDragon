@@ -78,7 +78,10 @@ class HistoryPage extends StatelessWidget {
                             ),
                     ),
                   );
-                } else if (state.isDatabaseMenuChosen()) {
+                }
+
+                /// gdy wybrane jest menu baza danych, różny content jest wyświetlany dla admina a inny dla pracownika
+                else if (state.isDatabaseMenuChosen()) {
                   return state.isAdmin
                       ? const AdminDatabaseMenu()
                       : const Expanded(
