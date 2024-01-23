@@ -8,6 +8,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 part 'scanner_state.dart';
 part 'scanner_event.dart';
 
+/// Obsługa skanowania
 @Injectable()
 class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
   final IItemsRepository _itemsRepository;

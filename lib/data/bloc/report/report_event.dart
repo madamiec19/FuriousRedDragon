@@ -16,6 +16,4 @@ class ReportItemAdded extends ReportEvent {
   ReportItemAdded({required this.item});
 }
 
-class ReportSnackBarShowed extends ReportEvent {}
-
 class ReportFinished extends ReportEvent {}

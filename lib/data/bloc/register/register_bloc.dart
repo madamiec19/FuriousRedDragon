@@ -8,7 +8,9 @@ import 'package:injectable/injectable.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
+// TODO dodać obsługę walidacji poprzez kod z maila
 
+/// Obsługa rejestracji
 @Injectable()
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final IAuthenticationRepository _authenticationRepository;

@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 part 'login_event.dart';
 part 'login_state.dart';
 
+/// Obsługa logowania
 @Injectable()
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final IAuthenticationRepository _authenticationRepository;

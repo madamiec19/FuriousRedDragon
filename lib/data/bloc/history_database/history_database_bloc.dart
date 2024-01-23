@@ -10,6 +10,7 @@ import 'package:injectable/injectable.dart';
 part 'history_database_state.dart';
 part 'history_database_event.dart';
 
+/// Obsługa okna 'Historia'
 @Injectable()
 class HistoryDatabaseBloc
     extends Bloc<HistoryDatabaseEvent, HistoryDatabaseState> {

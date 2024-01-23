@@ -4,6 +4,10 @@ import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
 import 'package:furious_red_dragon/domain/repositories/rooms/i_rooms_repository.dart';
 import 'package:injectable/injectable.dart';
 
+part 'add_report_event.dart';
+part 'add_report_state.dart';
+
+/// Obsługa rozpoczęcia inwentaryzacji, stworzenia nowego raportu
 @Injectable()
 class AddReportBloc extends Bloc<AddReportEvent, AddReportState> {
   final IRoomsRepository _roomsRepository;
@@ -15,10 +19,11 @@ class AddReportBloc extends Bloc<AddReportEvent, AddReportState> {
     on<AddReportButtonClicked>(_onButtonClicked);
   }
 
+  /// Inicjacja obsługi [AddReportPage] - pobranie z repozytorium wszystkich budynków i emisja stanu z listą budynków
   Future<void> _onInitialLoad(
       AddReportInitial event, Emitter<AddReportState> emit) async {
     try {
-      final buildings = await _roomsRepository.getAllBuildings();
+      List<int> buildings = await _roomsRepository.getAllBuildings();
       emit(state.copyWith(
           buildings: buildings, addReportStatus: AddReportStatus.adding));
     } catch (e) {
@@ -26,88 +31,25 @@ class AddReportBloc extends Bloc<AddReportEvent, AddReportState> {
     }
   }
 
+  /// Reakcja na wybranie budynku - pobranie listy pomieszczeń z wybranego budynku, emisja stanu z wybranym budynkiem i listą pomieszczeń
   Future<void> _onBuildingChosen(
       AddReportBuildingChosen event, Emitter<AddReportState> emit) async {
     try {
-      final rooms = await _roomsRepository.getRoomsFromBuilding(event.building);
+      List<Room> rooms =
+          await _roomsRepository.getRoomsFromBuilding(event.building);
       emit(state.copyWith(rooms: rooms, chosenBuilding: event.building));
     } catch (e) {
       print(e.toString());
     }
   }
 
+  /// Reakcja na wybór pomieszczenia - emisja stanu z wybranym pomieszczeniem
   void _onRoomChosen(AddReportRoomChosen event, Emitter<AddReportState> emit) =>
       emit(state.copyWith(chosenRoom: event.room));
 
+  /// Reakcja na przycisk, wyemitowanie zaktualizowanego stanu ze statusem 'dodano raport'
   void _onButtonClicked(
       AddReportButtonClicked event, Emitter<AddReportState> emit) {
     emit(state.copyWith(addReportStatus: AddReportStatus.added));
   }
 }
-
-enum AddReportStatus {
-  adding,
-  added,
-}
-
-class AddReportState extends Equatable {
-  final List<int> buildings;
-  final List<Room> rooms;
-  final Room chosenRoom;
-  final int chosenBuilding;
-  final AddReportStatus addReportStatus;
-
-  const AddReportState({
-    this.buildings = const [],
-    this.rooms = const [],
-    this.chosenRoom = Room.empty,
-    this.chosenBuilding = -1,
-    this.addReportStatus = AddReportStatus.adding,
-  });
-
-  AddReportState copyWith({
-    List<int>? buildings,
-    List<Room>? rooms,
-    Room? chosenRoom,
-    int? chosenBuilding,
-    AddReportStatus? addReportStatus,
-  }) =>
-      AddReportState(
-        buildings: buildings ?? this.buildings,
-        rooms: rooms ?? this.rooms,
-        chosenBuilding: chosenBuilding ?? this.chosenBuilding,
-        chosenRoom: chosenRoom ?? this.chosenRoom,
-        addReportStatus: addReportStatus ?? this.addReportStatus,
-      );
-
-  @override
-  List<Object?> get props => [
-        buildings,
-        rooms,
-        chosenRoom,
-        chosenBuilding,
-        addReportStatus,
-      ];
-
-  bool isAdded() => addReportStatus == AddReportStatus.added;
-  bool isBuildingChosen() => chosenBuilding != -1;
-  bool isRoomChosen() => chosenRoom != Room.empty;
-}
-
-abstract class AddReportEvent {}
-
-class AddReportInitial extends AddReportEvent {}
-
-class AddReportBuildingChosen extends AddReportEvent {
-  final int building;
-
-  AddReportBuildingChosen({required this.building});
-}
-
-class AddReportRoomChosen extends AddReportEvent {
-  final Room room;
-
-  AddReportRoomChosen({required this.room});
-}
-
-class AddReportButtonClicked extends AddReportEvent {}

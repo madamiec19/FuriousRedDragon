@@ -27,178 +27,168 @@ class HistoryPage extends StatelessWidget {
           );
         }
       },
-      child: BlocListener<ReportBloc, ReportState>(
-        listener: (BuildContext context, ReportState state) {
-          if (state.isReportAdded()) {
-            //TODO zrobic snackbar informujacy ze dodano przedmiot do raportu
-            context.read<ReportBloc>().add(ReportSnackBarShowed());
-          }
-        },
-        child: Material(
-          color: kPageBackgroundColor,
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: DoubleButton(
-                  leftOptionLabel: 'Historia',
-                  rightOptionLabel: 'Baza danych',
-                ),
+      child: Material(
+        color: kPageBackgroundColor,
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(10),
+              child: DoubleButton(
+                leftOptionLabel: 'Historia',
+                rightOptionLabel: 'Baza danych',
               ),
-              BlocBuilder<HistoryDatabaseBloc, HistoryDatabaseState>(
-                  builder: (context, state) {
-                /// gdy wybrane jest menu historia wyświetlane są raporty
-                if (state.isHistoryMenuChosen()) {
-                  List<Report> reports = state.reports;
-                  List<BasicListItem> items = [];
-                  if (reports.isNotEmpty) {
-                    for (var report in reports) {
-                      items.add(BasicListItem(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ReportOverview(report: report)));
-                          },
-                          buttonTitle: report.toString()));
-                    }
+            ),
+            BlocBuilder<HistoryDatabaseBloc, HistoryDatabaseState>(
+                builder: (context, state) {
+              /// gdy wybrane jest menu historia wyświetlane są raporty
+              if (state.isHistoryMenuChosen()) {
+                List<Report> reports = state.reports;
+                List<BasicListItem> items = [];
+                if (reports.isNotEmpty) {
+                  for (var report in reports) {
+                    items.add(BasicListItem(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ReportOverview(report: report)));
+                        },
+                        buttonTitle: report.toString()));
                   }
-                  return Expanded(
-                    child: WhiteCard(
-                      child: items.isEmpty
-                          ? const Center(
-                              child: CircularProgressIndicator(
-                                color: kFuriousRedColor,
-                                backgroundColor: kLightGrey,
-                              ),
-                            )
-                          : ListView(
-                              children: items,
+                }
+                return Expanded(
+                  child: WhiteCard(
+                    child: items.isEmpty
+                        ? const Center(
+                            child: CircularProgressIndicator(
+                              color: kFuriousRedColor,
+                              backgroundColor: kLightGrey,
                             ),
-                    ),
-                  );
-                }
-
-                /// gdy wybrane jest menu baza danych, różny content jest wyświetlany dla admina a inny dla pracownika
-                else if (state.isDatabaseMenuChosen()) {
-                  return state.isAdmin
-                      ? const AdminDatabaseMenu()
-                      : const Expanded(
-                          child: WhiteCard(
-                            child: RoomsStream(),
-                          ),
-                        );
-                } else if (state.isLocalizationsViewChosen()) {
-                  List<Room> rooms = state.rooms;
-                  List<BasicListItem> items = [];
-                  if (rooms.isNotEmpty) {
-                    for (var room in rooms) {
-                      items.add(BasicListItem(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        RoomDetailsPage(room: room)));
-                          },
-                          buttonTitle: room.toString()));
-                    }
-                  }
-                  return Expanded(
-                    child: WhiteCard(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: SizedBox(
-                                  height: 43,
-                                  width: 43,
-                                  child: IconButton(
-                                    style: const ButtonStyle(
-                                      iconColor: MaterialStatePropertyAll(
-                                          Colors.white),
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          kFuriousRedColor),
-                                    ),
-                                    onPressed: () => context
-                                        .read<HistoryDatabaseBloc>()
-                                        .add(
-                                            HistoryDatabaseDatabaseMenuChosen()),
-                                    icon: const Icon(
-                                      Icons.west,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                              child: ListView(
-                            children: items,
-                          )),
-                        ],
-                      ),
-                    ),
-                  );
-                } else if (state.isUsersViewChosen()) {
-                  return Expanded(
-                    child: WhiteCard(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: SizedBox(
-                                  height: 40,
-                                  width: 40,
-                                  child: IconButton(
-                                    style: const ButtonStyle(
-                                      iconColor: MaterialStatePropertyAll(
-                                          Colors.white),
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          kFuriousRedColor),
-                                    ),
-                                    onPressed: () => context
-                                        .read<HistoryDatabaseBloc>()
-                                        .add(
-                                            HistoryDatabaseDatabaseMenuChosen()),
-                                    icon: const Icon(
-                                      Icons.west,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          UsersStream(),
-                          Column(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  context
-                                      .read<HistoryDatabaseBloc>()
-                                      .add(HistoryAdminAddUserButtonClicked());
-                                },
-                                icon: const Icon(Icons.add_circle_outline),
-                                iconSize: 37,
-                              ),
-                              const Text('Dodaj użytkownika'),
-                            ],
                           )
-                        ],
-                      ),
-                    ),
-                  );
-                } else {
-                  return const WhiteCard(child: Text(''));
+                        : ListView(
+                            children: items,
+                          ),
+                  ),
+                );
+              }
+
+              /// gdy wybrane jest menu baza danych, różny content jest wyświetlany dla admina a inny dla pracownika
+              else if (state.isDatabaseMenuChosen()) {
+                return state.isAdmin
+                    ? const AdminDatabaseMenu()
+                    : const Expanded(
+                        child: WhiteCard(
+                          child: RoomsStream(),
+                        ),
+                      );
+              } else if (state.isLocalizationsViewChosen()) {
+                List<Room> rooms = state.rooms;
+                List<BasicListItem> items = [];
+                if (rooms.isNotEmpty) {
+                  for (var room in rooms) {
+                    items.add(BasicListItem(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RoomDetailsPage(room: room)));
+                        },
+                        buttonTitle: room.toString()));
+                  }
                 }
-              })
-            ],
-          ),
+                return Expanded(
+                  child: WhiteCard(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: SizedBox(
+                                height: 43,
+                                width: 43,
+                                child: IconButton(
+                                  style: const ButtonStyle(
+                                    iconColor:
+                                        MaterialStatePropertyAll(Colors.white),
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        kFuriousRedColor),
+                                  ),
+                                  onPressed: () => context
+                                      .read<HistoryDatabaseBloc>()
+                                      .add(HistoryDatabaseDatabaseMenuChosen()),
+                                  icon: const Icon(
+                                    Icons.west,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                            child: ListView(
+                          children: items,
+                        )),
+                      ],
+                    ),
+                  ),
+                );
+              } else if (state.isUsersViewChosen()) {
+                return Expanded(
+                  child: WhiteCard(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: SizedBox(
+                                height: 40,
+                                width: 40,
+                                child: IconButton(
+                                  style: const ButtonStyle(
+                                    iconColor:
+                                        MaterialStatePropertyAll(Colors.white),
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        kFuriousRedColor),
+                                  ),
+                                  onPressed: () => context
+                                      .read<HistoryDatabaseBloc>()
+                                      .add(HistoryDatabaseDatabaseMenuChosen()),
+                                  icon: const Icon(
+                                    Icons.west,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        UsersStream(),
+                        Column(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                context
+                                    .read<HistoryDatabaseBloc>()
+                                    .add(HistoryAdminAddUserButtonClicked());
+                              },
+                              icon: const Icon(Icons.add_circle_outline),
+                              iconSize: 37,
+                            ),
+                            const Text('Dodaj użytkownika'),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                );
+              } else {
+                return const WhiteCard(child: Text(''));
+              }
+            })
+          ],
         ),
       ),
     );
