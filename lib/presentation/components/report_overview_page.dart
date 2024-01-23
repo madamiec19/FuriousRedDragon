@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furious_red_dragon/core/constants.dart';
+import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/item_details_page.dart';
@@ -35,6 +38,15 @@ class _ReportOverviewState extends State<ReportOverview> {
               children: items,
             ),
           ),
+          widget.report.isCompleted
+              ? kSmallGap
+              : SmallButton(
+                  onTap: () {
+                    context.read<ReportBloc>().add(ReportFinished());
+                    Navigator.pop(context);
+                  },
+                  buttonTitle: 'zakończ inwentaryzacje'),
+          kBigGap,
         ],
       ),
     );

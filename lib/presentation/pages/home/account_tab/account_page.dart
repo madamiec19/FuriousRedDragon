@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/report_overview_page.dart';
+import 'package:furious_red_dragon/presentation/pages/home/account_tab/add_report.dart';
 import 'add_room.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 
@@ -18,9 +18,6 @@ class AccountPage extends StatelessWidget {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            state.isReportInitialized()
-                ? Text('Id aktywnego raportu: ' + state.report.id.toString())
-                : Text(''),
             BigWhiteButton(
               onTap: () {
                 Navigator.pushNamed(context, AddRoomPage.routeName);
@@ -28,38 +25,25 @@ class AccountPage extends StatelessWidget {
               buttonTitle: 'Dodaj salę',
             ),
             kBigGap,
-            Text('PRZYCISKI TESTOWE'),
-            kSmallGap,
-            BigWhiteButton(
-              onTap: () {
-                final authstate = BlocProvider.of<AuthBloc>(context).state;
-                if (authstate is AuthUserAuthenticated) {
-                  context.read<ReportBloc>().add(ReportInitialized(
-                      idAuthor: authstate.userId,
-                      createdAt: DateTime.now(),
-                      idRoom: 1));
-                }
-              },
-              buttonTitle: 'inicjalizacja raportu dla pomieszczenia o id 1',
-            ),
-            kBigGap,
-            BigWhiteButton(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            ReportOverview(report: state.report)));
-              },
-              buttonTitle: 'podgląd raportu',
-            ),
-            kBigGap,
-            BigWhiteButton(
-              onTap: () {
-                context.read<ReportBloc>().add(ReportFinished());
-              },
-              buttonTitle: 'zakonczenie raportu',
-            ),
+            state.isReportInitialized()
+                ? BigWhiteButton(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ReportOverview(report: state.report)));
+                    },
+                    buttonTitle: 'Podgląd raportu',
+                  )
+                : BigRedButton(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AddReportPage()));
+                    },
+                    buttonTitle: 'Nowa inwentaryzacja'),
           ],
         );
       }),

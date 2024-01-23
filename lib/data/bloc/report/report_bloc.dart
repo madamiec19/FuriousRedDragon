@@ -4,6 +4,7 @@ import 'package:furious_red_dragon/domain/repositories/authentication/i_authenti
 import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/domain/repositories/reports/i_reports_repository.dart';
+import 'package:furious_red_dragon/domain/repositories/rooms/i_rooms_repository.dart';
 import 'package:injectable/injectable.dart';
 
 part 'report_state.dart';
@@ -13,8 +14,10 @@ part 'report_event.dart';
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
   final IReportsRepository _reportsRepository;
   final IAuthenticationRepository _authenticationRepository;
+  final IRoomsRepository _roomsRepository;
 
-  ReportBloc(this._reportsRepository, this._authenticationRepository)
+  ReportBloc(this._reportsRepository, this._authenticationRepository,
+      this._roomsRepository)
       : super(const ReportState()) {
     on<ReportInitialized>(_onReportInitialized);
     on<ReportItemAdded>(_onReportItemAdded);

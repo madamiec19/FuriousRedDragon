@@ -56,6 +56,10 @@ class HistoryDatabaseBloc
         emit(state.copyWith(
             isAdmin: true,
             historyDatabaseStatus: HistoryDatabaseStatus.historyView));
+      } else {
+        emit(state.copyWith(
+            isAdmin: false,
+            historyDatabaseStatus: HistoryDatabaseStatus.historyView));
       }
     } catch (error) {
       print(error.toString());

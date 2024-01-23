@@ -4,10 +4,12 @@ import 'package:furious_red_dragon/core/constants.dart';
 class BigRedButton extends StatelessWidget {
   const BigRedButton({
     super.key,
+    this.enabled = true,
     required this.onTap,
     required this.buttonTitle,
   });
 
+  final bool enabled;
   final Function onTap;
   final String buttonTitle;
 
@@ -35,7 +37,7 @@ class BigRedButton extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
         ),
-        onPressed: () => onTap(),
+        onPressed: () => enabled ? onTap() : {},
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text(
@@ -54,11 +56,12 @@ class BigWhiteButton extends StatelessWidget {
     required this.onTap,
     required this.buttonTitle,
     this.borderColor = Colors.black,
+    this.enabled = true,
   });
   final Function onTap;
   final String buttonTitle;
   final Color borderColor;
-
+  final bool enabled;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,7 +86,7 @@ class BigWhiteButton extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
                 side: BorderSide(color: borderColor)),
           ),
-          onPressed: () => onTap(),
+          onPressed: () => enabled ? onTap() : {},
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Text(buttonTitle,
