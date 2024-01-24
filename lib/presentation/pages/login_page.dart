@@ -10,7 +10,7 @@ import 'package:furious_red_dragon/presentation/pages/home_page.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  static const routeName = '/login-page';
+  static const routeName = '/loginPage';
 
   @override
   Widget build(BuildContext context) {

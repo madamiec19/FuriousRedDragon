@@ -45,14 +45,6 @@ class AccountPage extends StatelessWidget {
                               builder: (context) => const AddReportPage()));
                     },
                     buttonTitle: 'Rozpocznij inwentaryzację'),
-            BigRedButton(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AddItemPage()));
-                },
-                buttonTitle: 'Dodaj przedmiot'),
           ],
         );
       }),

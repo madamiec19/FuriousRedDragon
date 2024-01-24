@@ -10,7 +10,7 @@ import '../components/splash_back_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
-  static const routeName = '/register-page';
+  static const routeName = '/registerPage';
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }

@@ -8,7 +8,7 @@ import 'package:furious_red_dragon/core/constants.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
-  static const routeName = '/welcome-page';
+  static const routeName = '/welcomePage';
 
   @override
   Widget build(BuildContext context) {
