@@ -1,206 +1,235 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
-import 'package:furious_red_dragon/data/bloc/add_room/add_room_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 
-class AddItemPage extends StatelessWidget {
+class AddItemPage extends StatefulWidget {
   const AddItemPage({Key? key}) : super(key: key);
 
   static const routeName = '/add-item';
 
   @override
+  State<AddItemPage> createState() => _ChooseRoomPageState();
+}
+
+class _ChooseRoomPageState extends State<AddItemPage> {
+  final String tableName = 'roles';
+  final String columnName = 'name';
+  List<String> buildings = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // readData();
+    selectedBuilding = '';
+    selectedFloor = '';
+    selectedRoom = '';
+  }
+
+  String selectedBuilding = '';
+  String selectedFloor = '';
+  String selectedRoom = '';
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPageBackgroundColor,
-      appBar: AppBar(
-        title: const Text('Dodawanie przedmiotu'),
-        backgroundColor: kFuriousRedColor,
-      ),
-      body: BlocConsumer<AddRoomBloc, AddRoomState>(
-        listener: (context, state) {
-          if (state.isAdded()) {
-            context.read<AddRoomBloc>().add(AddRoomInitial());
-            //TODO snackbar że dodano pomieszczenie
-            Navigator.pop(context);
-          }
-        },
-        builder: (context, state) => Column(
+        backgroundColor: kPageBackgroundColor,
+        appBar: AppBar(
+          backgroundColor: kFuriousRedColor,
+          title: const Text('Dodanie przedmiotu'),
+        ),
+        body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Wypełnij pola',
+            Text('Wypełnij informacje',
                 style: kGlobalTextStyle.copyWith(fontSize: 28)),
             kBigGap,
             Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 78),
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
               padding: const EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(0, 3),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                kBigGap,
+                Expanded(
+                  flex: 1,
+                  child: Text(
+                    'Kod:',
+                    style: kGlobalTextStyle.copyWith(fontSize: 18),
                   ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 5),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Budynek',
-                        style: kGlobalTextStyle.copyWith(fontSize: 18),
-                      ),
-                    ),
-                    kBigGap,
-                    Expanded(
-                      flex: 1,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        style: kGlobalTextStyle,
-                        onChanged: (value) {
-                          context
-                              .read<AddRoomBloc>()
-                              .add(AddRoomBuildingEdited(building: value));
-                        },
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: kPageBackgroundColor,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
-              ),
+                Expanded(
+                  flex: 1,
+                  child: DropdownMenu(
+                    width: kScreenWidth * 0.4,
+                    textStyle: kGlobalTextStyle,
+                    initialSelection: selectedBuilding,
+                    onSelected: (newValue) {
+                      setState(() {
+                        selectedBuilding = newValue ?? selectedBuilding;
+                      });
+                    },
+                    dropdownMenuEntries: buildings
+                        .map<DropdownMenuEntry<String>>((String value) {
+                      return DropdownMenuEntry<String>(
+                          value: value,
+                          label: value,
+                          style: const ButtonStyle(
+                              textStyle: MaterialStatePropertyAll<TextStyle>(
+                                  kGlobalTextStyle)));
+                    }).toList(),
+                    menuStyle: const MenuStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll<Color>(kPageBackgroundColor),
+                    ),
+                    inputDecorationTheme: const InputDecorationTheme(
+                      filled: true,
+                      fillColor: kPageBackgroundColor,
+                    ),
+                  ),
+                ),
+                kBigGap
+              ]),
             ),
             Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 78),
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
               padding: const EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 5),
-                child: Row(
+              child: Row(
+                  // margin: const EdgeInsets.fromLTRB(0, 20, 0, 60),
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Piętro',
-                        style: kGlobalTextStyle.copyWith(fontSize: 18),
-                      ),
-                    ),
                     kBigGap,
                     Expanded(
                       flex: 1,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        style: kGlobalTextStyle,
-                        onChanged: (value) {
-                          context
-                              .read<AddRoomBloc>()
-                              .add(AddRoomFloorEdited(floor: value));
+                      child: Text('Piętro:',
+                          style: kGlobalTextStyle.copyWith(fontSize: 18)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: DropdownMenu(
+                        width: kScreenWidth * 0.4,
+                        textStyle: kGlobalTextStyle,
+                        enabled: (selectedBuilding != ''),
+                        //initialSelection: selectedBuilding,
+                        onSelected: (newValue) {
+                          setState(() {
+                            selectedFloor = newValue ?? selectedFloor;
+                          });
                         },
-                        decoration: InputDecoration(
+                        dropdownMenuEntries: buildings
+                            .map<DropdownMenuEntry<String>>((String value) {
+                          return DropdownMenuEntry<String>(
+                              value: value,
+                              label: value,
+                              style: const ButtonStyle(
+                                  textStyle:
+                                      MaterialStatePropertyAll<TextStyle>(
+                                          kGlobalTextStyle)));
+                        }).toList(),
+                        menuStyle: const MenuStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              kPageBackgroundColor),
+                        ),
+                        inputDecorationTheme: const InputDecorationTheme(
                           filled: true,
                           fillColor: kPageBackgroundColor,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
+                    kBigGap
+                  ]),
             ),
             Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 78),
+              color: Colors.white,
+              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
               padding: const EdgeInsets.symmetric(vertical: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 1,
-                    blurRadius: 3,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 5),
-                child: Row(
+              child: Row(
+                  // margin: const EdgeInsets.fromLTRB(0, 20, 0, 60),
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      flex: 1,
-                      child: Text(
-                        'Sala',
-                        style: kGlobalTextStyle.copyWith(fontSize: 18),
-                      ),
-                    ),
                     kBigGap,
                     Expanded(
                       flex: 1,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        style: kGlobalTextStyle,
-                        onChanged: (value) {
-                          context
-                              .read<AddRoomBloc>()
-                              .add(AddRoomRoomEdited(room: value));
+                      child: Text('Sala:',
+                          style: kGlobalTextStyle.copyWith(fontSize: 18)),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: DropdownMenu(
+                        width: kScreenWidth * 0.4,
+                        textStyle: kGlobalTextStyle,
+                        enabled: (selectedFloor != ''),
+                        initialSelection: selectedRoom,
+                        onSelected: (newValue) {
+                          setState(() {
+                            selectedRoom = newValue ?? selectedRoom;
+                          });
                         },
-                        decoration: InputDecoration(
+                        dropdownMenuEntries: buildings
+                            .map<DropdownMenuEntry<String>>((String value) {
+                          return DropdownMenuEntry<String>(
+                              value: value,
+                              label: value,
+                              style: const ButtonStyle(
+                                  textStyle:
+                                      MaterialStatePropertyAll<TextStyle>(
+                                          kGlobalTextStyle)));
+                        }).toList(),
+                        menuStyle: const MenuStyle(
+                          backgroundColor: MaterialStatePropertyAll<Color>(
+                              kPageBackgroundColor),
+                        ),
+                        inputDecorationTheme: const InputDecorationTheme(
                           filled: true,
                           fillColor: kPageBackgroundColor,
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ),
+                    kBigGap
+                  ]),
             ),
             kBigGap,
             BigWhiteButton(
-              enabled: state.isAllFilled(),
-              onTap: () {
-                context.read<AddRoomBloc>().add(AddRoomButtonClicked());
-              },
-              buttonTitle: 'Dodaj salę',
+              onTap: () {},
+              buttonTitle: 'Rozpocznij skanowanie',
+            ),
+            const Column(
+              children: [
+                _CodeInputField(),
+                kSmallGap,
+                // _PasswordInputField(),
+                // kBigGap,
+                // _LoginButton()
+              ],
             ),
           ],
-        ),
-      ),
-    );
+        ));
   }
+}
+
+class _CodeInputField extends StatelessWidget {
+  const _CodeInputField();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: kSplashInputMargin.copyWith(bottom: 20),
+        decoration: kCredentialsTextFieldContainerDecoration,
+        child: BlocBuilder<LoginBloc, Ad>(
+          buildWhen: (previous, current) => current.email != previous.email,
+          builder: (context, state) => TextField(
+            // onChanged: (email) =>
+            //     context.read<LoginBloc>().add(LoginEmailAddressChanged(email)),
+            decoration: kCredentialsTextFieldInputDecoration.copyWith(
+              labelText: 'email',
+              errorText: state.email.hasError
+                  ? state.email.errorMessage.toString()
+                  : null,
+            ),
+            style: kCredentialsTextStyle,
+            cursorColor: kFuriousRedColor,
+          ),
+        ),
+      );
 }
