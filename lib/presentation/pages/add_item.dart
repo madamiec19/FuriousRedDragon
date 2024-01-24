@@ -97,6 +97,7 @@ class _CodeInputField extends StatelessWidget {
                   filled: true,
                   fillColor: kPageBackgroundColor,
                 ),
+                cursorColor: kFuriousRedColor,
               ),
             ),
           ],
