@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
-import 'package:furious_red_dragon/domain/repositories/items/i_items_repository.dart';
 import 'package:furious_red_dragon/domain/repositories/rooms/i_rooms_repository.dart';
 import 'package:injectable/injectable.dart';
 
