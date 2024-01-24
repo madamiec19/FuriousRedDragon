@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
-import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/account_tab/account_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/help_tab/help_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/history_tab/history_page.dart';

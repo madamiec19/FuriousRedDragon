@@ -10,7 +10,6 @@ import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/account_tab/add_room.dart';
-import 'package:furious_red_dragon/presentation/pages/home/history_tab/room_details_screen.dart';
 import 'package:furious_red_dragon/presentation/pages/login_page.dart';
 import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import 'package:furious_red_dragon/presentation/pages/splash_page.dart';

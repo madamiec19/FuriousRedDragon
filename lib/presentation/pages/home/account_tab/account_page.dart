@@ -4,6 +4,7 @@ import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/report_overview_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home/account_tab/add_report.dart';
+import 'package:furious_red_dragon/presentation/pages/home/account_tab/choose_room.dart';
 import 'add_room.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 
@@ -41,9 +42,9 @@ class AccountPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AddReportPage()));
+                              builder: (context) => const ChooseRoomPage()));
                     },
-                    buttonTitle: 'Nowa inwentaryzacja'),
+                    buttonTitle: 'Rozpocznij inwentaryzację'),
           ],
         );
       }),
