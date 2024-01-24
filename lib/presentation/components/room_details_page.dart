@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/item.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
@@ -30,8 +31,33 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
 
     return Scaffold(
       appBar: AppBar(),
-      body: ListView(
-        children: listItems,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Sala ${widget.room.toString()}',
+            style: TextStyle(fontSize: 24),
+          ),
+          kSmallGap,
+          Text('Lista przedmiotów'),
+          kSmallGap,
+          Expanded(
+            child: ListView(
+              children: listItems.isEmpty
+                  ? [Center(child: Text('brak przedmiotów w sali'))]
+                  : listItems,
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SmallButton(onTap: () {}, buttonTitle: 'Dodaj przedmiot'),
+                  SmallButton(onTap: () {}, buttonTitle: 'Pokaż raporty')
+                ],
+              )),
+        ],
       ),
     );
   }

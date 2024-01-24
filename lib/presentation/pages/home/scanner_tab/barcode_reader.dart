@@ -32,8 +32,6 @@ class BarcodeReaderState extends State<BarcodeReader> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<ScannerBloc, ScannerState>(
-      listenWhen: (previous, current) =>
-          previous.scannerStatus != current.scannerStatus,
       listener: (context, state) {
         if (state.isScannerOffScreen()) {
           controller?.pauseCamera();
@@ -44,7 +42,7 @@ class BarcodeReaderState extends State<BarcodeReader> {
       child: BlocBuilder<ScannerBloc, ScannerState>(
         builder: (context, state) {
           if (state.isScannerOffScreen()) {
-            return Scaffold(body: Text(state.scannerStatus.toString()));
+            return Scaffold(body: Text(''));
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 45),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/add_edit_item/add_edit_item_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/item_details_page.dart';
-import 'package:furious_red_dragon/presentation/components/white_card.dart';
+import 'package:furious_red_dragon/presentation/pages/add_item.dart';
 import 'package:furious_red_dragon/presentation/pages/home/scanner_tab/barcode_reader.dart';
 
 import 'package:furious_red_dragon/core/constants.dart';
@@ -19,8 +20,6 @@ class ScannerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<ScannerBloc>().add(ScannerInitialized());
     return BlocListener<ScannerBloc, ScannerState>(
-      listenWhen: (previous, current) =>
-          previous.scannerStatus != current.scannerStatus,
       listener: (BuildContext context, state) {
         ///gdy zeskanowany kod jest w bazie
         if (state.isItemFound()) {
@@ -47,13 +46,44 @@ class ScannerPage extends StatelessWidget {
           }
         }
 
-        ///gdy zeskanowany kod którego nie ma w bazie TODO dodać możliwość dodania nowego przedmiotu, rozważyć co kiedy raport jest zainicjalizowany a zeskowanego kodu nie ma w bazie
+        ///gdy zeskanowany kod którego nie ma w bazie
         else if (state.isItemNotFound()) {
-          const snackBar = SnackBar(
-            content: Text('Brak przedmiotu w bazie'),
+          Widget cancelButton = TextButton(
+            child: Text("Nie"),
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<ScannerBloc>().add(ScannerInitialized());
+            },
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          context.read<ScannerBloc>().add(ScannerInitialized());
+          Widget continueButton = TextButton(
+            child: Text("Tak"),
+            onPressed: () {
+              context.read<AddEditItemBloc>().add(
+                  AddEditItemAddItemFromScanner(code: state.scannedBarcode));
+              Navigator.pop(context);
+              Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddItemPage()))
+                  .then((value) =>
+                      context.read<ScannerBloc>().add(ScannerInitialized()));
+            },
+          );
+          // set up the AlertDialog
+          AlertDialog alert = AlertDialog(
+            content: Text(
+                "Nie znaleziono przedmiotu w bazie o kodzie ${state.scannedBarcode}, chcesz go dodać?"),
+            actions: [
+              cancelButton,
+              continueButton,
+            ],
+          );
+
+          // show the dialog
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return alert;
+            },
+          );
         }
 
         ///gdy klikniemy w przycisk ręcznego dodania

@@ -54,8 +54,19 @@ class RoomRepository implements IRoomsRepository {
     try {
       final response =
           await _supabaseClient.from('rooms').select('*').eq('id', id).single();
+      Room room = Room.fromJson(response);
+      List<Item> roomItems = [];
+      final itemsResponse = await _supabaseClient
+          .from('items')
+          .select('*')
+          .eq('id_room', room.id);
+      for (var value in itemsResponse) {
+        Item item = Item.fromJson(value);
+        roomItems.add(item);
+      }
+      room = room.copyWith(items: roomItems);
 
-      return Room.fromJson(response);
+      return room;
     } catch (error) {
       print(error.toString());
       return Room.empty;

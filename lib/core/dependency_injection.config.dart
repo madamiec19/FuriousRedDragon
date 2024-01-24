@@ -8,19 +8,23 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:furious_red_dragon/core/app_module.dart' as _i20;
-import 'package:furious_red_dragon/data/bloc/add_report/add_report_bloc.dart'
-    as _i16;
-import 'package:furious_red_dragon/data/bloc/add_room/add_room_bloc.dart'
+import 'package:furious_red_dragon/core/app_module.dart' as _i22;
+import 'package:furious_red_dragon/data/bloc/add_edit_item/add_edit_item_bloc.dart'
     as _i17;
-import 'package:furious_red_dragon/data/bloc/auth_bloc.dart' as _i18;
-import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart'
+import 'package:furious_red_dragon/data/bloc/add_report/add_report_bloc.dart'
+    as _i18;
+import 'package:furious_red_dragon/data/bloc/add_room/add_room_bloc.dart'
     as _i19;
+import 'package:furious_red_dragon/data/bloc/auth_bloc.dart' as _i20;
+import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart'
+    as _i21;
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart' as _i12;
 import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart'
     as _i13;
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart' as _i14;
-import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart' as _i15;
+import 'package:furious_red_dragon/data/bloc/report_overview/report_overview_bloc.dart'
+    as _i15;
+import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart' as _i16;
 import 'package:furious_red_dragon/data/repositories/authentication/authentication_repository.dart'
     as _i5;
 import 'package:furious_red_dragon/data/repositories/items/items_repository.dart'
@@ -75,15 +79,21 @@ extension GetItInjectableX on _i1.GetIt {
           gh<_i4.IAuthenticationRepository>(),
           gh<_i10.IRoomsRepository>(),
         ));
-    gh.factory<_i15.ScannerBloc>(
-        () => _i15.ScannerBloc(gh<_i6.IItemsRepository>()));
-    gh.factory<_i16.AddReportBloc>(
-        () => _i16.AddReportBloc(gh<_i10.IRoomsRepository>()));
-    gh.factory<_i17.AddRoomBloc>(
-        () => _i17.AddRoomBloc(gh<_i10.IRoomsRepository>()));
-    gh.factory<_i18.AuthBloc>(
-        () => _i18.AuthBloc(gh<_i4.IAuthenticationRepository>()));
-    gh.factory<_i19.HistoryDatabaseBloc>(() => _i19.HistoryDatabaseBloc(
+    gh.factory<_i15.ReportOverviewBloc>(
+        () => _i15.ReportOverviewBloc(gh<_i10.IRoomsRepository>()));
+    gh.factory<_i16.ScannerBloc>(
+        () => _i16.ScannerBloc(gh<_i6.IItemsRepository>()));
+    gh.factory<_i17.AddEditItemBloc>(() => _i17.AddEditItemBloc(
+          gh<_i6.IItemsRepository>(),
+          gh<_i10.IRoomsRepository>(),
+        ));
+    gh.factory<_i18.AddReportBloc>(
+        () => _i18.AddReportBloc(gh<_i10.IRoomsRepository>()));
+    gh.factory<_i19.AddRoomBloc>(
+        () => _i19.AddRoomBloc(gh<_i10.IRoomsRepository>()));
+    gh.factory<_i20.AuthBloc>(
+        () => _i20.AuthBloc(gh<_i4.IAuthenticationRepository>()));
+    gh.factory<_i21.HistoryDatabaseBloc>(() => _i21.HistoryDatabaseBloc(
           gh<_i10.IRoomsRepository>(),
           gh<_i4.IAuthenticationRepository>(),
           gh<_i8.IReportsRepository>(),
@@ -92,4 +102,4 @@ extension GetItInjectableX on _i1.GetIt {
   }
 }
 
-class _$AppModule extends _i20.AppModule {}
+class _$AppModule extends _i22.AppModule {}

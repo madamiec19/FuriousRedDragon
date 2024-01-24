@@ -24,4 +24,22 @@ class ItemsRepository implements IItemsRepository {
         barcode: response['serial_number'],
         state: response['state']);
   }
+
+  @override
+  Future<Item> addItem(
+      String code, String type, String brand, int room, String status) async {
+    print('elo');
+    final response = await _supabaseClient.from('items').insert([
+      {
+        'id_room': room,
+        'type': type,
+        'brand': brand,
+        'serial_number': code,
+        'state': status,
+      }
+    ]).select();
+
+    Item item = Item.fromJson(response[0]);
+    return item;
+  }
 }

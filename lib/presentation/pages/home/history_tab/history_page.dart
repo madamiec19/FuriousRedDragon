@@ -128,6 +128,10 @@ class HistoryPage extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            Text(
+                              'Lokalizacje',
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ],
                         ),
                         Expanded(
@@ -165,6 +169,10 @@ class HistoryPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+                            ),
+                            Text(
+                              'Użytkownicy',
+                              style: TextStyle(fontSize: 20),
                             ),
                           ],
                         ),

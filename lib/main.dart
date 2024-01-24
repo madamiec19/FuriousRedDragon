@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/core/dependency_injection.dart';
+import 'package:furious_red_dragon/data/bloc/add_edit_item/add_edit_item_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/add_report/add_report_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/add_room/add_room_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:furious_red_dragon/data/bloc/history_database/history_database_b
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/report_overview/report_overview_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/presentation/pages/home/account_tab/add_room.dart';
 import 'package:furious_red_dragon/presentation/pages/login_page.dart';
@@ -55,6 +57,8 @@ void main() async {
         ),
         BlocProvider(
             create: (_) => getIt<AddRoomBloc>()..add(AddRoomInitial())),
+        BlocProvider(create: (_) => getIt<ReportOverviewBloc>()),
+        BlocProvider(create: (_) => getIt<AddEditItemBloc>()),
       ],
       child: const MyApp(),
     ),

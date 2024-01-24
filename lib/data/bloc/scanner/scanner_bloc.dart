@@ -57,6 +57,9 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
   Future<void> _onScannerBarcodeScanned(
       ScannerBarcodeScanned event, Emitter<ScannerState> emit) async {
     try {
+      emit(state.copyWith(
+        scannerStatus: ScannerStatus.scanned,
+      ));
       Item item =
           await _itemsRepository.getItemWithBarcode(event.barcode.code!);
       emit(state.copyWith(

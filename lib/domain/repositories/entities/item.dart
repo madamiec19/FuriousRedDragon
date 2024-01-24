@@ -19,7 +19,7 @@ class Item extends Equatable {
 
   @override
   String toString() {
-    return '$type $brand';
+    return '$type $brand nr $barcode';
   }
 
   @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/report_overview/report_overview_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 import 'package:furious_red_dragon/presentation/components/item_details_page.dart';
@@ -17,6 +18,9 @@ class ReportOverview extends StatefulWidget {
 class _ReportOverviewState extends State<ReportOverview> {
   @override
   Widget build(BuildContext context) {
+    context
+        .read<ReportOverviewBloc>()
+        .add(ReportOverviewInit(report: widget.report));
     List<BasicListItem> items = [];
     for (var item in widget.report.scannedItems) {
       items.add(BasicListItem(
@@ -28,26 +32,79 @@ class _ReportOverviewState extends State<ReportOverview> {
           },
           buttonTitle: item.toString()));
     }
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Text(widget.report.toString()),
-          Expanded(
-            child: ListView(
-              children: items,
+    return WillPopScope(
+      onWillPop: () async {
+        context.read<ReportOverviewBloc>().add(ReportOverviewClose());
+        Navigator.pop(context);
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Column(
+          children: [
+            Text(widget.report.toString()),
+            kBigGap,
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text('Zeskanowane przedmioty'),
+                        Expanded(
+                          child: ListView(
+                            children: items,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: BlocBuilder<ReportOverviewBloc, ReportOverviewState>(
+                        builder: (context, state) {
+                      List<BasicListItem> items = [];
+                      for (var item in state.itemsFromReportedRoom) {
+                        items.add(BasicListItem(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ItemDetailsPage(item: item)));
+                            },
+                            buttonTitle: item.toString()));
+                      }
+                      return Column(
+                        children: [
+                          Text('Przedmioty z sali'),
+                          Expanded(
+                            child: ListView(
+                              children: items.isEmpty
+                                  ? [
+                                      Text('pomieszczenie jest puste'),
+                                    ]
+                                  : items,
+                            ),
+                          ),
+                        ],
+                      );
+                    }),
+                  ),
+                ],
+              ),
             ),
-          ),
-          widget.report.isCompleted
-              ? kSmallGap
-              : SmallButton(
-                  onTap: () {
-                    context.read<ReportBloc>().add(ReportFinished());
-                    Navigator.pop(context);
-                  },
-                  buttonTitle: 'zakończ inwentaryzacje'),
-          kBigGap,
-        ],
+            context.select((ReportBloc b) => b.state.report.id) ==
+                    widget.report.id
+                ? SmallButton(
+                    onTap: () {
+                      context.read<ReportBloc>().add(ReportFinished());
+                      Navigator.pop(context);
+                    },
+                    buttonTitle: 'zakończ inwentaryzacje')
+                : kSmallGap,
+            kBigGap,
+          ],
+        ),
       ),
     );
   }
