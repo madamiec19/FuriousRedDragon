@@ -11,6 +11,7 @@ class AddReportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<AddReportBloc>().add(AddReportInitial());
     return WillPopScope(
       onWillPop: () async {
         context.read<AddReportBloc>().add(AddReportInitial());

@@ -18,6 +18,9 @@ class HistoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context
+        .read<HistoryDatabaseBloc>()
+        .add(HistoryDatabaseInitialCheckRequest());
     return BlocListener<HistoryDatabaseBloc, HistoryDatabaseState>(
       listener: (BuildContext context, HistoryDatabaseState state) {
         if (state.isAddUserViewChosen()) {

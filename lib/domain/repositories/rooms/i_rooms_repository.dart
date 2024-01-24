@@ -7,7 +7,7 @@ abstract class IRoomsRepository {
 
   Future<Room> getRoomWithId(int id);
 
-  Future<void> addRoom(String name, int floor, int idBuilding);
+  Future<void> addRoom(int name, int floor, int idBuilding);
 
   Future<List<Room>> getRoomsFromBuilding(int building);
 

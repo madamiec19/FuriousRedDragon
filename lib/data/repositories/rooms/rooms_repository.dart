@@ -11,7 +11,7 @@ class RoomRepository implements IRoomsRepository {
   RoomRepository(this._supabaseClient);
 
   @override
-  Future<void> addRoom(String name, int floor, int idBuilding) async {
+  Future<void> addRoom(int name, int floor, int idBuilding) async {
     try {
       await _supabaseClient
           .from('rooms')

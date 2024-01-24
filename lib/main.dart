@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/core/dependency_injection.dart';
 import 'package:furious_red_dragon/data/bloc/add_report/add_report_bloc.dart';
+import 'package:furious_red_dragon/data/bloc/add_room/add_room_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
@@ -52,6 +53,8 @@ void main() async {
         BlocProvider(
           create: (_) => getIt<AddReportBloc>()..add(AddReportInitial()),
         ),
+        BlocProvider(
+            create: (_) => getIt<AddRoomBloc>()..add(AddRoomInitial())),
       ],
       child: const MyApp(),
     ),
