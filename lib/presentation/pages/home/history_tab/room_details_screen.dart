@@ -9,7 +9,7 @@ import 'package:furious_red_dragon/core/constants.dart';
 class RoomDetailsScreen extends StatelessWidget {
   const RoomDetailsScreen({super.key});
 
-  static const routeName = '/roomDetails';
+  static const routeName = '/room-details';
 
   @override
   Widget build(BuildContext context) {

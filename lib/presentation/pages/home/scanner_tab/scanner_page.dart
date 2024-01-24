@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/item_details_page.dart';
-import 'package:furious_red_dragon/presentation/components/white_card.dart';
 import 'package:furious_red_dragon/presentation/pages/home/scanner_tab/barcode_reader.dart';
 
 import 'package:furious_red_dragon/core/constants.dart';

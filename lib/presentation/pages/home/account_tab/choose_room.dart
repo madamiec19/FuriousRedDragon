@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ChooseRoomPage extends StatefulWidget {
   const ChooseRoomPage({Key? key}) : super(key: key);
 
-  static const routeName = '/chooseRoom';
+  static const routeName = '/choose-room';
 
   @override
   State<ChooseRoomPage> createState() => _ChooseRoomPageState();
@@ -48,6 +47,7 @@ class _ChooseRoomPageState extends State<ChooseRoomPage> {
         backgroundColor: kPageBackgroundColor,
         appBar: AppBar(
           backgroundColor: kFuriousRedColor,
+          title: const Text('Wybór sali'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

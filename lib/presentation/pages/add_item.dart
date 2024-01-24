@@ -4,17 +4,17 @@ import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/add_room/add_room_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 
-class AddRoomPage extends StatelessWidget {
-  const AddRoomPage({Key? key}) : super(key: key);
+class AddItemPage extends StatelessWidget {
+  const AddItemPage({Key? key}) : super(key: key);
 
-  static const routeName = '/add-room';
+  static const routeName = '/add-item';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPageBackgroundColor,
       appBar: AppBar(
-        title: const Text('Dodawanie sali'),
+        title: const Text('Dodawanie przedmiotu'),
         backgroundColor: kFuriousRedColor,
       ),
       body: BlocConsumer<AddRoomBloc, AddRoomState>(

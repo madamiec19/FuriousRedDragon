@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/history_database/history_database_bloc.dart';
-import 'package:furious_red_dragon/data/bloc/report/report_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/report.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
@@ -168,7 +167,7 @@ class HistoryPage extends StatelessWidget {
                             ),
                           ],
                         ),
-                        UsersStream(),
+                        const UsersStream(),
                         Column(
                           children: [
                             IconButton(
