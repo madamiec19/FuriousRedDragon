@@ -42,7 +42,8 @@ class ScannerPage extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => ItemDetailsPage(item: state.item)),
-            );
+            ).then((value) =>
+                context.read<ScannerBloc>().add(ScannerInitialized()));
           }
         }
 
