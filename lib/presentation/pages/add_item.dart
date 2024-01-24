@@ -45,164 +45,15 @@ class _ChooseRoomPageState extends State<AddItemPage> {
             Text('Wypełnij informacje',
                 style: kGlobalTextStyle.copyWith(fontSize: 28)),
             kBigGap,
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                kBigGap,
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    'Kod:',
-                    style: kGlobalTextStyle.copyWith(fontSize: 18),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: DropdownMenu(
-                    width: kScreenWidth * 0.4,
-                    textStyle: kGlobalTextStyle,
-                    initialSelection: selectedBuilding,
-                    onSelected: (newValue) {
-                      setState(() {
-                        selectedBuilding = newValue ?? selectedBuilding;
-                      });
-                    },
-                    dropdownMenuEntries: buildings
-                        .map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(
-                          value: value,
-                          label: value,
-                          style: const ButtonStyle(
-                              textStyle: MaterialStatePropertyAll<TextStyle>(
-                                  kGlobalTextStyle)));
-                    }).toList(),
-                    menuStyle: const MenuStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll<Color>(kPageBackgroundColor),
-                    ),
-                    inputDecorationTheme: const InputDecorationTheme(
-                      filled: true,
-                      fillColor: kPageBackgroundColor,
-                    ),
-                  ),
-                ),
-                kBigGap
-              ]),
-            ),
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                  // margin: const EdgeInsets.fromLTRB(0, 20, 0, 60),
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    kBigGap,
-                    Expanded(
-                      flex: 1,
-                      child: Text('Piętro:',
-                          style: kGlobalTextStyle.copyWith(fontSize: 18)),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: DropdownMenu(
-                        width: kScreenWidth * 0.4,
-                        textStyle: kGlobalTextStyle,
-                        enabled: (selectedBuilding != ''),
-                        //initialSelection: selectedBuilding,
-                        onSelected: (newValue) {
-                          setState(() {
-                            selectedFloor = newValue ?? selectedFloor;
-                          });
-                        },
-                        dropdownMenuEntries: buildings
-                            .map<DropdownMenuEntry<String>>((String value) {
-                          return DropdownMenuEntry<String>(
-                              value: value,
-                              label: value,
-                              style: const ButtonStyle(
-                                  textStyle:
-                                      MaterialStatePropertyAll<TextStyle>(
-                                          kGlobalTextStyle)));
-                        }).toList(),
-                        menuStyle: const MenuStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              kPageBackgroundColor),
-                        ),
-                        inputDecorationTheme: const InputDecorationTheme(
-                          filled: true,
-                          fillColor: kPageBackgroundColor,
-                        ),
-                      ),
-                    ),
-                    kBigGap
-                  ]),
-            ),
-            Container(
-              color: Colors.white,
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Row(
-                  // margin: const EdgeInsets.fromLTRB(0, 20, 0, 60),
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    kBigGap,
-                    Expanded(
-                      flex: 1,
-                      child: Text('Sala:',
-                          style: kGlobalTextStyle.copyWith(fontSize: 18)),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: DropdownMenu(
-                        width: kScreenWidth * 0.4,
-                        textStyle: kGlobalTextStyle,
-                        enabled: (selectedFloor != ''),
-                        initialSelection: selectedRoom,
-                        onSelected: (newValue) {
-                          setState(() {
-                            selectedRoom = newValue ?? selectedRoom;
-                          });
-                        },
-                        dropdownMenuEntries: buildings
-                            .map<DropdownMenuEntry<String>>((String value) {
-                          return DropdownMenuEntry<String>(
-                              value: value,
-                              label: value,
-                              style: const ButtonStyle(
-                                  textStyle:
-                                      MaterialStatePropertyAll<TextStyle>(
-                                          kGlobalTextStyle)));
-                        }).toList(),
-                        menuStyle: const MenuStyle(
-                          backgroundColor: MaterialStatePropertyAll<Color>(
-                              kPageBackgroundColor),
-                        ),
-                        inputDecorationTheme: const InputDecorationTheme(
-                          filled: true,
-                          fillColor: kPageBackgroundColor,
-                        ),
-                      ),
-                    ),
-                    kBigGap
-                  ]),
-            ),
+            const _CodeInputField(),
+            const _TypeInputField(),
+            const _ProducerInputField(),
+            const _FloorInputField(),
+            const _RoomInputField(),
             kBigGap,
             BigWhiteButton(
               onTap: () {},
               buttonTitle: 'Rozpocznij skanowanie',
-            ),
-            const Column(
-              children: [
-                _CodeInputField(),
-                kSmallGap,
-                // _PasswordInputField(),
-                // kBigGap,
-                // _LoginButton()
-              ],
             ),
           ],
         ));
@@ -214,22 +65,235 @@ class _CodeInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        margin: kSplashInputMargin.copyWith(bottom: 20),
-        decoration: kCredentialsTextFieldContainerDecoration,
-        child: BlocBuilder<LoginBloc, Ad>(
-          buildWhen: (previous, current) => current.email != previous.email,
-          builder: (context, state) => TextField(
-            // onChanged: (email) =>
-            //     context.read<LoginBloc>().add(LoginEmailAddressChanged(email)),
-            decoration: kCredentialsTextFieldInputDecoration.copyWith(
-              labelText: 'email',
-              errorText: state.email.hasError
-                  ? state.email.errorMessage.toString()
-                  : null,
+        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(
+                'Kod:',
+                style: kGlobalTextStyle.copyWith(fontSize: 18),
+              ),
             ),
-            style: kCredentialsTextStyle,
-            cursorColor: kFuriousRedColor,
-          ),
+            kBigGap,
+            Expanded(
+              flex: 1,
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                style: kGlobalTextStyle,
+                // onChanged: (value) {
+                //   context
+                //       .read<AddRoomBloc>()
+                //       .add(AddRoomRoomEdited(room: value));
+                // },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: kPageBackgroundColor,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
+      );
+}
+
+class _TypeInputField extends StatelessWidget {
+  const _TypeInputField();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(
+                'Typ:',
+                style: kGlobalTextStyle.copyWith(fontSize: 18),
+              ),
+            ),
+            kBigGap,
+            Expanded(
+              flex: 1,
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                style: kGlobalTextStyle,
+                // onChanged: (value) {
+                //   context
+                //       .read<AddRoomBloc>()
+                //       .add(AddRoomRoomEdited(room: value));
+                // },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: kPageBackgroundColor,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+class _ProducerInputField extends StatelessWidget {
+  const _ProducerInputField();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Text(
+                'Producent:',
+                style: kGlobalTextStyle.copyWith(fontSize: 18),
+              ),
+            ),
+            kBigGap,
+            Expanded(
+              flex: 1,
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                style: kGlobalTextStyle,
+                // onChanged: (value) {
+                //   context
+                //       .read<AddRoomBloc>()
+                //       .add(AddRoomRoomEdited(room: value));
+                // },
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: kPageBackgroundColor,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+class _FloorInputField extends StatelessWidget {
+  const _FloorInputField();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          kBigGap,
+          Expanded(
+            flex: 1,
+            child:
+                Text('Piętro:', style: kGlobalTextStyle.copyWith(fontSize: 18)),
+          ),
+          Expanded(
+            flex: 1,
+            child: DropdownMenu(
+              width: kScreenWidth * 0.4,
+              textStyle: kGlobalTextStyle,
+              // enabled: (selectedBuilding != ''),
+              //initialSelection: selectedBuilding,
+              // onSelected: (newValue) {
+              //   setState(() {
+              //     selectedFloor = newValue ?? selectedFloor;
+              //   });
+              // },
+              dropdownMenuEntries: const [],
+              //     buildings.map<DropdownMenuEntry<String>>((String value) {
+              //   return DropdownMenuEntry<String>(
+              //     value: value,
+              //     label: value,
+              //     style: const ButtonStyle(
+              //       textStyle:
+              //           MaterialStatePropertyAll<TextStyle>(kGlobalTextStyle),
+              //     ),
+              //   );
+              // }).toList(),
+              menuStyle: const MenuStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll<Color>(kPageBackgroundColor),
+              ),
+              inputDecorationTheme: const InputDecorationTheme(
+                filled: true,
+                fillColor: kPageBackgroundColor,
+              ),
+            ),
+          ),
+          kBigGap
+        ]),
+      );
+}
+
+class _RoomInputField extends StatelessWidget {
+  const _RoomInputField();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        color: Colors.white,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          kBigGap,
+          Expanded(
+            flex: 1,
+            child:
+                Text('Sala:', style: kGlobalTextStyle.copyWith(fontSize: 18)),
+          ),
+          Expanded(
+            flex: 1,
+            child: DropdownMenu(
+              width: kScreenWidth * 0.4,
+              textStyle: kGlobalTextStyle,
+              // enabled: (selectedBuilding != ''),
+              //initialSelection: selectedBuilding,
+              // onSelected: (newValue) {
+              //   setState(() {
+              //     selectedFloor = newValue ?? selectedFloor;
+              //   });
+              // },
+              dropdownMenuEntries: const [],
+              //     buildings.map<DropdownMenuEntry<String>>((String value) {
+              //   return DropdownMenuEntry<String>(
+              //     value: value,
+              //     label: value,
+              //     style: const ButtonStyle(
+              //       textStyle:
+              //           MaterialStatePropertyAll<TextStyle>(kGlobalTextStyle),
+              //     ),
+              //   );
+              // }).toList(),
+              menuStyle: const MenuStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll<Color>(kPageBackgroundColor),
+              ),
+              inputDecorationTheme: const InputDecorationTheme(
+                filled: true,
+                fillColor: kPageBackgroundColor,
+              ),
+            ),
+          ),
+          kBigGap
+        ]),
       );
 }
