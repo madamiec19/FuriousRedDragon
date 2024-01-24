@@ -93,6 +93,11 @@ class MyApp extends StatelessWidget {
       },
       navigatorKey: MyApp.navigatorKey,
       theme: ThemeData(
+        hintColor: kFuriousRedColor,
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: kFuriousRedColor)),
+        ),
         colorScheme: ColorScheme.fromSwatch(
             backgroundColor: kPageBackgroundColor,
             accentColor: kFuriousRedColor),
