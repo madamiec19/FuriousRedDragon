@@ -19,3 +19,9 @@ class AddReportRoomChosen extends AddReportEvent {
 }
 
 class AddReportButtonClicked extends AddReportEvent {}
+
+class AddReportFloorChosen extends AddReportEvent {
+  final int floor;
+
+  AddReportFloorChosen({required this.floor});
+}

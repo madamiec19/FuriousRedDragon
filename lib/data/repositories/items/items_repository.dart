@@ -11,22 +11,17 @@ class ItemsRepository implements IItemsRepository {
 
   @override
   Future<Item> getItemWithBarcode(String barcode) async {
-    try {
-      final response = await _supabaseClient
-          .from('items')
-          .select('*')
-          .eq('serial_number', barcode)
-          .single();
-      return Item(
-          id: response['id'],
-          idRoom: response['id_room'],
-          type: response['type'],
-          brand: response['brand'],
-          barcode: response['serial_number'],
-          state: response['state']);
-    } catch (error) {
-      print(error.toString());
-    }
-    return Item.empty;
+    final response = await _supabaseClient
+        .from('items')
+        .select('*')
+        .eq('serial_number', barcode)
+        .single();
+    return Item(
+        id: response['id'],
+        idRoom: response['id_room'],
+        type: response['type'],
+        brand: response['brand'],
+        barcode: response['serial_number'],
+        state: response['state']);
   }
 }

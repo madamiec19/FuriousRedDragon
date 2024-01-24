@@ -63,6 +63,25 @@ class RoomRepository implements IRoomsRepository {
   }
 
   @override
+  Future<List<Room>> getRoomsFromBuilding(int building) async {
+    try {
+      final response = await _supabaseClient
+          .from('rooms')
+          .select('*')
+          .eq('id_building', building);
+      List<Room> roomsInBuilding = [];
+      for (var value in response) {
+        Room room = Room.fromJson(value);
+        roomsInBuilding.add(room);
+      }
+      return roomsInBuilding;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  @override
   Future<List<int>> getAllBuildings() async {
     try {
       final response =
@@ -82,12 +101,40 @@ class RoomRepository implements IRoomsRepository {
   }
 
   @override
-  Future<List<Room>> getRoomsFromBuilding(int building) async {
+  Future<List<int>> getFloorsForBuilding(int building) async {
+    try {
+      final response = await _supabaseClient.from('rooms').select('floor').eq(
+            'id_building',
+            building,
+          );
+      print(response);
+      List<int> floorsInBuilding = [];
+      for (var value in response) {
+        int floor = value['floor'] as int;
+        if (!floorsInBuilding.contains(floor)) {
+          floorsInBuilding.add(floor);
+        }
+      }
+      print(floorsInBuilding);
+      return floorsInBuilding;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  @override
+  Future<List<Room>> getRoomsFromBuildingOnFloor(
+      int building, int floor) async {
     try {
       final response = await _supabaseClient
           .from('rooms')
           .select('*')
-          .eq('id_building', building);
+          .eq(
+            'id_building',
+            building,
+          )
+          .eq('floor', floor);
       List<Room> roomsInBuilding = [];
       for (var value in response) {
         Room room = Room.fromJson(value);

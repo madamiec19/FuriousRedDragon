@@ -42,7 +42,7 @@ class AccountPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const ChooseRoomPage()));
+                              builder: (context) => const AddReportPage()));
                     },
                     buttonTitle: 'Rozpocznij inwentaryzację'),
           ],

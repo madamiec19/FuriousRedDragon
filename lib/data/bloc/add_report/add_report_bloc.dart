@@ -15,6 +15,7 @@ class AddReportBloc extends Bloc<AddReportEvent, AddReportState> {
   AddReportBloc(this._roomsRepository) : super(const AddReportState()) {
     on<AddReportInitial>(_onInitialLoad);
     on<AddReportBuildingChosen>(_onBuildingChosen);
+    on<AddReportFloorChosen>(_onFloorChosen);
     on<AddReportRoomChosen>(_onRoomChosen);
     on<AddReportButtonClicked>(_onButtonClicked);
   }
@@ -25,19 +26,43 @@ class AddReportBloc extends Bloc<AddReportEvent, AddReportState> {
     try {
       List<int> buildings = await _roomsRepository.getAllBuildings();
       emit(state.copyWith(
-          buildings: buildings, addReportStatus: AddReportStatus.adding));
+        buildings: buildings,
+        addReportStatus: AddReportStatus.adding,
+        chosenFloor: -3,
+        chosenBuilding: -1,
+      ));
     } catch (e) {
       print(e.toString());
     }
   }
 
-  /// Reakcja na wybranie budynku - pobranie listy pomieszczeń z wybranego budynku, emisja stanu z wybranym budynkiem i listą pomieszczeń
+  /// Reakcja na wybranie budynku - pobranie listy pomieszczeń z wybranego budynku, emisja stanu z wybranym budynkiem i listą pięter
   Future<void> _onBuildingChosen(
       AddReportBuildingChosen event, Emitter<AddReportState> emit) async {
     try {
-      List<Room> rooms =
-          await _roomsRepository.getRoomsFromBuilding(event.building);
-      emit(state.copyWith(rooms: rooms, chosenBuilding: event.building));
+      List<int> floors =
+          await _roomsRepository.getFloorsForBuilding(event.building);
+      emit(state.copyWith(
+          floors: floors,
+          chosenBuilding: event.building,
+          chosenFloor: -3,
+          chosenRoom: Room.empty));
+      // List<Room> rooms =
+      //     await _roomsRepository.getRoomsFromBuilding(event.building);
+      // emit(state.copyWith(rooms: rooms, chosenBuilding: event.building));
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  /// Reakcja na wybranie piętra - pobranie listy pomieszczeń z wybranego piętra, emisja stanu z wybranym piętrem i listą pomieszczeń
+  Future<void> _onFloorChosen(
+      AddReportFloorChosen event, Emitter<AddReportState> emit) async {
+    try {
+      List<Room> rooms = await _roomsRepository.getRoomsFromBuildingOnFloor(
+          state.chosenBuilding, event.floor);
+      emit(state.copyWith(
+          rooms: rooms, chosenFloor: event.floor, chosenRoom: Room.empty));
     } catch (e) {
       print(e.toString());
     }
