@@ -125,7 +125,7 @@ class _TypeInputField extends StatelessWidget {
             Expanded(
               flex: 1,
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 style: kGlobalTextStyle,
                 // onChanged: (value) {
                 //   context
@@ -164,7 +164,7 @@ class _ProducerInputField extends StatelessWidget {
             Expanded(
               flex: 1,
               child: TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 style: kGlobalTextStyle,
                 // onChanged: (value) {
                 //   context
