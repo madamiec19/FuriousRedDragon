@@ -20,7 +20,7 @@ class AddReportPage extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: kPageBackgroundColor,
-        appBar: AppBar(),
+        appBar: AppBar(title: const Text('Rozpoczynanie inwentaryzacji')),
         body: BlocListener<AddReportBloc, AddReportState>(
           listener: (context, state) {
             /// Obserwacja zmian stanu
@@ -46,8 +46,9 @@ class AddReportPage extends StatelessWidget {
                 kBigGap,
                 Container(
                   color: Colors.white,
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-                  padding: EdgeInsets.symmetric(vertical: 5),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                  padding: const EdgeInsets.symmetric(vertical: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

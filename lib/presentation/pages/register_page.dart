@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furious_red_dragon/presentation/components/custom_alert.dart';
 import 'package:furious_red_dragon/presentation/pages/login_page.dart';
 
 import '../../core/constants.dart';
@@ -9,7 +10,7 @@ import '../components/splash_back_button.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
-  static const routeName = '/registerPage';
+  static const routeName = '/register-page';
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
@@ -191,18 +192,9 @@ void _showErrorDialog(BuildContext context, String errorMessage) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Błąd logowania'),
-        content: Text(errorMessage),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      );
+      return CustomAlert(
+          title: 'Błąd rejestracji',
+          onPressed: () => {Navigator.of(context).pop()});
     },
   );
 }

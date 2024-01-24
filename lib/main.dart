@@ -93,10 +93,15 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (context) => const RegisterPage(),
         LoginPage.routeName: (context) => const LoginPage(),
         HomePage.routeName: (context) => const HomePage(),
-        AddRoomPage.routeName: (context) => const AddRoomPage(),
+        AddRoomPage.routeName: (context) => const AddRoomPage()
       },
       navigatorKey: MyApp.navigatorKey,
       theme: ThemeData(
+        hintColor: kFuriousRedColor,
+        inputDecorationTheme: const InputDecorationTheme(
+          focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: kFuriousRedColor)),
+        ),
         colorScheme: ColorScheme.fromSwatch(
             backgroundColor: kPageBackgroundColor,
             accentColor: kFuriousRedColor),
