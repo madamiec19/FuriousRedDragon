@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
+import 'package:furious_red_dragon/presentation/components/custom_alert.dart';
 import 'package:furious_red_dragon/presentation/components/splash_back_button.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
@@ -152,18 +153,9 @@ void _showErrorDialog(BuildContext context, String errorMessage) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Błąd logowania'),
-        content: Text(errorMessage),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('OK'),
-          ),
-        ],
-      );
+      return CustomAlert(
+          title: 'Błąd logowania',
+          onPressed: () => {Navigator.of(context).pop()});
     },
   );
 }
