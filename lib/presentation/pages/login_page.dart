@@ -5,6 +5,7 @@ import 'package:furious_red_dragon/presentation/components/custom_alert.dart';
 import 'package:furious_red_dragon/presentation/components/splash_back_button.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/login/login_bloc.dart';
+import 'package:furious_red_dragon/presentation/pages/forget_password/email_check_page.dart';
 import 'package:furious_red_dragon/presentation/pages/home_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -73,13 +74,19 @@ class _LoginForm extends StatelessWidget {
             _showErrorDialog(context, state.errorMessage!);
           }
         },
-        child: const Column(
+        child: Column(
           children: [
-            _EmailInputField(),
+            const _EmailInputField(),
             kSmallGap,
-            _PasswordInputField(),
+            const _PasswordInputField(),
+            ForgotPasswordText(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => EmailCheckPage()));
+              },
+            ),
             kBigGap,
-            _LoginButton()
+            const _LoginButton()
           ],
         ),
       );
