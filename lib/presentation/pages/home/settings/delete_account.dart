@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:furious_red_dragon/presentation/pages/splash_page.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DeleteAccountPage extends StatelessWidget {
   const DeleteAccountPage({super.key});
@@ -68,8 +69,9 @@ class DeleteAccountPage extends StatelessWidget {
   Future<void> deleteUser(context) async {
     var uuid = client.auth.currentUser?.id;
 
-    // await supabase.auth.admin
-    //     .deleteUser(uuid!)
-    //     .then((value) => getBackToSplash(context));
+    final supabase = Supabase.instance.client;
+    await supabase.auth.admin
+        .deleteUser(uuid!)
+        .then((value) => getBackToSplash(context));
   }
 }

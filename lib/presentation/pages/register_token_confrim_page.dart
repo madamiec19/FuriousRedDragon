@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/register/register_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
+import 'package:furious_red_dragon/presentation/components/input.dart';
 
 class RegisterTokenConfirmPage extends StatelessWidget {
   const RegisterTokenConfirmPage({super.key});
@@ -12,27 +13,46 @@ class RegisterTokenConfirmPage extends StatelessWidget {
     return BlocBuilder<RegistrationBloc, RegistrationState>(
         builder: (context, state) {
       return Scaffold(
-        appBar: AppBar(),
-        body: Column(children: [
-          const Text(
-              'Wprowadź token potwierdzający rejestrację, który został wysłany na Twój adres e-mail.'),
-          kMediumGap,
-          TextField(
-            decoration: const InputDecoration(labelText: 'Token'),
-            keyboardType: TextInputType.number,
-            onChanged: (value) => context
-                .read<RegistrationBloc>()
-                .add(RegistrationTokenChanged(value: value)),
-          ),
-          kBigGap,
-          BigRedButton(
-              onTap: () => state.isTokenNotEmpty()
-                  ? context
-                      .read<RegistrationBloc>()
-                      .add(RegistrationTokenConfirmButtonPressed())
-                  : {},
-              buttonTitle: 'Zweryfikuj')
-        ]),
+        appBar: AppBar(
+          title: const Text('Potwierdzenie rejestracji'),
+        ),
+        body: Container(
+          margin: kSplashInputMargin,
+          child: Column(children: [
+            kBigGap,
+            Text(
+              'Wprowadź token potwierdzający rejestrację, który został wysłany na Twój adres e-mail.',
+              style: kGlobalTextStyle.copyWith(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
+            kBigGap,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                style: kGlobalTextStyle,
+                onChanged: (value) => context
+                    .read<RegistrationBloc>()
+                    .add(RegistrationTokenChanged(value: value)),
+                decoration: const InputDecoration(
+                  filled: true,
+                  fillColor: kPageBackgroundColor,
+                ),
+                cursorColor: kFuriousRedColor,
+              ),
+            ),
+            kBigGap,
+            BigRedButton(
+                onTap: () => state.isTokenNotEmpty()
+                    ? context
+                        .read<RegistrationBloc>()
+                        .add(RegistrationTokenConfirmButtonPressed())
+                    : {},
+                buttonTitle: 'Zweryfikuj')
+          ]),
+        ),
       );
     });
   }

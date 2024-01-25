@@ -45,11 +45,11 @@ class SettingsPage extends StatelessWidget {
                 kBigGap,
                 BigWhiteButton(
                   onTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const ChangePasswordPage()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChangePasswordPage()),
+                    );
                   },
                   buttonTitle: ('Zmień hasło'),
                 ),

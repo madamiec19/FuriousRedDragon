@@ -31,4 +31,6 @@ abstract class IAuthenticationRepository {
   Future<void> verifyWithToken(String token, String email);
 
   Future<bool> isEmailInDatabase(String email);
+
+  Future<void> deleteAccount();
 }

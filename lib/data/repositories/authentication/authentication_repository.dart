@@ -142,4 +142,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
       return true;
     }
   }
+
+  @override
+  Future<void> deleteAccount() async {
+    final userId = await _supabaseAuth.currentUser!.id;
+    await _supabaseAuth.admin.deleteUser(userId);
+  }
 }

@@ -76,10 +76,8 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         password: state.password.value,
         name: state.name,
       );
-      print('${state.name}');
       emit(state.copyWith(
           formSubmissionStatus: FormSubmissionStatus.waitingForTokenConfirm));
-      print('${state.name}');
     } catch (error) {
       print(error.toString());
       emit(state.copyWith(
