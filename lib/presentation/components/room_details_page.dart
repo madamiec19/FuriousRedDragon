@@ -36,20 +36,20 @@ class _RoomDetailsPageState extends State<RoomDetailsPage> {
         children: [
           Text(
             'Sala ${widget.room.toString()}',
-            style: TextStyle(fontSize: 24),
+            style: const TextStyle(fontSize: 24),
           ),
           kSmallGap,
-          Text('Lista przedmiotów'),
+          const Text('Lista przedmiotów'),
           kSmallGap,
           Expanded(
             child: ListView(
               children: listItems.isEmpty
-                  ? [Center(child: Text('brak przedmiotów w sali'))]
+                  ? [const Center(child: Text('brak przedmiotów w sali'))]
                   : listItems,
             ),
           ),
           Container(
-              margin: EdgeInsets.all(16),
+              margin: const EdgeInsets.all(16),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
