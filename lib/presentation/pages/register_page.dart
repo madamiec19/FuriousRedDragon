@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/custom_alert.dart';
+import 'package:furious_red_dragon/presentation/custom_snack.dart';
 import 'package:furious_red_dragon/presentation/pages/login_page.dart';
 
 import '../../core/constants.dart';
@@ -224,4 +225,9 @@ void _showErrorDialog(BuildContext context, String errorMessage) {
           onPressed: () => {Navigator.of(context).pop()});
     },
   );
+}
+
+void _showSnackBar(String message, BuildContext context) {
+  ScaffoldMessenger.of(context)
+      .showSnackBar(CustomSnack(title: message) as SnackBar);
 }

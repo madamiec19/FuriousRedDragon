@@ -50,7 +50,7 @@ class _ReportOverviewState extends State<ReportOverview> {
                   Expanded(
                     child: Column(
                       children: [
-                        Text('Zeskanowane przedmioty'),
+                        const Text('Zeskanowane przedmioty'),
                         Expanded(
                           child: ListView(
                             children: items,
@@ -76,12 +76,12 @@ class _ReportOverviewState extends State<ReportOverview> {
                       }
                       return Column(
                         children: [
-                          Text('Przedmioty z sali'),
+                          const Text('Przedmioty z sali'),
                           Expanded(
                             child: ListView(
                               children: items.isEmpty
                                   ? [
-                                      Text('pomieszczenie jest puste'),
+                                      const Text('pomieszczenie jest puste'),
                                     ]
                                   : items,
                             ),

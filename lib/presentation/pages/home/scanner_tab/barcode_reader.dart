@@ -42,7 +42,7 @@ class BarcodeReaderState extends State<BarcodeReader> {
       child: BlocBuilder<ScannerBloc, ScannerState>(
         builder: (context, state) {
           if (state.isScannerOffScreen()) {
-            return Scaffold(body: Text(''));
+            return const Scaffold(body: Text(''));
           } else {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 45),

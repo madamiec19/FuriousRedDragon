@@ -127,7 +127,7 @@ class HistoryPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Lokalizacje',
                               style: TextStyle(fontSize: 20),
                             ),
@@ -169,7 +169,7 @@ class HistoryPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text(
+                            const Text(
                               'Użytkownicy',
                               style: TextStyle(fontSize: 20),
                             ),

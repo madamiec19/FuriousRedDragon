@@ -50,20 +50,20 @@ class ScannerPage extends StatelessWidget {
         ///gdy zeskanowany kod którego nie ma w bazie
         else if (state.isItemNotFound()) {
           Widget cancelButton = TextButton(
-            child: Text("Nie"),
+            child: const Text('Nie'),
             onPressed: () {
               Navigator.pop(context);
               context.read<ScannerBloc>().add(ScannerInitialized());
             },
           );
           Widget continueButton = TextButton(
-            child: Text("Tak"),
+            child: const Text('Tak'),
             onPressed: () {
               context.read<AddEditItemBloc>().add(
                   AddEditItemAddItemFromScanner(code: state.scannedBarcode));
               Navigator.pop(context);
               Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AddItemPage()))
+                      MaterialPageRoute(builder: (context) => const AddItemPage()))
                   .then((value) =>
                       context.read<ScannerBloc>().add(ScannerInitialized()));
             },
@@ -71,7 +71,7 @@ class ScannerPage extends StatelessWidget {
           // set up the AlertDialog
           AlertDialog alert = AlertDialog(
             content: Text(
-                "Nie znaleziono przedmiotu w bazie o kodzie ${state.scannedBarcode}, chcesz go dodać?"),
+                'Nie znaleziono przedmiotu w bazie o kodzie ${state.scannedBarcode}, chcesz go dodać?'),
             actions: [
               cancelButton,
               continueButton,

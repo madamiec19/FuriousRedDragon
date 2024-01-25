@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/core/constants.dart';
 import 'package:furious_red_dragon/data/bloc/add_edit_item/add_edit_item_bloc.dart';
-import 'package:furious_red_dragon/data/bloc/scanner/scanner_bloc.dart';
 import 'package:furious_red_dragon/domain/repositories/entities/room.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
 
@@ -85,7 +84,11 @@ class AddItemPage extends StatelessWidget {
                     margin:
                         const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
                     padding: const EdgeInsets.only(
-                        top: 5, bottom: 5, left: 20, right: 10),
+                      top: 5,
+                      bottom: 5,
+                      left: 20,
+                      right: 10,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -101,7 +104,7 @@ class AddItemPage extends StatelessWidget {
                           child: TextFormField(
                             keyboardType: TextInputType.text,
                             style: kGlobalTextStyle,
-                            initialValue: state.type ?? '',
+                            initialValue: state.type,
                             onChanged: (value) {
                               context
                                   .read<AddEditItemBloc>()

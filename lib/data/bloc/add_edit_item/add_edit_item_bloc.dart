@@ -122,7 +122,7 @@ class AddEditItemBloc extends Bloc<AddEditItemEvent, AddEditItemState> {
               state.code, state.type, state.brand, state.room, state.status);
           emit(state.copyWith(addEditItemStatus: AddEditItemStatus.added));
         } catch (e) {
-          print("źle sie dzieje " + e.toString());
+          print('źle sie dzieje $e');
         }
       }
     }
