@@ -42,14 +42,23 @@ class AddEditItemBloc extends Bloc<AddEditItemEvent, AddEditItemState> {
 
   Future<void> _onAddingFromRoom(
       AddEditItemAddFromRoom event, Emitter<AddEditItemState> emit) async {
-    List<int> buildings = await _roomsRepository.getAllBuildings();
     emit(state.copyWith(
       addEditItemStatus: AddEditItemStatus.addingInRoom,
       idBuilding: event.room.buildingId,
       floor: event.room.floor,
       room: event.room.name,
       roomOfItem: event.room,
+    ));
+    List<int> buildings = await _roomsRepository.getAllBuildings();
+    List<int> floors =
+        await _roomsRepository.getFloorsForBuilding(event.room.buildingId);
+    List<Room> rooms = await _roomsRepository.getRoomsFromBuildingOnFloor(
+        state.idBuilding, state.floor);
+    emit(state.copyWith(
       buildings: buildings,
+      floors: floors,
+      rooms: rooms,
+      addEditItemStatus: AddEditItemStatus.editing,
     ));
   }
 

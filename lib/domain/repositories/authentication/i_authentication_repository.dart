@@ -29,4 +29,6 @@ abstract class IAuthenticationRepository {
   Future<String> getCurrentUserRole();
 
   Future<void> verifyWithToken(String token, String email);
+
+  Future<bool> isEmailInDatabase(String email);
 }

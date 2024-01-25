@@ -53,6 +53,15 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
 
     emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.submitting));
 
+    final response =
+        await _authenticationRepository.isEmailInDatabase(state.email.value);
+    if (response) {
+      emit(state.copyWith(
+          formSubmissionStatus: FormSubmissionStatus.failure,
+          errorMessage: 'Podany email istnieje w bazie'));
+      return;
+    }
+
     if (!_isConfirmPasswordMatchWithPassword(
         state.password.value, state.confirmPassword.value)) {
       emit(state.copyWith(

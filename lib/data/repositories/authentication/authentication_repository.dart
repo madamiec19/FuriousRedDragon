@@ -131,4 +131,15 @@ class AuthenticationRepository implements IAuthenticationRepository {
     await _supabaseAuth.verifyOTP(
         token: token, type: OtpType.signup, email: email);
   }
+
+  @override
+  Future<bool> isEmailInDatabase(String email) async {
+    final response =
+        await _supabaseDb.from('roles').select('email').eq('email', email);
+    if (response.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
