@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/presentation/components/custom_alert.dart';
 import 'package:furious_red_dragon/presentation/custom_snack.dart';
+import 'package:furious_red_dragon/presentation/pages/home_page.dart';
 import 'package:furious_red_dragon/presentation/pages/login_page.dart';
+import 'package:furious_red_dragon/presentation/pages/register_token_confrim_page.dart';
 
 import '../../core/constants.dart';
 import '../../data/bloc/register/register_bloc.dart';
@@ -67,9 +69,17 @@ class _RegistrationForm extends StatelessWidget {
         listenWhen: (previous, current) =>
             current.isSubmissionSuccessOrFailure(),
         listener: (context, state) {
-          if (state.formSubmissionStatus == FormSubmissionStatus.success) {
-            //TODO! tu można coś wyświetlić po pomyślnej rejestracji
-            Navigator.pushReplacementNamed(context, LoginPage.routeName);
+          if (state.formSubmissionStatus ==
+              FormSubmissionStatus.waitingForTokenConfirm) {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => RegisterTokenConfirmPage()));
+          }
+          if (state.isSuccess()) {
+            Navigator.popUntil(context, ModalRoute.withName('/welcomePage'));
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => HomePage()));
           }
           if (state.formSubmissionStatus == FormSubmissionStatus.failure) {
             _showErrorDialog(context, state.errorMessage!);

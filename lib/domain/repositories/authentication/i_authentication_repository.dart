@@ -27,4 +27,6 @@ abstract class IAuthenticationRepository {
   User? getSignedInUser();
 
   Future<String> getCurrentUserRole();
+
+  Future<void> verifyWithToken(String token, String email);
 }

@@ -125,4 +125,10 @@ class AuthenticationRepository implements IAuthenticationRepository {
       print(error.toString());
     }
   }
+
+  @override
+  Future<void> verifyWithToken(String token, String email) async {
+    await _supabaseAuth.verifyOTP(
+        token: token, type: OtpType.signup, email: email);
+  }
 }

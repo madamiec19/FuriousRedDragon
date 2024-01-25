@@ -22,6 +22,25 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<RegistrationPasswordChanged>(_onPasswordChanged);
     on<RegistrationConfirmPasswordChanged>(_onConfirmPasswordChanged);
     on<RegistrationNameChanged>(_onNameChanged);
+    on<RegistrationTokenChanged>(_onTokenChanged);
+    on<RegistrationTokenConfirmButtonPressed>(_onTokenConfirm);
+  }
+
+  Future<void> _onTokenChanged(
+      RegistrationTokenChanged event, Emitter<RegistrationState> emit) async {
+    emit(state.copyWith(
+        token: event.value,
+        formSubmissionStatus: FormSubmissionStatus.submitting));
+  }
+
+  Future<void> _onTokenConfirm(RegistrationTokenConfirmButtonPressed event,
+      Emitter<RegistrationState> emit) async {
+    try {
+      _authenticationRepository.verifyWithToken(state.token, state.email.value);
+      emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.success));
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Future<void> _onRegistrationButtonPressed(
@@ -41,7 +60,6 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
               FormSubmissionStatus.confirmPasswordNotMachWithPassword));
       return;
     }
-    print("helo ssssssssssssssssssssssssssssssssssssss");
 
     try {
       await _authenticationRepository.signUpWithEmailAndPassword(
@@ -50,8 +68,11 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         name: state.name,
       );
       print('${state.name}');
-      emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.success));
+      emit(state.copyWith(
+          formSubmissionStatus: FormSubmissionStatus.waitingForTokenConfirm));
+      print('${state.name}');
     } catch (error) {
+      print(error.toString());
       emit(state.copyWith(
         formSubmissionStatus: FormSubmissionStatus.failure,
         errorMessage: error.toString(),
