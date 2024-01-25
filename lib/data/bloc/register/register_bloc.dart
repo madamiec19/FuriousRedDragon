@@ -21,6 +21,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
     on<RegistrationEmailAddressChanged>(_onEmailAddressChanged);
     on<RegistrationPasswordChanged>(_onPasswordChanged);
     on<RegistrationConfirmPasswordChanged>(_onConfirmPasswordChanged);
+    on<RegistrationNameChanged>(_onNameChanged);
   }
 
   Future<void> _onRegistrationButtonPressed(
@@ -40,12 +41,15 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
               FormSubmissionStatus.confirmPasswordNotMachWithPassword));
       return;
     }
+    print("helo ssssssssssssssssssssssssssssssssssssss");
 
     try {
       await _authenticationRepository.signUpWithEmailAndPassword(
         email: state.email.value,
         password: state.password.value,
+        name: state.name,
       );
+      print('${state.name}');
       emit(state.copyWith(formSubmissionStatus: FormSubmissionStatus.success));
     } catch (error) {
       emit(state.copyWith(
@@ -82,6 +86,14 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
         formSubmissionStatus: FormSubmissionStatus.initial,
       ));
 
+  Future<void> _onNameChanged(
+    RegistrationNameChanged event,
+    Emitter<RegistrationState> emit,
+  ) async =>
+      emit(state.copyWith(
+        name: event.value,
+        formSubmissionStatus: FormSubmissionStatus.initial,
+      ));
   bool _isConfirmPasswordMatchWithPassword(
     String password,
     String confirmPassword,

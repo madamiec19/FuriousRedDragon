@@ -20,6 +20,12 @@ class RegistrationConfirmPasswordChanged extends RegistrationEvent {
   RegistrationConfirmPasswordChanged({required this.value});
 }
 
+class RegistrationNameChanged extends RegistrationEvent {
+  final String value;
+
+  RegistrationNameChanged({required this.value});
+}
+
 class RegistrationRegisterButtonPressed extends RegistrationEvent {}
 
 class RegistrationForgottenPasswordPressed extends RegistrationEvent {}

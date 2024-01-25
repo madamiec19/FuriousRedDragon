@@ -9,6 +9,7 @@ abstract class IAuthenticationRepository {
   Future<void> signUpWithEmailAndPassword({
     required String email,
     required String password,
+    required String name,
   });
 
   Future<void> addUser(

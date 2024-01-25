@@ -31,12 +31,24 @@ class AuthenticationRepository implements IAuthenticationRepository {
 
   @override
   Future<void> signUpWithEmailAndPassword(
-          {required String email, required String password}) async =>
-      await _supabaseAuth.signUp(
-        password: password,
-        email: email,
-        emailRedirectTo: _redirectUrl,
-      );
+      {required String email,
+      required String password,
+      required String name}) async {
+    final response = await _supabaseAuth.signUp(
+      password: password,
+      email: email,
+      emailRedirectTo: _redirectUrl,
+    );
+    print(response.user!.id);
+    await _supabaseDb.from('roles').insert([
+      {
+        'user_id': response.user!.id,
+        'name': name,
+        'status': 'admin',
+        'email': email,
+      }
+    ]);
+  }
 
   @override
   Future<String> getCurrentUserName() async {

@@ -12,6 +12,7 @@ class RegistrationState extends Equatable {
   final EmailAddress email;
   final Password password;
   final Password confirmPassword;
+  final String name;
   final FormSubmissionStatus formSubmissionStatus;
   final String? errorMessage;
 
@@ -21,6 +22,7 @@ class RegistrationState extends Equatable {
     this.confirmPassword = Password.empty,
     this.formSubmissionStatus = FormSubmissionStatus.initial,
     this.errorMessage = '',
+    this.name = '',
   });
 
   RegistrationState copyWith({
@@ -29,6 +31,7 @@ class RegistrationState extends Equatable {
     Password? confirmPassword,
     FormSubmissionStatus? formSubmissionStatus,
     String? errorMessage,
+    String? name,
   }) =>
       RegistrationState(
         email: email ?? this.email,
@@ -36,6 +39,7 @@ class RegistrationState extends Equatable {
         confirmPassword: confirmPassword ?? this.confirmPassword,
         formSubmissionStatus: formSubmissionStatus ?? this.formSubmissionStatus,
         errorMessage: errorMessage ?? this.errorMessage,
+        name: name ?? this.name,
       );
 
   @override
@@ -45,6 +49,7 @@ class RegistrationState extends Equatable {
         confirmPassword,
         formSubmissionStatus,
         errorMessage,
+        name,
       ];
 
   bool isSubmitting() =>
@@ -57,5 +62,8 @@ class RegistrationState extends Equatable {
           FormSubmissionStatus.confirmPasswordNotMachWithPassword;
 
   bool get isValid =>
-      !email.hasError && !password.hasError && !confirmPassword.hasError;
+      !email.hasError &&
+      !password.hasError &&
+      !confirmPassword.hasError &&
+      name.isNotEmpty;
 }

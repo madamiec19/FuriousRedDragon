@@ -67,6 +67,7 @@ class _RegistrationForm extends StatelessWidget {
             current.isSubmissionSuccessOrFailure(),
         listener: (context, state) {
           if (state.formSubmissionStatus == FormSubmissionStatus.success) {
+            //TODO! tu można coś wyświetlić po pomyślnej rejestracji
             Navigator.pushReplacementNamed(context, LoginPage.routeName);
           }
           if (state.formSubmissionStatus == FormSubmissionStatus.failure) {
@@ -79,12 +80,38 @@ class _RegistrationForm extends StatelessWidget {
         },
         child: const Column(
           children: [
+            _NameInputField(),
             _EmailInputField(),
             _PasswordInputField(),
             _ConfirmPasswordInputField(),
             kSmallGap,
             _RegisterButton(),
           ],
+        ),
+      );
+}
+
+class _NameInputField extends StatelessWidget {
+  const _NameInputField();
+
+  @override
+  Widget build(BuildContext context) => Container(
+        margin: kSplashInputMargin.copyWith(bottom: 20),
+        decoration: kCredentialsTextFieldContainerDecoration,
+        child: BlocBuilder<RegistrationBloc, RegistrationState>(
+          buildWhen: (previous, current) => current.name != previous.name,
+          builder: (context, state) => TextField(
+            onChanged: (name) => context
+                .read<RegistrationBloc>()
+                .add(RegistrationNameChanged(value: name)),
+            keyboardType: TextInputType.emailAddress,
+            decoration: kCredentialsTextFieldInputDecoration.copyWith(
+              errorText: state.name.isEmpty ? 'podaj imię' : null,
+              labelText: 'imię',
+            ),
+            style: kCredentialsTextStyle,
+            cursorColor: kFuriousRedColor,
+          ),
         ),
       );
 }
@@ -193,7 +220,7 @@ void _showErrorDialog(BuildContext context, String errorMessage) {
     context: context,
     builder: (BuildContext context) {
       return CustomAlert(
-          title: 'Błąd rejestracji',
+          title: '$errorMessage',
           onPressed: () => {Navigator.of(context).pop()});
     },
   );
