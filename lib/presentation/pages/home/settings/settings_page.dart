@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furious_red_dragon/data/bloc/auth_bloc.dart';
+import 'package:furious_red_dragon/presentation/pages/change_password.dart';
 import '../../welcome_page.dart';
 import 'delete_account.dart';
 import 'package:furious_red_dragon/presentation/components/buttons.dart';
@@ -44,7 +45,11 @@ class SettingsPage extends StatelessWidget {
                 kBigGap,
                 BigWhiteButton(
                   onTap: () {
-                    print('Zmiana hasła');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ChangePasswordPage()),
+                    );
                   },
                   buttonTitle: ('Zmień hasło'),
                 ),

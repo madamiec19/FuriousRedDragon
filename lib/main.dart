@@ -18,7 +18,6 @@ import 'package:furious_red_dragon/presentation/pages/welcome_page.dart';
 import 'package:furious_red_dragon/presentation/pages/splash_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'presentation/pages/register_page.dart';
-
 import 'presentation/pages/home_page.dart';
 
 void main() async {
